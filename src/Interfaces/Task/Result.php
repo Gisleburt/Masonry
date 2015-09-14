@@ -30,13 +30,13 @@ interface Result
      * Should be instantiate with 'succeeded' of 'failed', otherwise it will be 'incomplete'
      * @param $result
      */
-    public function __construct($result);
+    public function __construct($result = null);
 
     /**
      * Will be Succeeded, Failed or Incomplete
      * @return mixed
      */
-    public function getReason();
+    public function getResult();
 
     /**
      * For comparing to strings
@@ -48,13 +48,13 @@ interface Result
      * Did the task succeed
      * @return bool
      */
-    public function didSucceed();
+    public function isSuccess();
 
     /**
      * Did the task fail
      * @return bool
      */
-    public function didFail();
+    public function isFailure();
 
     /**
      * Is the task Complete
