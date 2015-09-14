@@ -25,7 +25,7 @@ interface Scribe
      * Write a string to an output (file, screen etc)
      * @param string $message The message to be written
      * @param string $classification
-     * @return mixed
+     * @return $this
      */
     public function write($message, $classification = null);
 
