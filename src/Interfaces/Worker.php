@@ -23,6 +23,7 @@ interface Worker
      * @param Task $task
      * @return Promise
      */
-    public function setTask(Task $task);
+    public function process(Task $task);
+
 
 }

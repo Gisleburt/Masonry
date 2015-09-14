@@ -13,6 +13,11 @@
 
 namespace Foundry\Masonry\Interfaces;
 
+/**
+ * Interface Scribe
+ * Write information out to another source for example a console, a file, a database, etc.
+ * @package Foundry\Masonry
+ */
 interface Scribe
 {
 

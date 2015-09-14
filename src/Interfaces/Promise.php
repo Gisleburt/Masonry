@@ -16,7 +16,7 @@ namespace Foundry\Masonry\Interfaces;
 /**
  * Interface Promise
  * This is based on the
- * @package Foundry\Masonry\Interfaces
+ * @package Foundry\Masonry
  */
 interface Promise
 {

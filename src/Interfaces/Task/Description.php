@@ -1,8 +1,8 @@
 <?php
 /**
- * Status.php
+ * TaskDescription.php
  * PHP version 5.4
- * 2015-09-04
+ * 2015-09-14
  *
  * @package   Masonry
  * @category
@@ -11,12 +11,10 @@
  */
 
 
-namespace Foundry\Masonry\Interfaces\Value;
+namespace Foundry\Masonry\Interfaces\Task;
 
 
-interface Status
+interface Description
 {
-    public function __construct($status);
 
-    public function getStatus();
 }

@@ -13,14 +13,13 @@
 
 namespace Foundry\Masonry\Interfaces;
 
-use Foundry\Masonry\Interfaces\Value\Reason;
-use Foundry\Masonry\Interfaces\Value\Status;
+use Foundry\Masonry\Interfaces\Pool\Status;
 
 /**
  * Interface Pool
  * Describes the pool in which Tasks are kept.
  * This could be a database, a queue, a file, or something else.
- * @package Foundry\Masonry\Interfaces
+ * @package Foundry\Masonry
  */
 interface Pool
 {
@@ -41,23 +40,6 @@ interface Pool
      * @return $this
      */
     public function addTask(Task $task);
-
-    /**
-     * Once a task is complete, tell the pool to close it.
-     * @param Task $task
-     * @param Reason $reason
-     * @return $this
-     */
-    public function closeTask(Task $task, Reason $reason);
-
-    /**
-     * Tasks can be added back to the pool to be processed again later.
-     * This could be because information in the task has change, or because the task could not be completed now.
-     * @param Task $task
-     * @param Reason $reason
-     * @return $this
-     */
-    public function returnTask(Task $task, Reason $reason);
 
     /**
      * Get the current status of the pool.
