@@ -50,4 +50,18 @@ interface History
      */
     public function __toString();
 
+    /**
+     * Run this when the task is started
+     * @return $this
+     */
+    public function start();
+
+    /**
+     * Run this when the task ends, providing a result and a reason
+     * @param Result $result
+     * @param Reason $reason
+     * @return mixed
+     */
+    public function stop(Result $result, Reason $reason);
+
 }
