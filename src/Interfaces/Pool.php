@@ -24,10 +24,6 @@ use Foundry\Masonry\Interfaces\Pool\Status;
 interface Pool
 {
 
-    const STATUS_ACTIVE  = 'active';
-    const STATUS_WAITING = 'waiting';
-    const STATUS_EMPTY   = 'empty';
-
     /**
      * Get the next task from the pool.
      * @return Task

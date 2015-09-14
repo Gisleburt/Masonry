@@ -21,11 +21,25 @@ namespace Foundry\Masonry\Interfaces\Pool;
 interface Status
 {
 
-    const STATUS_ACTIVE   = 'active';
-    const STATUS_COMPLETE = 'complete';
-    const STATUS_WAITING  = 'waiting';
+    const STATUS_PENDING  = 'pending';
+    const STATUS_EMPTY    = 'empty';
 
+    /**
+     * Status constructor.
+     * Must be 'pending' or 'empty'. Pending means there are tasks awaiting assignment.
+     * @param $status
+     */
     public function __construct($status);
 
+    /**
+     * Returns either 'pending' or 'empty'
+     * @return string
+     */
     public function getStatus();
+
+    /**
+     * Returns status
+     * @return string
+     */
+    public function __toString();
 }
