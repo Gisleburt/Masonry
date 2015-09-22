@@ -40,8 +40,7 @@ interface Pool
     /**
      * Get the current status of the pool.
      * This should allow 3 values:
-     *   active:  There are tasks pending
-     *   waiting: There are no tasks now, but more are expected
+     *   pending:  There are tasks pending
      *   empty:   There are no more tasks, the pool is empty
      * @return Status
      */
