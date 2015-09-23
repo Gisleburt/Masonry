@@ -24,14 +24,13 @@ A task represents a piece of work that needs to happen. It tells you the history
 what it wants to happen, but does not specify how to do it.
 
 ```
-╭───────────────────────────────╮
-│ (i) Task                      │
-├───────────────────────────────┤
-│ <Description> getDescripton() │ ← Description tells a worker what needs to happen
-│ <Status>      getStatus()     │ ← The current status of the Task: 'new', 'in progress', 'complete', or 'deferred'
-│ <History>     getHistory()    │ ← The history of the Task so far
-│ <Task>        addHistory()    │ ← Append to the tasks history, the method returns a reference to the current Task
-╰───────────────────────────────╯
+╭────────────────────────────────╮
+│ (i) Task                       │
+├────────────────────────────────┤
+│ <Description> getDescription() │ ← Description tells a worker what needs to happen
+│ <Status>      getStatus()      │ ← The current status of the Task: 'new', 'in progress', 'complete', or 'deferred'
+│ <History>     getHistory()     │ ← The history of the Task so far
+╰────────────────────────────────╯
 ```
 
 ### Task - Description
@@ -41,7 +40,7 @@ for a specific task.
 
 ```
 ╭───────────────────────────────╮
-│ (i) Description               │
+│ (i) Task\Description          │
 ├───────────────────────────────┤
 ╰───────────────────────────────╯
 ```
@@ -67,14 +66,15 @@ it's Status. A task may have one of four statuses.
  * `in progress` : The task has been removed from the pool to be processed
  * `complete` : The task has been processed. This does not specify whether the task succeeded or failed, that is
    covered by the [Result][#task-history]
-
+ * `deferred` : The task has been attempted previously but for whatever reason has been put back in the queue.
 ```
-╭───────────────────────╮
-│ (i) Task\Status       │
-├───────────────────────┤
-│ <string> getStatus()  │ ← The string representation of the status: 'new', 'in progress', 'complete', or 'deferred'
-│ <string> __toString() │ ← must return getStatus()
-╰───────────────────────╯
+╭────────────────────────────────╮
+│ (i) Task\Status                │
+├────────────────────────────────┤
+│          __construct(<string>) │ ← Initialise the Status with: 'new', 'in progress', 'complete', or 'deferred'
+│ <string> getStatus()           │ ← The string representation of the status
+│ <string> __toString()          │ ← must return getStatus()
+╰────────────────────────────────╯
 ```
 
 ### Task - History
@@ -117,12 +117,13 @@ The result of trying to process the [Task](#task), recorded against an [Event](#
 [History](#task-history).
 
 ```
-╭─────────────────────────╮
-│ (i) Task\History\Result │
-├─────────────────────────┤
-│ <string> getResult()    │ ← The string representation of the result: 'succeeded', 'failed' or 'incomplete'
-│ <string> __toString()   │ ← must return getResult()
-╰─────────────────────────╯
+╭────────────────────────────────╮
+│ (i) Task\History\Result        │
+├────────────────────────────────┤
+│          __construct(<string>) │ ← Initialise the Result with a value: 'succeeded', 'failed' or 'incomplete'
+│ <string> getResult()           │ ← The string representation of the result: 'succeeded', 'failed' or 'incomplete'
+│ <string> __toString()          │ ← must return getResult()
+╰────────────────────────────────╯
 ```
 
 #### Task - History - Reason
@@ -132,12 +133,13 @@ The reason for the [Result](#task-history-result) of trying to process the [Task
 for logging failures.
 
 ```
-╭─────────────────────────╮
-│ (i) Task\History\Result │
-├─────────────────────────┤
-│ <string> getReason()    │ ← The string representation of the result: 'succeeded', 'failed' or 'incomplete'
-│ <string> __toString()   │ ← must return getReason()
-╰─────────────────────────╯
+╭────────────────────────────────╮
+│ (i) Task\History\Reason        │
+├────────────────────────────────┤
+│          __construct(<string>) │ ← Initialise the Reason with any string value
+│ <string> getReason()           │ ← The string representation of the Reason
+│ <string> __toString()          │ ← must return getReason()
+╰────────────────────────────────╯
 ```
 
 ## Pool
@@ -163,12 +165,13 @@ The State of the Task Pool is represented by the Status Value Class. It could be
 Note: Tasks with the status `in progress` or `complete` should not be considered waiting.
 
 ```
-╭──────────────────────────╮
-│ (i) Pool\Status          │
-├──────────────────────────┤
-│ <string> getStatus()     │ ← The string representation of the status: 'pending' or 'empty'
-│ <string> __toString()    │ ← must return getStatus()
-╰──────────────────────────╯
+╭────────────────────────────────╮
+│ (i) Pool\Status                │
+├────────────────────────────────┤
+│          __construct(<string>) │ ← Initialise the Status with: 'pending' or 'empty'
+│ <string> getStatus()           │ ← The string representation of the status
+│ <string> __toString()          │ ← must return getStatus()
+╰────────────────────────────────╯
 ```
 
 ## Worker
