@@ -5,8 +5,9 @@ processed by workers. You can have any number of Workers, and any number of Task
 
 ## Contents
 
- * [Task](#Task)
-   * [Description](#description)
+ * [Architecture](#architecture)
+ * [Task](#task)
+   * [Description](#task-description)
    * [Status](#task-status)
    * [History](#task-history)
      * [Event](#task-history-event)
@@ -17,6 +18,70 @@ processed by workers. You can have any number of Workers, and any number of Task
  * [Worker](#worker)
  * [Mediator](#mediator)
  * [Promise](#promise)
+
+## Architecture
+
+```
+                                                ╭──────────────────────────────────╮
+                                                │ (i) Mediator                     │
+     ╭──────────────────────────────────╮       ├──────────────────────────────────┤
+     │ (i) Worker                       ├───→───┤ <Mediator> addWorker(<Worker>)   │
+     ├──────────────────────────────────┤  ┌─→──┤ <Promise>  process(<Task>)       │
+┌─→──┤ <Promise>  process(<Task>)       │  │    ╰──────────────────────────────────╯
+│    │ <string[]> getDescriptionTypes() │  │    
+│    ╰──────────────────────────────────╯  │    
+│                                          │  
+│                                          │     
+│                                          │                                         ╭───────────────────────────────╮
+├──────────────────────────────────────────┴─────────────────────────────────┐   ┌─→─┤ (i) Task\Description          │
+│                                       ╭────────────────────────────────╮   │   │   ├───────────────────────────────┤
+│                                   ┌─→─┤ (i) Task                       ├─→─┘   │   ╰───────────────────────────────╯ 
+│                                   │   ├────────────────────────────────┤       │   
+│                                   │   │ <Description> getDescription() ├───→───┘   ╭────────────────────────────────╮
+│                                   │   │ <Status>      getStatus()      ├─────→─────┤ (i) Task\Status                │
+│                                   │   │ <History>     getHistory()     ├───→───┐   ├────────────────────────────────┤
+│                                   │   ╰────────────────────────────────╯       │   │          __construct(<string>) │
+│                                   │                                            │   │ <string> getStatus()           │
+│    ╭──────────────────────────╮   │                                            │   │ <string> __toString()          │
+│    │ (i) Pool                 │   │                                            │   ╰────────────────────────────────╯          
+│    ├──────────────────────────┤   │                                            │                         
+└─→──┤ <Pool>   addTask(<Task>) │   │                                            │         ╭────────────────────────────╮                                                                         
+     │ <Task>   getTask()       ├─→─┘   ╭────────────────────────────────╮       └────→────┤ (i) Task\History           │                                       
+     │ <Status> getStatus()     ├───→───┤ (i) Pool\Status                │                 ├────────────────────────────┤            
+     ╰──────────────────────────╯       ├────────────────────────────────┤      ┌────→─────┤ <History> addEvent(<Event>)│            
+                                        │          __construct(<string>) │      │          │ <Event[]> getEvents()      ├─────→─────┐
+                                        │ <string> getStatus()           │      │          │ <Event>   getLastEvent()   ├─────→─────┤
+                                        │ <string> __toString()          │      │          ╰────────────────────────────╯           │
+                                        ╰────────────────────────────────╯      │                                                   │
+                                                                                │     ╭───────────────────────────────────────╮     │
+                                                                                └──←──┤ (i) Task\History\Event                ├──←──┘
+                                                                                      ├───────────────────────────────────────┤
+                                                                                      │ <Event>  startEvent()                 │
+                                                                                      ├───────────────────────────────────────┤
+                                                                           ┌───┬───→──┤ <Event>  endEvent(<Result>, <Reason>) │
+                                                                           │   │      │ <float>  getStartTime()               │
+                                                                           │   │      │ <float>  getEndTime()                 │
+                                                                           │   │      │ <Result> getResult()                  ├────→────┐
+                                                                           │   │      │ <Reason> getReason()                  ├──→──┐   │
+                                                                           │   │      │ <string> __toString()                 │     │   │
+                                                                           │   │      ╰───────────────────────────────────────╯     │   │
+                                                                           │   │                                                    │   │
+                                                                           │   │         ╭────────────────────────────────╮         │   │
+                                                                           │   └────←────┤ (i) Task\History\Reason        ├────←────┘   │
+                                                                           │             ├────────────────────────────────┤             │
+                                                                           │             │          __construct(<string>) │             │
+                                                                           │             │ <string> getReason()           │             │
+                                                                           │             │ <string> __toString()          │             │ 
+                                                                           │             ╰────────────────────────────────╯             │  
+                                                                           │                                                            │  
+                                                                           │             ╭────────────────────────────────╮             │  
+                                                                           └──────←──────┤ (i) Task\History\Result        ├──────←──────┘
+                                                                                         ├────────────────────────────────┤
+                                                                                         │          __construct(<string>) │
+                                                                                         │ <string> getResult()           │
+                                                                                         │ <string> __toString()          │
+                                                                                         ╰────────────────────────────────╯     
+```
 
 ## Task
 
@@ -207,3 +272,27 @@ The mediator is responsible for taking a task and passing it to the correct work
 ## Promise
 
 Workers return React Promises. See the documentation here: https://github.com/reactphp/promise
+
+
+## Doc Dev
+
+```
+─━│┃┄┅┆┇┈┉┊┋┌┍┎┏
+┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟
+┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯
+┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿
+╀╁╂╃╄╅╆╇╈╉╊╋╌╍╎╏
+═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟
+╠╡╢╣╤╥╦╧╨╩╪╫╬╭╮╯
+╰╱╲╳╴╵╶╷╸╹╺╻╼╽╾╿
+```
+
+```
+←↑→↓↔↕↖↗↘↙↚↛↜↝↞↟
+↠↡↢↣↤↥↦↧↨↩↪↫↬↭↮↯
+↰↱↲↳↴↵↶↷↸↹↺↻↼↽↾↿
+⇀⇁⇂⇃⇄⇅⇆⇇⇈⇉⇊⇋⇌⇍⇎⇏
+⇐⇑⇒⇓⇔⇕⇖⇗⇘⇙⇚⇛⇜⇝⇞⇟
+⇠⇡⇢⇣⇤⇥⇦⇧⇨⇩⇪⇫⇬⇭⇮⇯
+⇰⇱⇲⇳⇴⇵⇶⇷⇸⇹⇺⇻⇼⇽⇾⇿
+```
