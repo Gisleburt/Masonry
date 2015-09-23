@@ -21,7 +21,7 @@ namespace Foundry\Masonry\Interfaces\Task;
 interface Status
 {
 
-    const STATUS_PENDING     = 'new';
+    const STATUS_NEW         = 'new';
     const STATUS_IN_PROGRESS = 'in progress';
     const STATUS_COMPLETE    = 'complete';
     const STATUS_DEFERRED    = 'deferred';
