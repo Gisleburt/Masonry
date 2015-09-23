@@ -15,8 +15,8 @@ processed by workers. You can have any number of Workers, and any number of Task
  * [Pool](#pool)
    * [Status](#pool-status)
  * [Worker](#worker)
- * [Promise](#promise)
  * [Mediator](#mediator)
+ * [Promise](#promise)
 
 ## Task
 
@@ -36,34 +36,26 @@ what it wants to happen, but does not specify how to do it.
 
 ### Task - Description
 
-The Description is used to explain what needs to happen. The only method defined in the interface is
-`getDescriptionType()` which returns a key that will be mapped to [Workers](#workers) through the [Mediator](#mediator),
-thus allowing us to know which workers can perform which tasks.
-
-Descriptions should be considered DATA and **must not** contain LOGIC.
+Description is an empty interface simply used for control. It should be extended to provide the information require
+for a specific task.
 
 ```
- ╭───────────────────────────────╮
- │ (i) Description               │
- ├───────────────────────────────┤
- │ <string> getDescriptionType() │ ← This method is used by the mediator to find an appropriate worker for the job.
- ╰───────────────────────────────╯
-                 ↓
- ╭───────────────────────────────╮
- │ (a) MoveFile : Description    │ ← This is an abstract implementation of a Description. It is not necessary to make
- ├───────────────────────────────┤   this class abstract, however it defines the interface without adding implementation
- │ <string> fromLocation()       │
- │ <string> toLocation()         │
- │ <string> getDescriptionType() │ ← This method should be final and should return __CLASS__
- ╰───────────────────────────────╯
-                 ↓
-╭─────────────────────────────────╮
-│ (c) ConcreteMoveFile : MoveFile │ ← The class implimentation of the Move File interface
-├─────────────────────────────────┤
-│ <string> fromLocation()         │
-│ <string> toLocation()           │
-│ <string> getDescriptionType()   │ ← Because this was final in the abstract, it can only return "MoveFile"
-╰─────────────────────────────────╯
+╭───────────────────────────────╮
+│ (i) Description               │
+├───────────────────────────────┤
+╰───────────────────────────────╯
+```
+For example, if you wanted a worker that could move files, you could define a MoveFile interface. The interface tells
+you where the file is now, and where it should be. Your worker should then add the interface name (`MoveFile`) to it's
+list of Descriptions it knows how to deal with, provided by `Worker::getDescriptionTypes()`.
+
+```
+╭───────────────────────────────╮
+│ (i) MoveFile : Description    │
+├───────────────────────────────┤
+│ <string> fromLocation()       │
+│ <string> toLocation()         │
+╰───────────────────────────────╯
 ```
 
 ### Task - Status
@@ -156,8 +148,8 @@ The Task Pool is designed to store and retrieve tasks. It could represent a queu
 ╭──────────────────────────╮
 │ (i) Pool                 │
 ├──────────────────────────┤
-│ <Task>   getTask()       │ ← get the next Task from the pool
 │ <Pool>   addTask(<Task>) │ ← returns a reference to itself for chaining
+│ <Task>   getTask()       │ ← get the next Task from the pool
 │ <Status> getStatus()     │ ← tells you if the pool has tasks 'pending' or is 'empty'
 ╰──────────────────────────╯
 ```
@@ -196,37 +188,19 @@ return an array of strings. The best practice, however, should be to have one wo
 ╰──────────────────────────────────╯
 ```
 
-## Doc Dev
+## Mediator
+
+The mediator is responsible for taking a task and passing it to the correct worker.
 
 ```
-─━│┃┄┅┆┇┈┉┊┋┌┍┎┏
-┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟
-┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯
-┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿
-╀╁╂╃╄╅╆╇╈╉╊╋╌╍╎╏
-═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟
-╠╡╢╣╤╥╦╧╨╩╪╫╬╭╮╯
-╰╱╲╳╴╵╶╷╸╹╺╻╼╽╾╿
+╭──────────────────────────────────╮
+│ (i) Mediator                     │
+├──────────────────────────────────┤
+│ <Mediator> addWorker(<Worker>)   │ ← Inform the mediator about a Worker. Returns a reference to itself
+│ <Promise>  process(<Task>)       │ ← Pass a task. This will return a promise from a Worker to do the task or throw an
+╰──────────────────────────────────╯   exception if no appropriate Worker was found.
 ```
 
-```
-←↑→↓↔↕↖↗↘↙↚↛↜↝↞↟
-↠↡↢↣↤↥↦↧↨↩↪↫↬↭↮↯
-↰↱↲↳↴↵↶↷↸↹↺↻↼↽↾↿
-⇀⇁⇂⇃⇄⇅⇆⇇⇈⇉⇊⇋⇌⇍⇎⇏
-⇐⇑⇒⇓⇔⇕⇖⇗⇘⇙⇚⇛⇜⇝⇞⇟
-⇠⇡⇢⇣⇤⇥⇦⇧⇨⇩⇪⇫⇬⇭⇮⇯
-⇰⇱⇲⇳⇴⇵⇶⇷⇸⇹⇺⇻⇼⇽⇾⇿
-```
+## Promise
 
-```
-┌─────────────┐
-│ Hello World │
-└─────────────┘
-```
-
-```
-+-------------+
-| Hello World |
-+-------------+
-```
+Workers return React Promises. See the documentation here: https://github.com/reactphp/promise
