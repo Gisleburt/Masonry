@@ -11,7 +11,7 @@
  */
 
 
-namespace Foundry\Masonry\Interfaces\Task;
+namespace Foundry\Masonry\Interfaces\Task\History;
 
 /**
  * Interface Result

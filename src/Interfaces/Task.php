@@ -18,13 +18,6 @@ interface Task
 {
 
     /**
-     * The capabilities required to fulfill the task.
-     * Best practice is to try to make each task require a single capability.
-     * @return Task\Capability[]
-     */
-    public function getRequiredCapabilities();
-
-    /**
      * Returns the data for the worker to use.
      * This data is generally bespoke.
      * @return Task\Description
@@ -32,16 +25,15 @@ interface Task
     public function getDescription();
 
     /**
+     * The current status of this task
+     * @return Task\Status
+     */
+    public function getStatus();
+
+    /**
      * The history of this task
      * @return Task\History
      */
     public function getHistory();
-
-    /**
-     * Add a bit of history about what's happened to the task.
-     * @param Task\History $history
-     * @return $this
-     */
-    public function addHistory(Task\History $history);
 
 }

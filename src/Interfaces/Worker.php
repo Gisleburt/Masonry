@@ -13,6 +13,7 @@
 
 namespace Foundry\Masonry\Interfaces;
 
+use React\Promise\Promise;
 
 interface Worker
 {
@@ -25,5 +26,12 @@ interface Worker
      */
     public function process(Task $task);
 
+    /**
+     * Lists, as strings, the class/interface names this worker can handle.
+     * Each worker should be responsible for one type of Task, however there might be multiple ways to describe the
+     * task. The names of each possible description should be returned here.
+     * @return string[]
+     */
+    public function getDescriptionTypes();
 
 }

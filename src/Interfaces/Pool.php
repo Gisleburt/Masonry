@@ -25,12 +25,6 @@ interface Pool
 {
 
     /**
-     * Get the next task from the pool.
-     * @return Task
-     */
-    public function getTask();
-
-    /**
      * Add a task to the pool.
      * @param Task $task
      * @return $this
@@ -38,8 +32,14 @@ interface Pool
     public function addTask(Task $task);
 
     /**
+     * Get the next task from the pool.
+     * @return Task
+     */
+    public function getTask();
+
+    /**
      * Get the current status of the pool.
-     * This should allow 3 values:
+     * This should allow 2 values:
      *   pending:  There are tasks pending
      *   empty:   There are no more tasks, the pool is empty
      * @return Status
