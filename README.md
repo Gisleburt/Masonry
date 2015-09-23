@@ -132,6 +132,7 @@ it's Status. A task may have one of four statuses.
  * `complete` : The task has been processed. This does not specify whether the task succeeded or failed, that is
    covered by the [Result][#task-history]
  * `deferred` : The task has been attempted previously but for whatever reason has been put back in the queue.
+
 ```
 ╭────────────────────────────────╮
 │ (i) Task\Status                │
