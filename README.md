@@ -273,27 +273,3 @@ The mediator is responsible for taking a task and passing it to the correct work
 ## Promise
 
 Workers return React Promises. See the documentation here: https://github.com/reactphp/promise
-
-
-## Doc Dev
-
-```
-─━│┃┄┅┆┇┈┉┊┋┌┍┎┏
-┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟
-┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯
-┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿
-╀╁╂╃╄╅╆╇╈╉╊╋╌╍╎╏
-═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟
-╠╡╢╣╤╥╦╧╨╩╪╫╬╭╮╯
-╰╱╲╳╴╵╶╷╸╹╺╻╼╽╾╿
-```
-
-```
-←↑→↓↔↕↖↗↘↙↚↛↜↝↞↟
-↠↡↢↣↤↥↦↧↨↩↪↫↬↭↮↯
-↰↱↲↳↴↵↶↷↸↹↺↻↼↽↾↿
-⇀⇁⇂⇃⇄⇅⇆⇇⇈⇉⇊⇋⇌⇍⇎⇏
-⇐⇑⇒⇓⇔⇕⇖⇗⇘⇙⇚⇛⇜⇝⇞⇟
-⇠⇡⇢⇣⇤⇥⇦⇧⇨⇩⇪⇫⇬⇭⇮⇯
-⇰⇱⇲⇳⇴⇵⇶⇷⇸⇹⇺⇻⇼⇽⇾⇿
-```
