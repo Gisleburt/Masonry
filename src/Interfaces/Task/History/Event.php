@@ -20,7 +20,7 @@ interface Event
     /**
      * Events should be created through this
      * @static
-     * @return mixed
+     * @return Event
      */
     public static function startEvent();
 
