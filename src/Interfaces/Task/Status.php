@@ -40,7 +40,7 @@ interface Status
     public function getStatus();
 
     /**
-     * Returns status
+     * Should return getStatus()
      * @return string
      */
     public function __toString();

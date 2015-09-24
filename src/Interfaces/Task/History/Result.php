@@ -34,13 +34,13 @@ interface Result
 
     /**
      * Will be Succeeded, Failed or Incomplete
-     * @return mixed
+     * @return string
      */
     public function getResult();
 
     /**
-     * For comparing to strings
-     * @return mixed
+     * Should return getResult()
+     * @return string
      */
     public function __toString();
 
