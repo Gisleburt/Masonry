@@ -11,7 +11,7 @@
   "authors" : [
     {
       "name" : "Daniel Mason",
-      "email" : "daniel@ayeayeapi.com",
+      "email" : "daniel@danielmason.com",
       "homepage" : "http://danielmason.com",
       "role" : "Lead developer"
     }
@@ -19,6 +19,11 @@
   "autoload" : {
     "psr-4" : {
       "Foundry\\Masonry\\" : "src/"
+    }
+  },
+  "autoload-dev" : {
+    "psr-4" : {
+      "Foundry\\Masonry\\Tests\\" : "tests/"
     }
   },
   "require" : {
