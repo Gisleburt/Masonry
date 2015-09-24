@@ -33,5 +33,4 @@ interface Worker
      * @return string[]
      */
     public function getDescriptionTypes();
-
 }

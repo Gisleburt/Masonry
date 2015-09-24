@@ -13,7 +13,6 @@
 
 namespace Foundry\Masonry\Tests\PhpUnit;
 
-
 class TestCase extends \PHPUnit_Framework_TestCase
 {
 

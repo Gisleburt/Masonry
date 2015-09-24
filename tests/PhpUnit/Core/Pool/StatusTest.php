@@ -13,7 +13,6 @@
 
 namespace Foundry\Masonry\Tests\PhpUnit\Core\Pool;
 
-
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
 use Foundry\Masonry\Core\Pool\Status;
 
@@ -102,5 +101,4 @@ class StatusTest extends TestCase
             (string)$status
         );
     }
-
 }

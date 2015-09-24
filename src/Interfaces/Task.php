@@ -13,7 +13,6 @@
 
 namespace Foundry\Masonry\Interfaces;
 
-
 interface Task
 {
 
@@ -35,5 +34,4 @@ interface Task
      * @return Task\History
      */
     public function getHistory();
-
 }

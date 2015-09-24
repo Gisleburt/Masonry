@@ -61,5 +61,4 @@ interface Result
      * @return bool
      */
     public function isComplete();
-
 }

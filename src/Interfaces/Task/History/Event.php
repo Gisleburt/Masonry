@@ -13,7 +13,6 @@
 
 namespace Foundry\Masonry\Interfaces\Task\History;
 
-
 interface Event
 {
 
@@ -64,5 +63,4 @@ interface Event
      * @return string
      */
     public function __toString();
-
 }

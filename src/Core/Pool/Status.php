@@ -41,7 +41,7 @@ class Status implements StatusInterface
             static::STATUS_PENDING,
             static::STATUS_EMPTY,
         ];
-        if(!in_array($status, $acceptableStatuses)) {
+        if (!in_array($status, $acceptableStatuses)) {
             throw new InvalidPoolStatus(
                 "Received status '$status'; only the following are acceptable: ".implode(', ', $acceptableStatuses)
             );

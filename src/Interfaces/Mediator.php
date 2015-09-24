@@ -33,5 +33,4 @@ interface Mediator
      * @return Promise
      */
     public function process(Task $task);
-
 }

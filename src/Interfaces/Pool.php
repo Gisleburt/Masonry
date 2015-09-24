@@ -45,5 +45,4 @@ interface Pool
      * @return Status
      */
     public function getStatus();
-
 }
