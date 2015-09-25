@@ -1,6 +1,6 @@
 <?php
 /**
- * Status.php
+ * StatusInterface.php
  * PHP version 5.4
  * 2015-09-04
  *
@@ -14,18 +14,18 @@
 namespace Foundry\Masonry\Interfaces\Pool;
 
 /**
- * Interface Status
+ * Interface StatusInterface
  * Represents the current status of a Pool
  * @package Foundry\Masonry
  */
-interface Status
+interface StatusInterface
 {
 
     const STATUS_PENDING  = 'pending';
     const STATUS_EMPTY    = 'empty';
 
     /**
-     * Status constructor.
+     * StatusInterface constructor.
      * Must be 'pending' or 'empty'. Pending means there are tasks awaiting assignment.
      * @param $status
      */

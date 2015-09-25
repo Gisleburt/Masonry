@@ -1,6 +1,6 @@
 <?php
 /**
- * Status.php
+ * StatusInterface.php
  * PHP version 5.4
  * 2015-09-04
  *
@@ -14,10 +14,10 @@
 namespace Foundry\Masonry\Core\Pool;
 
 use Foundry\Masonry\Core\Exception\InvalidPoolStatus;
-use Foundry\Masonry\Interfaces\Pool\Status as StatusInterface;
+use Foundry\Masonry\Interfaces\Pool\StatusInterface;
 
 /**
- * Status
+ * StatusInterface
  * Represents the current status of a Pool
  * @package Foundry\Masonry
  */
@@ -30,7 +30,7 @@ class Status implements StatusInterface
     private $status;
 
     /**
-     * Status constructor.
+     * StatusInterface constructor.
      * Must be 'pending' or 'empty'. Pending means there are tasks awaiting assignment.
      * @param $status
      * @throws InvalidPoolStatus

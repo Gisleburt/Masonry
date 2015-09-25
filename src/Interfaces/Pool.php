@@ -13,7 +13,7 @@
 
 namespace Foundry\Masonry\Interfaces;
 
-use Foundry\Masonry\Interfaces\Pool\Status;
+use Foundry\Masonry\Interfaces\Pool\StatusInterface;
 
 /**
  * Interface Pool
@@ -42,7 +42,7 @@ interface Pool
      * This should allow 2 values:
      *   pending:  There are tasks pending
      *   empty:   There are no more tasks, the pool is empty
-     * @return Status
+     * @return StatusInterface
      */
     public function getStatus();
 }
