@@ -25,7 +25,7 @@ interface Task
 
     /**
      * The current status of this task
-     * @return Task\Status
+     * @return Task\StatusInterface
      */
     public function getStatus();
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Status.php
+ * StatusInterface.php
  * PHP version 5.4
  * 2015-09-04
  *
@@ -14,11 +14,11 @@
 namespace Foundry\Masonry\Interfaces\Task;
 
 /**
- * Interface Status
- * Represents the current status of a Pool
+ * Interface StatusInterface
+ * Represents the current status of a Task
  * @package Foundry\Masonry
  */
-interface Status
+interface StatusInterface
 {
 
     const STATUS_NEW         = 'new';
@@ -27,7 +27,7 @@ interface Status
     const STATUS_DEFERRED    = 'deferred';
 
     /**
-     * Status constructor.
+     * StatusInterface constructor.
      * Must be 'new', 'in progress', 'complete', or 'deferred'.
      * @param $status
      */
