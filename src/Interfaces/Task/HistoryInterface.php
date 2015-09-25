@@ -20,7 +20,7 @@ use Foundry\Masonry\Interfaces\Task\History\EventInterface;
  * Represents the current status of a Pool
  * @package Foundry\Masonry
  */
-interface History
+interface HistoryInterface
 {
 
     /**

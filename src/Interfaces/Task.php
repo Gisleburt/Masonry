@@ -31,7 +31,7 @@ interface Task
 
     /**
      * The history of this task
-     * @return Task\History
+     * @return Task\HistoryInterface
      */
     public function getHistory();
 }
