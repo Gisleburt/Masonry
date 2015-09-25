@@ -37,7 +37,7 @@ class Result implements ResultInterface
      */
     public function __construct($result = null)
     {
-        if(!$result) {
+        if (!$result) {
             $result = static::RESULT_INCOMPLETE;
         }
         $acceptableResults = [

@@ -13,7 +13,6 @@
 
 namespace Foundry\Masonry\Tests\PhpUnit\Core\Task\History;
 
-
 use Foundry\Masonry\Core\Task\History\Reason;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
 
@@ -91,6 +90,4 @@ class ReasonTest extends TestCase
             (string)$reason
         );
     }
-
-
 }
