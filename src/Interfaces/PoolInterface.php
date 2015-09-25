@@ -21,7 +21,7 @@ use Foundry\Masonry\Interfaces\Pool\StatusInterface;
  * This could be a database, a queue, a file, or something else.
  * @package Foundry\Masonry
  */
-interface Pool
+interface PoolInterface
 {
 
     /**
