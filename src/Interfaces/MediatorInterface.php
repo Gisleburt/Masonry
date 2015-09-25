@@ -15,22 +15,22 @@ namespace Foundry\Masonry\Interfaces;
 
 use React\Promise\Promise;
 
-interface Mediator
+interface MediatorInterface
 {
 
     /**
      * Inform the Mediator about a Worker
-     * @param Worker $worker
+     * @param WorkerInterface $worker
      * @return $this
      */
-    public function addWorker(Worker $worker);
+    public function addWorker(WorkerInterface $worker);
 
     /**
      * Process a given task, returning the promise from the worker that took it. If no appropriate
      * task is found, an Exception will be thrown instead.
-     * @param Task $task
+     * @param TaskInterface $task
      * @throws \Exception
      * @return Promise
      */
-    public function process(Task $task);
+    public function process(TaskInterface $task);
 }

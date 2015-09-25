@@ -1,6 +1,6 @@
 <?php
 /**
- * Status.php
+ * StatusInterface.php
  * PHP version 5.4
  * 2015-09-04
  *
@@ -13,32 +13,32 @@
 
 namespace Foundry\Masonry\Interfaces\Task;
 
-use Foundry\Masonry\Interfaces\Task\History\Event;
+use Foundry\Masonry\Interfaces\Task\History\EventInterface;
 
 /**
- * Interface Status
+ * Interface StatusInterface
  * Represents the current status of a Pool
  * @package Foundry\Masonry
  */
-interface History
+interface HistoryInterface
 {
 
     /**
      * Add an event to the history
-     * @param Event $event
+     * @param EventInterface $event
      * @return $this
      */
-    public function addEvent(Event $event);
+    public function addEvent(EventInterface $event);
 
     /**
      * Returns all events in the history
-     * @return Event[]
+     * @return EventInterface[]
      */
     public function getEvents();
 
     /**
      * Returns the last event in the history, or null if nothing has happened yet
-     * @return Event
+     * @return EventInterface
      */
     public function getLastEvent();
 }

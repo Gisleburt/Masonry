@@ -13,7 +13,7 @@
 
 namespace Foundry\Masonry\Interfaces;
 
-use Foundry\Masonry\Interfaces\Pool\Status;
+use Foundry\Masonry\Interfaces\Pool\StatusInterface;
 
 /**
  * Interface Pool
@@ -21,19 +21,19 @@ use Foundry\Masonry\Interfaces\Pool\Status;
  * This could be a database, a queue, a file, or something else.
  * @package Foundry\Masonry
  */
-interface Pool
+interface PoolInterface
 {
 
     /**
      * Add a task to the pool.
-     * @param Task $task
+     * @param TaskInterface $task
      * @return $this
      */
-    public function addTask(Task $task);
+    public function addTask(TaskInterface $task);
 
     /**
      * Get the next task from the pool.
-     * @return Task
+     * @return TaskInterface
      */
     public function getTask();
 
@@ -42,7 +42,7 @@ interface Pool
      * This should allow 2 values:
      *   pending:  There are tasks pending
      *   empty:   There are no more tasks, the pool is empty
-     * @return Status
+     * @return StatusInterface
      */
     public function getStatus();
 }

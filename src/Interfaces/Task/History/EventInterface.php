@@ -1,10 +1,10 @@
 <?php
 /**
- * History.php
+ * EventInterface.php
  * PHP version 5.4
  * 2015-09-14
  *
- * @package   Masonry
+ * @package   Foundry\Masonry
  * @category
  * @author    Daniel Mason <daniel.mason@thefoundry.co.uk>
  * @copyright 2015 The Foundry Visionmongers
@@ -13,23 +13,28 @@
 
 namespace Foundry\Masonry\Interfaces\Task\History;
 
-interface Event
+/**
+ * Interface EventInterface
+ *
+ * @package Foundry\Masonry
+ */
+interface EventInterface
 {
 
     /**
      * Events should be created through this
      * @static
-     * @return Event
+     * @return EventInterface
      */
     public static function startEvent();
 
     /**
      * Run this when the task ends, providing a result and optionally a reason
-     * @param Result $result
-     * @param Reason $reason
+     * @param ResultInterface $result
+     * @param ReasonInterface $reason
      * @return mixed
      */
-    public function endEvent(Result $result, Reason $reason = null);
+    public function endEvent(ResultInterface $result, ReasonInterface $reason = null);
 
     /**
      * The time at which the task was started.
@@ -47,13 +52,13 @@ interface Event
 
     /**
      * The result of the task when it was run.
-     * @return Result
+     * @return ResultInterface
      */
     public function getResult();
 
     /**
      * Reason for result.
-     * @return Reason
+     * @return ReasonInterface
      */
     public function getReason();
 

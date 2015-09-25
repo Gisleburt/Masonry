@@ -1,6 +1,6 @@
 <?php
 /**
- * Reason.php
+ * ResultInterface.php
  * PHP version 5.4
  * 2015-09-04
  *
@@ -14,11 +14,11 @@
 namespace Foundry\Masonry\Interfaces\Task\History;
 
 /**
- * Interface Result
+ * Interface ResultInterface
  * The result of the task. Can be 'succeeded', 'failed' or 'incomplete'.
  * @package Foundry\Masonry
  */
-interface Result
+interface ResultInterface
 {
 
     const RESULT_SUCCEEDED  = 'succeeded';
@@ -26,7 +26,7 @@ interface Result
     const RESULT_INCOMPLETE = 'incomplete';
 
     /**
-     * Result constructor.
+     * ResultInterface constructor.
      * Should be instantiate with 'succeeded' of 'failed', otherwise it will be 'incomplete'
      * @param $result
      */

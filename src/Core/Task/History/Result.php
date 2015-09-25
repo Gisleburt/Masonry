@@ -1,6 +1,6 @@
 <?php
 /**
- * Reason.php
+ * Result.php
  * PHP version 5.4
  * 2015-09-04
  *
@@ -14,10 +14,10 @@
 namespace Foundry\Masonry\Core\Task\History;
 
 use Foundry\Masonry\Core\Exception\InvalidResult;
-use Foundry\Masonry\Interfaces\Task\History\Result as ResultInterface;
+use Foundry\Masonry\Interfaces\Task\History\ResultInterface;
 
 /**
- * Interface Result
+ * Class Result
  * The result of the task. Can be 'succeeded', 'failed' or 'incomplete'.
  * @package Foundry\Masonry
  */
@@ -37,7 +37,7 @@ class Result implements ResultInterface
      */
     public function __construct($result = null)
     {
-        if(!$result) {
+        if (!$result) {
             $result = static::RESULT_INCOMPLETE;
         }
         $acceptableResults = [

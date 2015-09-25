@@ -1,6 +1,6 @@
 <?php
 /**
- * Task.php
+ * TaskInterfaceInterface.php
  * PHP version 5.4
  * 2015-09-04
  *
@@ -13,25 +13,25 @@
 
 namespace Foundry\Masonry\Interfaces;
 
-interface Task
+interface TaskInterface
 {
 
     /**
      * Returns the data for the worker to use.
      * This data is generally bespoke.
-     * @return Task\Description
+     * @return Task\DescriptionInterface
      */
     public function getDescription();
 
     /**
      * The current status of this task
-     * @return Task\Status
+     * @return Task\StatusInterface
      */
     public function getStatus();
 
     /**
      * The history of this task
-     * @return Task\History
+     * @return Task\HistoryInterface
      */
     public function getHistory();
 }
