@@ -1,6 +1,6 @@
 <?php
 /**
- * Reason.php
+ * ReasonInterface.php
  * PHP version 5.4
  * 2015-09-04
  *
@@ -13,10 +13,10 @@
 
 namespace Foundry\Masonry\Core\Task\History;
 
-use Foundry\Masonry\Interfaces\Task\History\Reason as ReasonInterface;
+use Foundry\Masonry\Interfaces\Task\History\ReasonInterface;
 
 /**
- * Interface Reason
+ * Class Reason
  * This should represent the reason a task succeeded or failed.
  * @package Foundry\Masonry
  */

@@ -31,10 +31,10 @@ interface EventInterface
     /**
      * Run this when the task ends, providing a result and optionally a reason
      * @param Result $result
-     * @param Reason $reason
+     * @param ReasonInterface $reason
      * @return mixed
      */
-    public function endEvent(Result $result, Reason $reason = null);
+    public function endEvent(Result $result, ReasonInterface $reason = null);
 
     /**
      * The time at which the task was started.
@@ -57,8 +57,8 @@ interface EventInterface
     public function getResult();
 
     /**
-     * Reason for result.
-     * @return Reason
+     * ReasonInterface for result.
+     * @return ReasonInterface
      */
     public function getReason();
 
