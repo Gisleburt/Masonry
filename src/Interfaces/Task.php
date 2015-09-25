@@ -19,7 +19,7 @@ interface Task
     /**
      * Returns the data for the worker to use.
      * This data is generally bespoke.
-     * @return Task\Description
+     * @return Task\DescriptionInterface
      */
     public function getDescription();
 
