@@ -20,10 +20,10 @@ interface MediatorInterface
 
     /**
      * Inform the Mediator about a Worker
-     * @param Worker $worker
+     * @param WorkerInterface $worker
      * @return $this
      */
-    public function addWorker(Worker $worker);
+    public function addWorker(WorkerInterface $worker);
 
     /**
      * Process a given task, returning the promise from the worker that took it. If no appropriate

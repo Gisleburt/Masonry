@@ -15,7 +15,7 @@ namespace Foundry\Masonry\Interfaces;
 
 use React\Promise\Promise;
 
-interface Worker
+interface WorkerInterface
 {
 
     /**
