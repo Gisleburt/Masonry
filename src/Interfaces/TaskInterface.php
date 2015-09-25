@@ -1,6 +1,6 @@
 <?php
 /**
- * Task.php
+ * TaskInterfaceInterface.php
  * PHP version 5.4
  * 2015-09-04
  *
@@ -13,7 +13,7 @@
 
 namespace Foundry\Masonry\Interfaces;
 
-interface Task
+interface TaskInterface
 {
 
     /**

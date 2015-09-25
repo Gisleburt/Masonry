@@ -26,14 +26,14 @@ interface PoolInterface
 
     /**
      * Add a task to the pool.
-     * @param Task $task
+     * @param TaskInterface $task
      * @return $this
      */
-    public function addTask(Task $task);
+    public function addTask(TaskInterface $task);
 
     /**
      * Get the next task from the pool.
-     * @return Task
+     * @return TaskInterface
      */
     public function getTask();
 

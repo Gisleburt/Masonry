@@ -28,9 +28,9 @@ interface MediatorInterface
     /**
      * Process a given task, returning the promise from the worker that took it. If no appropriate
      * task is found, an Exception will be thrown instead.
-     * @param Task $task
+     * @param TaskInterface $task
      * @throws \Exception
      * @return Promise
      */
-    public function process(Task $task);
+    public function process(TaskInterface $task);
 }
