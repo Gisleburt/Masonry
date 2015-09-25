@@ -14,10 +14,10 @@
 namespace Foundry\Masonry\Core\Task\History;
 
 use Foundry\Masonry\Core\Exception\InvalidResult;
-use Foundry\Masonry\Interfaces\Task\History\Result as ResultInterface;
+use Foundry\Masonry\Interfaces\Task\History\ResultInterface;
 
 /**
- * Interface Result
+ * Class Result
  * The result of the task. Can be 'succeeded', 'failed' or 'incomplete'.
  * @package Foundry\Masonry
  */
