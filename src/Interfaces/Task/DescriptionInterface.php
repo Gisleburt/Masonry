@@ -15,8 +15,7 @@ namespace Foundry\Masonry\Interfaces\Task;
 
 /**
  * Interface DescriptionInterface
- * ToDo: Formalise this as I have no idea how it should work
- * @package Foundry\Masonry\Interfaces\Task
+ * @package Foundry\Masonry
  */
 interface DescriptionInterface
 {

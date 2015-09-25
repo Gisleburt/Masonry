@@ -57,7 +57,7 @@ interface EventInterface
     public function getResult();
 
     /**
-     * ReasonInterface for result.
+     * Reason for result.
      * @return ReasonInterface
      */
     public function getReason();

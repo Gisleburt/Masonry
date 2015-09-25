@@ -20,7 +20,7 @@ use Foundry\Masonry\Tests\PhpUnit\TestCase;
 /**
  * Class ReasonTest
  *
- * @package Foundry\Masonry\Tests\PhpUnit\Core\Task\History
+ * @package Foundry\Masonry
  * @coversDefaultClass \Foundry\Masonry\Core\Task\History\Reason
  */
 class ReasonTest extends TestCase
