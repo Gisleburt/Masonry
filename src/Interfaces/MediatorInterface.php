@@ -15,7 +15,7 @@ namespace Foundry\Masonry\Interfaces;
 
 use React\Promise\Promise;
 
-interface Mediator
+interface MediatorInterface
 {
 
     /**
