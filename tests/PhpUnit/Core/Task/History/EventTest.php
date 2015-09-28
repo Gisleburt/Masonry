@@ -30,7 +30,6 @@ class EventTest extends TestCase
     /**
      * @test
      * @covers ::startEvent
-     * @covers ::__construct
      * @uses \Foundry\Masonry\Core\Task\History\Event::getStartTime
      * @uses \Foundry\Masonry\Core\Task\History\Event::getEndTime
      * @return void
@@ -57,7 +56,6 @@ class EventTest extends TestCase
     /**
      * @test
      * @covers ::endEvent
-     * @uses \Foundry\Masonry\Core\Task\History\Event::__construct
      * @uses \Foundry\Masonry\Core\Task\History\Event::startEvent
      * @uses \Foundry\Masonry\Core\Task\History\Event::getEndTime
      * @return void
@@ -89,7 +87,6 @@ class EventTest extends TestCase
     /**
      * @test
      * @covers ::getStartTime
-     * @uses \Foundry\Masonry\Core\Task\History\Event::__construct
      * @uses \Foundry\Masonry\Core\Task\History\Event::startEvent
      * @return void
      */
@@ -110,7 +107,6 @@ class EventTest extends TestCase
     /**
      * @test
      * @covers ::getEndTime
-     * @uses \Foundry\Masonry\Core\Task\History\Event::__construct
      * @uses \Foundry\Masonry\Core\Task\History\Event::startEvent
      * @uses \Foundry\Masonry\Core\Task\History\Event::endEvent
      * @uses \Foundry\Masonry\Core\Task\History\Event::getStartTime
@@ -144,7 +140,6 @@ class EventTest extends TestCase
     /**
      * @test
      * @covers ::getResult
-     * @uses \Foundry\Masonry\Core\Task\History\Event::__construct
      * @uses \Foundry\Masonry\Core\Task\History\Event::startEvent
      * @uses \Foundry\Masonry\Core\Task\History\Event::endEvent
      * @uses \Foundry\Masonry\Core\Task\History\Result
@@ -170,7 +165,6 @@ class EventTest extends TestCase
     /**
      * @test
      * @covers ::getReason
-     * @uses \Foundry\Masonry\Core\Task\History\Event::__construct
      * @uses \Foundry\Masonry\Core\Task\History\Event::startEvent
      * @uses \Foundry\Masonry\Core\Task\History\Event::endEvent
      * @uses \Foundry\Masonry\Core\Task\History\Result
@@ -201,7 +195,6 @@ class EventTest extends TestCase
     /**
      * @test
      * @covers ::getReason
-     * @uses \Foundry\Masonry\Core\Task\History\Event::__construct
      * @uses \Foundry\Masonry\Core\Task\History\Event::startEvent
      * @uses \Foundry\Masonry\Core\Task\History\Event::endEvent
      * @uses \Foundry\Masonry\Core\Task\History\Result
