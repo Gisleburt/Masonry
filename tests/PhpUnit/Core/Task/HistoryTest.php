@@ -29,6 +29,8 @@ class HistoryTest extends TestCase
      * @covers ::addEvent
      * @uses \Foundry\Masonry\Core\Task\History\Event
      * @uses \Foundry\Masonry\Core\Task\History::getLastEvent
+     * @uses \Foundry\Masonry\Core\Task\History\Result
+     * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @return void
      */
     public function testAddEvent()
@@ -48,6 +50,8 @@ class HistoryTest extends TestCase
      * @covers ::getEvents
      * @uses \Foundry\Masonry\Core\Task\History\Event
      * @uses \Foundry\Masonry\Core\Task\History::addEvent
+     * @uses \Foundry\Masonry\Core\Task\History\Result
+     * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @return void
      */
     public function testGetEvents()
@@ -67,6 +71,12 @@ class HistoryTest extends TestCase
      * @covers ::getLastEvent
      * @uses \Foundry\Masonry\Core\Task\History\Event
      * @uses \Foundry\Masonry\Core\Task\History::addEvent
+     * @uses \Foundry\Masonry\Core\Task\History\Event::getStartTime
+     * @uses \Foundry\Masonry\Core\Task\History\Event::getEndTime
+     * @uses \Foundry\Masonry\Core\Task\History\Event::getResult
+     * @uses \Foundry\Masonry\Core\Task\History\Event::getReason
+     * @uses \Foundry\Masonry\Core\Task\History\Result
+     * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @return void
      */
     public function tetGetLastEvent()

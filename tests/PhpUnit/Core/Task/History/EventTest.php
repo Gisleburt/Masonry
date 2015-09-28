@@ -32,6 +32,8 @@ class EventTest extends TestCase
      * @covers ::startEvent
      * @uses \Foundry\Masonry\Core\Task\History\Event::getStartTime
      * @uses \Foundry\Masonry\Core\Task\History\Event::getEndTime
+     * @uses \Foundry\Masonry\Core\Task\History\Result
+     * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @return void
      */
     public function testStartEvent()
@@ -57,7 +59,10 @@ class EventTest extends TestCase
      * @test
      * @covers ::endEvent
      * @uses \Foundry\Masonry\Core\Task\History\Event::startEvent
+     * @uses \Foundry\Masonry\Core\Task\History\Event::getStartTime
      * @uses \Foundry\Masonry\Core\Task\History\Event::getEndTime
+     * @uses \Foundry\Masonry\Core\Task\History\Result
+     * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @return void
      */
     public function testEndEvent()
@@ -88,6 +93,8 @@ class EventTest extends TestCase
      * @test
      * @covers ::getStartTime
      * @uses \Foundry\Masonry\Core\Task\History\Event::startEvent
+     * @uses \Foundry\Masonry\Core\Task\History\Reason
+     * @uses \Foundry\Masonry\Core\Task\History\Result
      * @return void
      */
     public function testGetStartTime()
@@ -111,6 +118,7 @@ class EventTest extends TestCase
      * @uses \Foundry\Masonry\Core\Task\History\Event::endEvent
      * @uses \Foundry\Masonry\Core\Task\History\Event::getStartTime
      * @uses \Foundry\Masonry\Core\Task\History\Result
+     * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @return void
      */
     public function testGetEndTime()
@@ -143,6 +151,7 @@ class EventTest extends TestCase
      * @uses \Foundry\Masonry\Core\Task\History\Event::startEvent
      * @uses \Foundry\Masonry\Core\Task\History\Event::endEvent
      * @uses \Foundry\Masonry\Core\Task\History\Result
+     * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @return void
      */
     public function testGetResult()
@@ -194,9 +203,13 @@ class EventTest extends TestCase
 
     /**
      * @test
-     * @covers ::getReason
+     * @covers ::__toString
      * @uses \Foundry\Masonry\Core\Task\History\Event::startEvent
      * @uses \Foundry\Masonry\Core\Task\History\Event::endEvent
+     * @uses \Foundry\Masonry\Core\Task\History\Event::getStartTime
+     * @uses \Foundry\Masonry\Core\Task\History\Event::getEndTime
+     * @uses \Foundry\Masonry\Core\Task\History\Event::getReason
+     * @uses \Foundry\Masonry\Core\Task\History\Event::getResult
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @return void
