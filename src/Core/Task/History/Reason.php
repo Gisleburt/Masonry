@@ -30,7 +30,7 @@ class Reason implements ReasonInterface
      * A reason can be any string that describes why a task passed or failed.
      * @param string $reason
      */
-    public function __construct($reason)
+    public function __construct($reason = '')
     {
         $this->reason = (string)$reason;
     }
