@@ -11,7 +11,7 @@
  */
 
 
-namespace Foundry\Masonry\Interfaces\Task;
+namespace Foundry\Masonry\Tests\PhpUnit\Task;
 
 use Foundry\Masonry\Core\Task\History;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
