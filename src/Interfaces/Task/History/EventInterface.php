@@ -22,11 +22,9 @@ interface EventInterface
 {
 
     /**
-     * Events should be created through this
-     * @static
-     * @return EventInterface
+     * Creates a new event, starting the timer immediately
      */
-    public static function startEvent();
+    public function __construct();
 
     /**
      * Run this when the task ends, providing a result and optionally a reason

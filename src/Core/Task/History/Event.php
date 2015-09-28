@@ -44,19 +44,11 @@ class Event implements EventInterface
      */
     private $reason;
 
-    /**
-     * Events should be created through this
-     * @static
-     * @return $this
-     */
-    public static function startEvent()
-    {
-        $event = new static();
-        $event->startTime = microtime(true);
-        $event->endTime = 0.0;
-        $event->result = new Result();
-        $event->reason = new Reason();
-        return $event;
+    public function __construct() {
+        $this->startTime = microtime(true);
+        $this->endTime = 0.0;
+        $this->result = new Result();
+        $this->reason = new Reason();
     }
 
     /**

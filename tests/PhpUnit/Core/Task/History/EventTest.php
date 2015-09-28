@@ -29,16 +29,16 @@ class EventTest extends TestCase
 
     /**
      * @test
-     * @covers ::startEvent
+     * @covers ::__construct
      * @uses \Foundry\Masonry\Core\Task\History\Event::getStartTime
      * @uses \Foundry\Masonry\Core\Task\History\Event::getEndTime
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @return void
      */
-    public function testStartEvent()
+    public function testConstruct()
     {
-        $event = Event::startEvent();
+        $event = new Event();
 
         $this->assertGreaterThan(
             0,
@@ -58,7 +58,7 @@ class EventTest extends TestCase
     /**
      * @test
      * @covers ::endEvent
-     * @uses \Foundry\Masonry\Core\Task\History\Event::startEvent
+     * @uses \Foundry\Masonry\Core\Task\History\Event::__construct
      * @uses \Foundry\Masonry\Core\Task\History\Event::getStartTime
      * @uses \Foundry\Masonry\Core\Task\History\Event::getEndTime
      * @uses \Foundry\Masonry\Core\Task\History\Result
@@ -67,7 +67,7 @@ class EventTest extends TestCase
      */
     public function testEndEvent()
     {
-        $event1 = Event::startEvent();
+        $event1 = new Event();
         $event1->endEvent(new Result(Result::RESULT_SUCCEEDED));
 
         $this->assertTrue(
@@ -92,14 +92,14 @@ class EventTest extends TestCase
     /**
      * @test
      * @covers ::getStartTime
-     * @uses \Foundry\Masonry\Core\Task\History\Event::startEvent
+     * @uses \Foundry\Masonry\Core\Task\History\Event::__construct
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @return void
      */
     public function testGetStartTime()
     {
-        $event = Event::startEvent();
+        $event = new Event();
 
         $this->assertTrue(
             is_float($event->getStartTime())
@@ -114,7 +114,7 @@ class EventTest extends TestCase
     /**
      * @test
      * @covers ::getEndTime
-     * @uses \Foundry\Masonry\Core\Task\History\Event::startEvent
+     * @uses \Foundry\Masonry\Core\Task\History\Event::__construct
      * @uses \Foundry\Masonry\Core\Task\History\Event::endEvent
      * @uses \Foundry\Masonry\Core\Task\History\Event::getStartTime
      * @uses \Foundry\Masonry\Core\Task\History\Result
@@ -123,7 +123,7 @@ class EventTest extends TestCase
      */
     public function testGetEndTime()
     {
-        $event = Event::startEvent();
+        $event = new Event();
 
         $this->assertEquals(
             0,
@@ -148,7 +148,7 @@ class EventTest extends TestCase
     /**
      * @test
      * @covers ::getResult
-     * @uses \Foundry\Masonry\Core\Task\History\Event::startEvent
+     * @uses \Foundry\Masonry\Core\Task\History\Event::__construct
      * @uses \Foundry\Masonry\Core\Task\History\Event::endEvent
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\Task\History\Reason
@@ -156,7 +156,7 @@ class EventTest extends TestCase
      */
     public function testGetResult()
     {
-        $event = Event::startEvent();
+        $event = new Event();
 
         $this->assertSame(
             Result::RESULT_INCOMPLETE,
@@ -174,7 +174,7 @@ class EventTest extends TestCase
     /**
      * @test
      * @covers ::getReason
-     * @uses \Foundry\Masonry\Core\Task\History\Event::startEvent
+     * @uses \Foundry\Masonry\Core\Task\History\Event::__construct
      * @uses \Foundry\Masonry\Core\Task\History\Event::endEvent
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\Task\History\Reason
@@ -182,7 +182,7 @@ class EventTest extends TestCase
      */
     public function testGetReason()
     {
-        $event = Event::startEvent();
+        $event = new Event();
         $reason = 'Test Reason';
 
         $this->assertSame(
@@ -204,7 +204,7 @@ class EventTest extends TestCase
     /**
      * @test
      * @covers ::__toString
-     * @uses \Foundry\Masonry\Core\Task\History\Event::startEvent
+     * @uses \Foundry\Masonry\Core\Task\History\Event::__construct
      * @uses \Foundry\Masonry\Core\Task\History\Event::endEvent
      * @uses \Foundry\Masonry\Core\Task\History\Event::getStartTime
      * @uses \Foundry\Masonry\Core\Task\History\Event::getEndTime
@@ -216,7 +216,7 @@ class EventTest extends TestCase
      */
     public function testToString()
     {
-        $event = Event::startEvent();
+        $event = new Event();
         $event->endEvent(
             new Result(Result::RESULT_SUCCEEDED),
             new Reason('Test Reason')
