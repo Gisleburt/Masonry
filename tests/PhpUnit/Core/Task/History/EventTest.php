@@ -13,6 +13,7 @@
 
 namespace Foundry\Masonry\Tests\PhpUnit\Core\Task\History;
 
+use Foundry\Masonry\Core\Task\History\Event;
 use Foundry\Masonry\Core\Task\History\Reason;
 use Foundry\Masonry\Core\Task\History\Result;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
@@ -38,7 +39,8 @@ class EventTest extends TestCase
     {
         $event = Event::startEvent();
 
-        $this->assertTrue(
+        $this->assertGreaterThan(
+            0,
             $event->getStartTime()
         );
 
@@ -46,7 +48,8 @@ class EventTest extends TestCase
             is_float($event->getStartTime())
         );
 
-        $this->assertFalse(
+        $this->assertEquals(
+            0,
             $event->getEndTime()
         );
     }
@@ -68,16 +71,18 @@ class EventTest extends TestCase
             is_float($event1->getStartTime())
         );
 
-        $this->assertTrue(
-            $event1->getStartTime() > 0
+        $this->assertGreaterThan(
+            0,
+            $event1->getStartTime()
         );
 
         $this->assertTrue(
             is_float($event1->getEndTime())
         );
 
-        $this->assertTrue(
-            $event1->getEndTime() > 0
+        $this->assertGreaterThan(
+            0,
+            $event1->getEndTime()
         );
     }
 
@@ -93,15 +98,12 @@ class EventTest extends TestCase
         $event = Event::startEvent();
 
         $this->assertTrue(
-            $event->getStartTime()
-        );
-
-        $this->assertTrue(
             is_float($event->getStartTime())
         );
 
-        $this->assertTrue(
-            $event->getStartTime() > 0
+        $this->assertGreaterThan(
+            0,
+            $event->getStartTime()
         );
     }
 
@@ -119,7 +121,8 @@ class EventTest extends TestCase
     {
         $event = Event::startEvent();
 
-        $this->assertFalse(
+        $this->assertEquals(
+            0,
             $event->getEndTime()
         );
 
@@ -127,7 +130,8 @@ class EventTest extends TestCase
             new Result(Result::RESULT_SUCCEEDED)
         );
 
-        $this->assertTrue(
+        $this->assertGreaterThan(
+            0,
             $event->getEndTime()
         );
 
@@ -159,7 +163,7 @@ class EventTest extends TestCase
 
         $this->assertSame(
             Result::RESULT_FAILED,
-            $event->getResult()
+            (string)$event->getResult()
         );
     }
 
@@ -213,7 +217,7 @@ class EventTest extends TestCase
         );
 
         $this->assertRegExp(
-            '/\[\d + \d+]\['.Result::RESULT_SUCCEEDED.'\] Test Reason',
+            '/\[[\d\.]+ - [\d\.]+\]\['.Result::RESULT_SUCCEEDED.'\] Test Reason/',
             (string)$event
         );
 
