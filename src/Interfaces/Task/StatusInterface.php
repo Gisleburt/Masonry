@@ -31,7 +31,7 @@ interface StatusInterface
      * Must be 'new', 'in progress', 'complete', or 'deferred'.
      * @param $status
      */
-    public function __construct($status);
+    public function __construct($status = null);
 
     /**
      * Returns 'new', 'in progress', 'complete', or 'deferred'.
