@@ -15,6 +15,7 @@ namespace Foundry\Masonry\Interfaces;
 
 use Foundry\Masonry\Interfaces\Task\DescriptionInterface;
 use Foundry\Masonry\Interfaces\Task\History\ReasonInterface;
+use Foundry\Masonry\Interfaces\Task\History\ResultInterface;
 
 interface TaskInterface
 {
@@ -52,10 +53,11 @@ interface TaskInterface
 
     /**
      * Complete the task
+     * @param ResultInterface $result
      * @param ReasonInterface $reason
      * @return $this
      */
-    public function complete(ReasonInterface $reason);
+    public function complete(ResultInterface $result = null, ReasonInterface $reason = null);
 
     /**
      * Cancel the task (might be able to do it later)
