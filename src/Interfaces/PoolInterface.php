@@ -33,7 +33,7 @@ interface PoolInterface
 
     /**
      * Get the next task from the pool.
-     * @return TaskInterface
+     * @return TaskInterface|null
      */
     public function getTask();
 
