@@ -35,7 +35,7 @@ class HistoryTest extends TestCase
      */
     public function testAddEvent()
     {
-        $event = History\Event::startEvent();
+        $event = new History\Event();
         $history = new History();
         $history->addEvent($event);
 
@@ -56,7 +56,7 @@ class HistoryTest extends TestCase
      */
     public function testGetEvents()
     {
-        $event = History\Event::startEvent();
+        $event = new History\Event();
         $history = new History();
         $history->addEvent($event);
 
@@ -81,7 +81,7 @@ class HistoryTest extends TestCase
      */
     public function tetGetLastEvent()
     {
-        $event = History\Event::startEvent();
+        $event = new History\Event();
         $history = new History();
         $history->addEvent($event);
 

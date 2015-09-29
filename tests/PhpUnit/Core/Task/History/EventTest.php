@@ -61,14 +61,17 @@ class EventTest extends TestCase
      * @uses \Foundry\Masonry\Core\Task\History\Event::__construct
      * @uses \Foundry\Masonry\Core\Task\History\Event::getStartTime
      * @uses \Foundry\Masonry\Core\Task\History\Event::getEndTime
+     * @uses \Foundry\Masonry\Core\Task\History\Event::getResult
+     * @uses \Foundry\Masonry\Core\Task\History\Event::getReason
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @return void
      */
     public function testEndEvent()
     {
+        $result = new Result(Result::RESULT_SUCCEEDED);
         $event1 = new Event();
-        $event1->endEvent(new Result(Result::RESULT_SUCCEEDED));
+        $event1->endEvent($result);
 
         $this->assertTrue(
             is_float($event1->getStartTime())
@@ -86,6 +89,21 @@ class EventTest extends TestCase
         $this->assertGreaterThan(
             0,
             $event1->getEndTime()
+        );
+
+        $result = new Result(Result::RESULT_FAILED);
+        $reason = new Reason('Test Reason');
+        $event2 = new Event();
+        $event2->endEvent($result, $reason);
+
+        $this->assertSame(
+            $result,
+            $event2->getResult()
+        );
+
+        $this->assertSame(
+            $reason,
+            $event2->getReason()
         );
     }
 
