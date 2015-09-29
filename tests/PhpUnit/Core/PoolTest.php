@@ -13,10 +13,10 @@
 
 namespace Foundry\Masonry\Tests\PhpUnit\Core;
 
-
 use Foundry\Masonry\Core\Pool;
 use Foundry\Masonry\Core\Task;
 use Foundry\Masonry\Interfaces\Pool\StatusInterface;
+use Foundry\Masonry\Interfaces\Task\DescriptionInterface;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
 
 /**
@@ -33,7 +33,7 @@ class PoolTest extends TestCase
      */
     protected function getTask()
     {
-        /** @var \Foundry\Masonry\Interfaces\Task\DescriptionInterface|\PHPUnit_Framework_MockObject_MockObject $description */
+        /** @var DescriptionInterface|\PHPUnit_Framework_MockObject_MockObject $description */
         $description = $this->getMockBuilder('\Foundry\Masonry\Interfaces\Task\DescriptionInterface')
                             ->disableOriginalConstructor()
                             ->getMock();
@@ -137,5 +137,4 @@ class PoolTest extends TestCase
             $pool->getTask()
         );
     }
-
 }

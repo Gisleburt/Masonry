@@ -4,8 +4,8 @@
  * PHP version 5.4
  * 2015-09-04
  *
- * @package   Masonry
- * @category
+ * @package   Foundry\Masonry
+ * @category  Core
  * @author    Daniel Mason <daniel.mason@thefoundry.co.uk>
  * @copyright 2015 The Foundry Visionmongers
  */
@@ -44,7 +44,8 @@ class Event implements EventInterface
      */
     private $reason;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->startTime = microtime(true);
         $this->endTime = 0.0;
         $this->result = new Result();
@@ -61,7 +62,7 @@ class Event implements EventInterface
     {
         $this->endTime = microtime(true);
         $this->result = $result;
-        if($reason) {
+        if ($reason) {
             $this->reason = $reason;
         }
         return $this;
@@ -114,5 +115,4 @@ class Event implements EventInterface
     {
         return "[{$this->getStartTime()} - {$this->getEndTime()}][{$this->getResult()}] {$this->getReason()}";
     }
-
 }

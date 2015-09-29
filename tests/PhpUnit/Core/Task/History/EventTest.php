@@ -5,7 +5,7 @@
  * 2015-09-25
  *
  * @package   Foundry\Masonry
- * @category
+ * @category  Tests
  * @author    Daniel Mason <daniel.mason@thefoundry.co.uk>
  * @copyright 2015 The Foundry Visionmongers
  */
@@ -246,5 +246,4 @@ class EventTest extends TestCase
         );
 
     }
-
 }

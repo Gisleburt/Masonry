@@ -4,8 +4,8 @@
  * PHP version 5.4
  * 2015-09-04
  *
- * @package   Masonry
- * @category
+ * @package   Foundry\Masonry
+ * @category  Core
  * @author    Daniel Mason <daniel.mason@thefoundry.co.uk>
  * @copyright 2015 The Foundry Visionmongers
  */
@@ -59,13 +59,13 @@ class Task implements TaskInterface
      */
     public function getStatus()
     {
-        if(!$this->getHistory()->getEvents()) {
+        if (!$this->getHistory()->getEvents()) {
             return new Status(Status::STATUS_NEW);
         }
-        if(!$this->getHistory()->getLastEvent()->getEndTime()) {
+        if (!$this->getHistory()->getLastEvent()->getEndTime()) {
             return new Status(Status::STATUS_IN_PROGRESS);
         }
-        if($this->getHistory()->getLastEvent()->getResult() == ResultInterface::RESULT_INCOMPLETE) {
+        if ($this->getHistory()->getLastEvent()->getResult() == ResultInterface::RESULT_INCOMPLETE) {
             return new Status(Status::STATUS_DEFERRED);
         }
         return new Status(Status::STATUS_COMPLETE);
@@ -77,7 +77,7 @@ class Task implements TaskInterface
      */
     public function getHistory()
     {
-        if(!$this->history) {
+        if (!$this->history) {
             $this->history = new History();
         }
         return $this->history;
@@ -103,7 +103,7 @@ class Task implements TaskInterface
      */
     public function complete(ResultInterface $result = null, ReasonInterface $reason = null)
     {
-        if(!$result) {
+        if (!$result) {
             $result = new History\Result(History\Result::RESULT_SUCCEEDED);
         }
         $this->getHistory()->getLastEvent()->endEvent($result, $reason);

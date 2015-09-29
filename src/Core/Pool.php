@@ -5,14 +5,13 @@
  * 2015-09-29
  *
  * @package   Foundry\Masonry
- * @category
+ * @category  Core
  * @author    Daniel Mason <daniel.mason@thefoundry.co.uk>
  * @copyright 2015 The Foundry Visionmongers
  */
 
 
 namespace Foundry\Masonry\Core;
-
 
 use Foundry\Masonry\Core\Pool\Status;
 use Foundry\Masonry\Interfaces\PoolInterface;
@@ -39,7 +38,7 @@ class Pool implements PoolInterface
      */
     public function addTask(TaskInterface $task)
     {
-        if($task->getStatus() != TaskStatus::STATUS_COMPLETE) {
+        if ($task->getStatus() != TaskStatus::STATUS_COMPLETE) {
             $this->tasks[] = $task;
         }
         return $this;
@@ -51,7 +50,7 @@ class Pool implements PoolInterface
      */
     public function getTask()
     {
-        if($this->tasks) {
+        if ($this->tasks) {
             return array_shift($this->tasks);
         }
         return null;
@@ -66,7 +65,7 @@ class Pool implements PoolInterface
      */
     public function getStatus()
     {
-        if($this->tasks) {
+        if ($this->tasks) {
             return new Status(Status::STATUS_PENDING);
         }
         return new Status(Status::STATUS_EMPTY);

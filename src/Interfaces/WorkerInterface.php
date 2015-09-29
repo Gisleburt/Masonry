@@ -1,11 +1,11 @@
 <?php
 /**
- * Worke.php
+ * Worker.php
  * PHP version 5.4
  * 2015-09-04
  *
- * @package   Masonry
- * @category
+ * @package   Foundry\Masonry
+ * @category  Interfaces
  * @author    Daniel Mason <daniel.mason@thefoundry.co.uk>
  * @copyright 2015 The Foundry Visionmongers
  */

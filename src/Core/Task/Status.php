@@ -4,8 +4,8 @@
  * PHP version 5.4
  * 2015-09-04
  *
- * @package   Masonry
- * @category
+ * @package   Foundry\Masonry
+ * @category  Core
  * @author    Daniel Mason <daniel.mason@thefoundry.co.uk>
  * @copyright 2015 The Foundry Visionmongers
  */
@@ -42,7 +42,7 @@ class Status implements StatusInterface
             static::STATUS_COMPLETE,
             static::STATUS_DEFERRED,
         ];
-        if(!in_array($status, $acceptableStatuses)) {
+        if (!in_array($status, $acceptableStatuses)) {
             throw new InvalidTaskStatus();
         }
         $this->status = $status;
