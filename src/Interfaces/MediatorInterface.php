@@ -29,7 +29,7 @@ interface MediatorInterface
      * Process a given task, returning the promise from the worker that took it. If no appropriate
      * task is found, an Exception will be thrown instead.
      * @param TaskInterface $task
-     * @throws \Exception
+     * @throws \OutOfBoundsException
      * @return Promise
      */
     public function process(TaskInterface $task);
