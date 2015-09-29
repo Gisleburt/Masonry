@@ -11,8 +11,7 @@
   "authors" : [
     {
       "name" : "Daniel Mason",
-      "email" : "daniel@danielmason.com",
-      "homepage" : "http://danielmason.com",
+      "email" : "daniel.mason@thefoundry.co.uk",
       "role" : "Lead developer"
     }
   ],
@@ -27,6 +26,7 @@
     }
   },
   "require" : {
+    "php": ">=5.4.0",
     "psr/log" : "^1.0",
     "react/promise": "^2.2"
   },
