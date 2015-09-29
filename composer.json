@@ -1,7 +1,7 @@
 {
   "name" : "foundry/masonry",
   "type" : "library",
-  "description" : "A micro framework for building single use or continuous running asynchronous task runners",
+  "description" : "A micro framework for building single use or continuous asynchronous task runners",
   "keywords" : [
     "task",
     "framework"
