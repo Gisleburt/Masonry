@@ -73,6 +73,10 @@ class PoolTest extends TestCase
     {
         $pool = new Pool();
 
+        $this->assertNull(
+            $pool->getTask()
+        );
+
         $task1 = $this->getTask();
         $task2 = $this->getTask();
         $pool->addTask($task1);
