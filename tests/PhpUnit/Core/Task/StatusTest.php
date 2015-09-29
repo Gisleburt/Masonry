@@ -1,6 +1,6 @@
 <?php
 /**
- * StatusInterface.php
+ * StatusTest.php
  * PHP version 5.4
  * 2015-09-04
  *
@@ -15,7 +15,6 @@ namespace Foundry\Masonry\Tests\PhpUnit\Task;
 
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
 use Foundry\Masonry\Core\Task\Status;
-use Foundry\Masonry\Core\Exception\InvalidTaskStatus;
 
 /**
  * Class StatusTest

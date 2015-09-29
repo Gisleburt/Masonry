@@ -13,13 +13,17 @@
 
 namespace Foundry\Masonry\Core;
 
-
 use Foundry\Masonry\Core\Exception\NoWorkerFound;
 use Foundry\Masonry\Interfaces\MediatorInterface;
 use Foundry\Masonry\Interfaces\WorkerInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
 use React\Promise\Promise;
 
+/**
+ * Class Mediator
+ * Mediates between tasks and workers (i.e. finds the right worker for a given task)
+ * @package Foundry\Masonry
+ */
 class Mediator implements MediatorInterface
 {
 
@@ -48,9 +52,9 @@ class Mediator implements MediatorInterface
      */
     public function process(TaskInterface $task)
     {
-        foreach($this->workers as $worker) {
-            foreach($worker->getDescriptionTypes() as $descriptionType) {
-                if($task->getDescription() instanceof $descriptionType) {
+        foreach ($this->workers as $worker) {
+            foreach ($worker->getDescriptionTypes() as $descriptionType) {
+                if ($task->getDescription() instanceof $descriptionType) {
                     return $worker->process($task);
                 }
             }

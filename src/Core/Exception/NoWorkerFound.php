@@ -13,7 +13,7 @@
 namespace Foundry\Masonry\Core\Exception;
 
 /**
- * Class InvalidResult
+ * Class NoWorkerFound
  *
  * @package Foundry\Masonry
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * PoolTes.php
+ * PoolTest.php
  * PHP version 5.4
  * 2015-09-29
  *
@@ -44,6 +44,7 @@ class PoolTest extends TestCase
      * @test
      * @covers ::addTask
      * @uses \Foundry\Masonry\Core\Pool::getTask
+     * @uses \Foundry\Masonry\Core\Pool::getStatus
      * @uses \Foundry\Masonry\Core\Task
      * @uses \Foundry\Masonry\Core\Task\History
      * @uses \Foundry\Masonry\Core\Task\Status

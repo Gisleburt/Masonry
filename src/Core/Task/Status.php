@@ -1,6 +1,6 @@
 <?php
 /**
- * StatusInterface.php
+ * Status.php
  * PHP version 5.4
  * 2015-09-04
  *
@@ -17,7 +17,7 @@ use Foundry\Masonry\Core\Exception\InvalidTaskStatus;
 use Foundry\Masonry\Interfaces\Task\StatusInterface;
 
 /**
- * Interface StatusInterface
+ * Class Status
  * Represents the current status of a Task
  * @package Foundry\Masonry
  */

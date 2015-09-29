@@ -1,6 +1,6 @@
 <?php
 /**
- * StatusInterface.php
+ * Status.php
  * PHP version 5.4
  * 2015-09-04
  *
@@ -17,7 +17,7 @@ use Foundry\Masonry\Core\Exception\InvalidPoolStatus;
 use Foundry\Masonry\Interfaces\Pool\StatusInterface;
 
 /**
- * StatusInterface
+ * Class Status
  * Represents the current status of a Pool
  * @package Foundry\Masonry
  */

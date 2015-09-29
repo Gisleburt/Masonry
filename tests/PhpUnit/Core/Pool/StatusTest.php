@@ -1,6 +1,6 @@
 <?php
 /**
- * Status.php
+ * StatusTest.php
  * PHP version 5.4
  * 2015-09-24
  *
@@ -17,7 +17,7 @@ use Foundry\Masonry\Tests\PhpUnit\TestCase;
 use Foundry\Masonry\Core\Pool\Status;
 
 /**
- * Class Status
+ * Class StatusTest
  *
  * @package Foundry\Masonry
  * @coversDefaultClass \Foundry\Masonry\Core\Pool\Status

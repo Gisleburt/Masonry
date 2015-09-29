@@ -13,10 +13,8 @@
 
 namespace Foundry\Masonry\Tests\PhpUnit\Core;
 
-
 use Foundry\Masonry\Core\Mediator;
 use Foundry\Masonry\Core\Task;
-use Foundry\Masonry\Core\Exception\NoWorkerFound;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
 use Foundry\Masonry\Interfaces\WorkerInterface;
 use Foundry\Masonry\Interfaces\Task\DescriptionInterface;
@@ -81,7 +79,10 @@ class MediatorTest extends TestCase
      */
     public function testProcess()
     {
-        $promise = new Promise(function () { return true; });
+        $promise = new Promise(function () {
+            return true;
+
+        });
 
         $description = $this->getMockDescription();
 
@@ -144,5 +145,4 @@ class MediatorTest extends TestCase
         $mediator->addWorker($worker);
         $mediator->process($task);
     }
-
 }

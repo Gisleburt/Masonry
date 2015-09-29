@@ -1,6 +1,6 @@
 <?php
 /**
- * StatusInterface.php
+ * History.php
  * PHP version 5.4
  * 2015-09-04
  *
@@ -16,8 +16,8 @@ namespace Foundry\Masonry\Interfaces\Task;
 use Foundry\Masonry\Interfaces\Task\History\EventInterface;
 
 /**
- * Interface StatusInterface
- * Represents the current status of a Pool
+ * Interface HistoryInterface
+ * Represents the history of a task
  * @package Foundry\Masonry
  */
 interface HistoryInterface

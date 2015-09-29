@@ -1,6 +1,6 @@
 <?php
 /**
- * Result.php
+ * ResultTest.php
  * PHP version 5.4
  * 2015-09-24
  *
@@ -17,7 +17,7 @@ use Foundry\Masonry\Tests\PhpUnit\TestCase;
 use Foundry\Masonry\Core\Task\History\Result;
 
 /**
- * Class Result
+ * Class ResultTest
  *
  * @package Foundry\Masonry
  * @coversDefaultClass \Foundry\Masonry\Core\Task\History\Result

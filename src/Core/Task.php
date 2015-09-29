@@ -1,6 +1,6 @@
 <?php
 /**
- * TaskInterfaceInterface.php
+ * Task.php
  * PHP version 5.4
  * 2015-09-04
  *
@@ -22,6 +22,11 @@ use Foundry\Masonry\Interfaces\Task\StatusInterface;
 use Foundry\Masonry\Interfaces\Task\History\ReasonInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
 
+/**
+ * Class Task
+ *
+ * @package Foundry\Masonry
+ */
 class Task implements TaskInterface
 {
     /**
