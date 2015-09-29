@@ -176,7 +176,10 @@ class TaskTest extends TestCase
             (string)$task->getStatus()
         );
 
-        $task->start();
+        $this->assertSame(
+            $task,
+            $task->start()
+        );
 
         $this->assertCount(
             1,
@@ -215,7 +218,10 @@ class TaskTest extends TestCase
             $task->getHistory()->getEvents()
         );
 
-        $task->complete();
+        $this->assertSame(
+            $task,
+            $task->complete()
+        );
 
         $this->assertCount(
             1,
@@ -254,7 +260,10 @@ class TaskTest extends TestCase
             $task->getHistory()->getEvents()
         );
 
-        $task->cancel();
+        $this->assertSame(
+            $task,
+            $task->cancel()
+        );
 
         $this->assertCount(
             1,

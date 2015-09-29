@@ -92,6 +92,7 @@ class Task implements TaskInterface
         $this->getHistory()->addEvent(
             new History\Event()
         );
+        return $this;
     }
 
     /**
@@ -120,5 +121,6 @@ class Task implements TaskInterface
             new History\Result(History\Result::RESULT_INCOMPLETE),
             $reason
         );
+        return $this;
     }
 }
