@@ -30,7 +30,7 @@ class Mediator implements MediatorInterface
     /**
      * @var WorkerInterface[]
      */
-    private $workers = [];
+    protected $workers = [];
 
     /**
      * Inform the Mediator about a Worker
