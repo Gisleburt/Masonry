@@ -50,7 +50,7 @@ class WorkerModuleTest extends TestCase
      */
     public function testConstructSingleWorker()
     {
-        $worker = $this->getMockForAbstractClass(WorkerInterface::class);
+        $worker = $this->getMockForAbstractClass('Foundry\Masonry\Interfaces\WorkerInterface');
         $workers = [
             $worker,
         ];
@@ -71,8 +71,8 @@ class WorkerModuleTest extends TestCase
      */
     public function testConstructMultiWorker()
     {
-        $worker1 = $this->getMockForAbstractClass(WorkerInterface::class);
-        $worker2 = $this->getMockForAbstractClass(WorkerInterface::class);
+        $worker1 = $this->getMockForAbstractClass('Foundry\Masonry\Interfaces\WorkerInterface');
+        $worker2 = $this->getMockForAbstractClass('Foundry\Masonry\Interfaces\WorkerInterface');
         $workers = [
             $worker1,
             $worker2,
@@ -125,11 +125,10 @@ class WorkerModuleTest extends TestCase
     }
 
 
-
     /**
      * @test
      * @covers ::getDescriptionTypes
-     * @uses Foundry\Masonry\Core\WorkerModule::__construct
+     * @uses   Foundry\Masonry\Core\WorkerModule::__construct
      * @covers Foundry\Masonry\Core\Mediator::addWorker
      */
     public function testGetDescriptionTypesWorkers()
@@ -138,14 +137,14 @@ class WorkerModuleTest extends TestCase
         $description2 = 'Description Two';
         $description3 = 'Description Three';
 
-        $worker1 = $this->getMockForAbstractClass(WorkerInterface::class);
+        $worker1 = $this->getMockForAbstractClass('Foundry\Masonry\Interfaces\WorkerInterface');
         $worker1
             ->expects($this->once())
             ->method('getDescriptionTypes')
             ->with()
             ->will($this->returnValue([$description1, $description2]));
 
-        $worker2 = $this->getMockForAbstractClass(WorkerInterface::class);
+        $worker2 = $this->getMockForAbstractClass('Foundry\Masonry\Interfaces\WorkerInterface');
         $worker2
             ->expects($this->once())
             ->method('getDescriptionTypes')
