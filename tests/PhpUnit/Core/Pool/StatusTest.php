@@ -53,7 +53,7 @@ class StatusTest extends TestCase
      */
     public function testConstructException()
     {
-        $status = new Status('not a valid status');
+        new Status('not a valid status');
     }
 
     /**
