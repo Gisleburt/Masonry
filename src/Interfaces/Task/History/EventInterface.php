@@ -36,14 +36,14 @@ interface EventInterface
 
     /**
      * The time at which the task was started.
-     * This must return a microtime as a float.
+     * This must return a time seconds as a float.
      * @return float
      */
     public function getStartTime();
 
     /**
      * The time at which the task ended.
-     * This must return a microtime as a float.
+     * This must return a time in seconds as a float.
      * @return float
      */
     public function getEndTime();
