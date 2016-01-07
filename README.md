@@ -273,3 +273,19 @@ The mediator is responsible for taking a task and passing it to the correct work
 ## Promise
 
 Workers return React Promises. See the documentation here: https://github.com/reactphp/promise
+
+## Worker Modules
+
+You can create a module of workers for Masonry using the WorkerModule class. It is a cross between a Worker and a 
+Mediator mediating between it's internal workers, but exposing itself to other mediators as a worker.
+
+```
+╭─────────────────────────────────────╮
+│ (i) WorkerModule : Mediator, Worker │
+├─────────────────────────────────────┤
+│            __construct([<Worker>])  │
+│ <Mediator> addWorker(<Worker>)      │
+│ <Promise>  process(<Task>)          │
+│ <string[]> getDescriptionTypes()    │
+╰─────────────────────────────────────╯
+```

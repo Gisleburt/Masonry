@@ -64,7 +64,7 @@ class ResultTest extends TestCase
      */
     public function testConstructException()
     {
-        $result = new Result('not a valid Result');
+        new Result('not a valid Result');
     }
 
     /**

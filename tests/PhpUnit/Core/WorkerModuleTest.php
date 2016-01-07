@@ -11,7 +11,6 @@
 namespace Foundry\Masonry\Tests\PhpUnit\Core;
 
 use Foundry\Masonry\Core\WorkerModule;
-use Foundry\Masonry\Interfaces\WorkerInterface;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
 
 
