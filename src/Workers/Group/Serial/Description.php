@@ -18,7 +18,7 @@ use Foundry\Masonry\Workers\Group\AbstractGroupDescription;
  * @package Masonry
  * @see     https://github.com/Visionmongers/
  */
-class DescriptionAbstract extends AbstractGroupDescription
+class Description extends AbstractGroupDescription
 {
 
 }
