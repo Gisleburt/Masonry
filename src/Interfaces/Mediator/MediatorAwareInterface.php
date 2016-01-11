@@ -8,7 +8,9 @@
  */
 
 
-namespace Foundry\Masonry\Interfaces;
+namespace Foundry\Masonry\Interfaces\Mediator;
+
+use Foundry\Masonry\Interfaces\MediatorInterface;
 
 /**
  * Interface MediatorAwareInterface
