@@ -11,6 +11,7 @@
 namespace Foundry\Masonry\Tests\PhpUnit\Core;
 
 use Foundry\Masonry\Core\AbstractWorker;
+use Foundry\Masonry\Core\Coroutine;
 use Foundry\Masonry\Interfaces\TaskInterface;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
 
@@ -22,6 +23,85 @@ use Foundry\Masonry\Tests\PhpUnit\TestCase;
  */
 class AbstractWorkerTest extends TestCase
 {
+
+    /**
+     * @test
+     * @covers ::process
+     * @uses \Foundry\Masonry\Core\AbstractWorker::isTaskDescriptionValid
+     * @uses \React\Promise\Deferred
+     * @uses \Foundry\Masonry\Core\Coroutine
+     */
+    public function testProcessSuccess()
+    {
+        /** @var TaskInterface|\PHPUnit_Framework_MockObject_MockObject $task */
+        $task = $this->getMockForAbstractClass(TaskInterface::class);
+
+        /** @var AbstractWorker|\PHPUnit_Framework_MockObject_MockObject $abstractWorker */
+        $abstractWorker =
+            $this
+                ->getMockBuilder(AbstractWorker::class)
+                ->setMethods(['isTaskDescriptionValid', 'processDeferred'])
+                ->getMockForAbstractClass();
+        $abstractWorker
+            ->expects($this->once())
+            ->method('isTaskDescriptionValid')
+            ->with($task)
+            ->will($this->returnValue(true));
+        $abstractWorker
+            ->expects($this->once())
+            ->method('processDeferred')
+            ->will($this->returnCallback(function () {
+                yield;
+            }));
+
+        $coroutine = $abstractWorker->process($task);
+
+        $this->assertInstanceOf(
+            Coroutine::class,
+            $coroutine
+        );
+
+        $this->assertTrue(
+            $coroutine->isValid()
+        );
+    }
+
+    /**
+     * @test
+     * @covers ::process
+     * @uses \Foundry\Masonry\Core\AbstractWorker::isTaskDescriptionValid
+     * @uses \React\Promise\Deferred
+     * @uses \Foundry\Masonry\Core\Coroutine
+     */
+    public function testProcessFailure()
+    {
+        /** @var TaskInterface|\PHPUnit_Framework_MockObject_MockObject $task */
+        $task = $this->getMockForAbstractClass(TaskInterface::class);
+
+        /** @var AbstractWorker|\PHPUnit_Framework_MockObject_MockObject $abstractWorker */
+        $abstractWorker =
+            $this
+                ->getMockBuilder(AbstractWorker::class)
+                ->setMethods(['isTaskDescriptionValid'])
+                ->getMockForAbstractClass();
+        $abstractWorker
+            ->expects($this->once())
+            ->method('isTaskDescriptionValid')
+            ->with($task)
+            ->will($this->returnValue(false));
+
+        $coroutine = $abstractWorker->process($task);
+
+        $this->assertInstanceOf(
+            Coroutine::class,
+            $coroutine
+        );
+
+        $this->assertFalse(
+            $coroutine->isValid()
+        );
+    }
+
 
     /**
      * @test
