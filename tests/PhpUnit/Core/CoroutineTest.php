@@ -15,7 +15,6 @@ use Foundry\Masonry\Core\Coroutine;
 use React\Promise\Deferred;
 use React\Promise\Promise;
 
-
 /**
  * Class CoroutineTest
  * @package Masonry
@@ -31,7 +30,9 @@ class CoroutineTest extends TestCase
      */
     public function testConstruct()
     {
-        $generatorGenerator = function() { yield ; };
+        $generatorGenerator = function () {
+            yield;
+        };
         /** @var \Generator $generator */
         $generator = $generatorGenerator();
         /** @var Deferred|\PHPUnit_Framework_MockObject_MockObject $deferred */
@@ -59,7 +60,9 @@ class CoroutineTest extends TestCase
     public function testTick()
     {
         $testValue = 'testValue';
-        $generatorGenerator = function() use ($testValue) { yield $testValue; };
+        $generatorGenerator = function () use ($testValue) {
+            yield $testValue;
+        };
         /** @var \Generator $generator */
         $generator = $generatorGenerator();
         /** @var Deferred|\PHPUnit_Framework_MockObject_MockObject $deferred */
@@ -128,7 +131,9 @@ class CoroutineTest extends TestCase
      */
     public function testIsValidTrue()
     {
-        $generatorGenerator = function() { yield ; };
+        $generatorGenerator = function () {
+            yield;
+        };
         /** @var \Generator $generator */
         $generator = $generatorGenerator();
         /** @var Deferred|\PHPUnit_Framework_MockObject_MockObject $deferred */
@@ -148,7 +153,9 @@ class CoroutineTest extends TestCase
      */
     public function testIsValidFinished()
     {
-        $generatorGenerator = function() { yield ; };
+        $generatorGenerator = function () {
+            yield;
+        };
         /** @var \Generator $generator */
         $generator = $generatorGenerator();
         $generator->next();
@@ -178,5 +185,4 @@ class CoroutineTest extends TestCase
             $coroutine->isValid()
         );
     }
-
 }

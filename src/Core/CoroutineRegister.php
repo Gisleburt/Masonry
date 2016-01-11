@@ -5,7 +5,7 @@
  * @author    Daniel Mason <daniel.mason@thefoundry.co.uk>
  * @copyright 2015 The Foundry Visionmongers
  * @license
- * @see       https://github.com/Visionmongers/Masonry-Builder
+ * @see       https://github.com/Visionmongers/Masonry
  */
 
 
@@ -17,8 +17,8 @@ use Foundry\Masonry\Interfaces\CoroutineRegisterInterface;
 /**
  * Class CoroutineRegister
  *
- * @package Masonry-Builder
- * @see     https://github.com/Visionmongers/Masonry-Builder
+ * @package Masonry
+ * @see     https://github.com/Visionmongers/Masonry
  */
 class CoroutineRegister implements CoroutineRegisterInterface
 {
@@ -39,11 +39,11 @@ class CoroutineRegister implements CoroutineRegisterInterface
      */
     public function __construct($sleepTime = 100)
     {
-        if(!is_int($sleepTime)) {
+        if (!is_int($sleepTime)) {
             throw new \InvalidArgumentException('$sleepTime must be an integer');
         }
         $this->sleepTime = $sleepTime;
-    }   
+    }
 
 
     /**

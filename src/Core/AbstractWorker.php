@@ -14,8 +14,8 @@ use Foundry\Masonry\Interfaces\CoroutineInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
 use Foundry\Masonry\Interfaces\WorkerInterface;
 use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
 use React\Promise\Deferred;
-
 
 /**
  * Class AbstractWorker
@@ -77,9 +77,12 @@ abstract class AbstractWorker implements WorkerInterface
         return false;
     }
 
+    /**
+     * Get the logger to be used for reporting
+     * @return LoggerInterface
+     */
     protected function getLogger()
     {
         return $this->logger;
     }
-
 }

@@ -15,7 +15,6 @@ use Foundry\Masonry\Interfaces\CoroutineInterface;
 use React\Promise\Deferred;
 use React\Promise\Promise;
 
-
 /**
  * Class Coroutine
  *
@@ -54,7 +53,7 @@ class Coroutine implements CoroutineInterface
      */
     public function tick()
     {
-        if(!$this->isValid()) {
+        if (!$this->isValid()) {
             throw new InvalidCoroutine();
         }
         $returnValue = $this->generator->current();
@@ -80,5 +79,4 @@ class Coroutine implements CoroutineInterface
     {
         return $this->generator && $this->generator->valid();
     }
-
 }

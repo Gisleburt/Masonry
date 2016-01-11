@@ -12,7 +12,6 @@ namespace Foundry\Masonry\Core;
 
 use Foundry\Masonry\Interfaces\Task\DescriptionInterface;
 
-
 /**
  * Class AbstractDescription
  *
@@ -75,5 +74,4 @@ abstract class AbstractDescription implements DescriptionInterface
     {
         return strtolower(preg_replace('/[\W_]/', '', $string));
     }
-
 }

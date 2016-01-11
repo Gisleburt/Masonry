@@ -14,7 +14,6 @@ use Foundry\Masonry\Core\AbstractWorker;
 use Foundry\Masonry\Interfaces\TaskInterface;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
 
-
 /**
  * Class AbstractWorkerTest
  * @package Masonry
@@ -107,5 +106,4 @@ class AbstractWorkerTest extends TestCase
             $isTaskDescriptionValid($task)
         );
     }
-
 }

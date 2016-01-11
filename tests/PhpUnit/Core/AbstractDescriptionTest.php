@@ -12,7 +12,6 @@ namespace Foundry\Masonry\Tests\PhpUnit\Core;
 
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
 
-
 /**
  * Class AbstractDescriptionTest
  * @package Masonry
@@ -22,6 +21,9 @@ use Foundry\Masonry\Tests\PhpUnit\TestCase;
 abstract class AbstractDescriptionTest extends TestCase
 {
 
+    /**
+     * This method needs to be overwritten for all descriptions
+     * @return void
+     */
     abstract public function testCreateFromParameters();
-
 }

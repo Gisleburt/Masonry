@@ -4,7 +4,7 @@
  * @author    Daniel Mason <daniel.mason@thefoundry.co.uk>
  * @copyright 2015 The Foundry Visionmongers
  * @license
- * @see       https://github.com/TheFoundryVisionmongers/Masonry-Builder
+ * @see       https://github.com/TheFoundryVisionmongers/Masonry
  */
 
 
@@ -15,8 +15,8 @@ use Foundry\Masonry\Interfaces\NotificationInterface;
 /**
  * Class Notification
  *
- * @package Masonry-Builder
- * @see       https://github.com/TheFoundryVisionmongers/Masonry-Builder
+ * @package Masonry
+ * @see       https://github.com/TheFoundryVisionmongers/Masonry
  */
 class Notification implements NotificationInterface
 {
