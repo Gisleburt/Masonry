@@ -25,6 +25,7 @@ interface StatusInterface
     const STATUS_IN_PROGRESS = 'in progress';
     const STATUS_COMPLETE    = 'complete';
     const STATUS_DEFERRED    = 'deferred';
+    const STATUS_FAILED      = 'failed';
 
     /**
      * StatusInterface constructor.
