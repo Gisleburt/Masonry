@@ -29,7 +29,7 @@ abstract class AbstractGroupDescriptionTest extends TestCase
     /**
      * @var string
      */
-    abstract protected function getGroupDescriptionClass();
+    abstract protected function getClassName();
 
     /**
      * @test
@@ -38,7 +38,7 @@ abstract class AbstractGroupDescriptionTest extends TestCase
     public function testConstruct()
     {
         $pool = $this->getMockForAbstractClass(PoolInterface::class);
-        $class = $this->getGroupDescriptionClass();
+        $class = $this->getClassName();
         /** @var AbstractGroupDescription $groupDescription */
         $groupDescription = new $class($pool);
 
@@ -65,7 +65,7 @@ abstract class AbstractGroupDescriptionTest extends TestCase
             ->with($task)
             ->will($this->returnValue($pool));
 
-        $class = $this->getGroupDescriptionClass();
+        $class = $this->getClassName();
         /** @var AbstractGroupDescription $groupDescription */
         $groupDescription = new $class($pool);
 
@@ -92,7 +92,7 @@ abstract class AbstractGroupDescriptionTest extends TestCase
             ->with()
             ->will($this->returnValue($task));
 
-        $class = $this->getGroupDescriptionClass();
+        $class = $this->getClassName();
         /** @var AbstractGroupDescription $groupDescription */
         $groupDescription = new $class($pool);
 
@@ -119,7 +119,7 @@ abstract class AbstractGroupDescriptionTest extends TestCase
             ->with()
             ->will($this->returnValue($poolStatus));
 
-        $class = $this->getGroupDescriptionClass();
+        $class = $this->getClassName();
         /** @var AbstractGroupDescription $groupDescription */
         $groupDescription = new $class($pool);
 
