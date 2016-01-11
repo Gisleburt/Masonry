@@ -10,8 +10,11 @@
 
 namespace Foundry\Masonry\Core;
 
+use Foundry\Masonry\Interfaces\CoroutineInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
 use Foundry\Masonry\Interfaces\WorkerInterface;
+use Psr\Log\LoggerAwareTrait;
+use React\Promise\Deferred;
 
 
 /**
@@ -22,6 +25,42 @@ use Foundry\Masonry\Interfaces\WorkerInterface;
  */
 abstract class AbstractWorker implements WorkerInterface
 {
+
+    use LoggerAwareTrait;
+
+    /**
+     * Where the actual work is done
+     * @param Deferred $deferred
+     * @param TaskInterface $task
+     * @return \Generator
+     */
+    abstract protected function processDeferred(Deferred $deferred, TaskInterface $task);
+
+    /**
+     * Set the task the worker needs to complete.
+     * Returns a promise that can be used for asynchronous monitoring of progress.
+     * @param TaskInterface $task
+     * @return CoroutineInterface
+     */
+    public function process(TaskInterface $task)
+    {
+        $deferred = new Deferred();
+
+        if (!$this->isTaskDescriptionValid($task)) {
+            $deferred->reject('Invalid Task Description');
+
+            // An invalid coroutine
+            return new Coroutine(
+                $deferred,
+                null
+            );
+        }
+
+        return new Coroutine(
+            $deferred,
+            $this->processDeferred($deferred, $task)
+        );
+    }
 
     /**
      * Check if the worker can process the task
@@ -36,6 +75,11 @@ abstract class AbstractWorker implements WorkerInterface
             }
         }
         return false;
+    }
+
+    protected function getLogger()
+    {
+        return $this->logger;
     }
 
 }

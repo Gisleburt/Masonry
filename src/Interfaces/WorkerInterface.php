@@ -13,8 +13,6 @@
 
 namespace Foundry\Masonry\Interfaces;
 
-use React\Promise\Promise;
-
 /**
  * Interface WorkerInterface
  *
@@ -27,7 +25,7 @@ interface WorkerInterface
      * Set the task the worker needs to complete.
      * Returns a promise that can be used for asynchronous monitoring of progress.
      * @param TaskInterface $task
-     * @return Promise
+     * @return CoroutineInterface
      */
     public function process(TaskInterface $task);
 
