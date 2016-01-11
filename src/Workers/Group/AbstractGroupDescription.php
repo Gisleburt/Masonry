@@ -44,7 +44,8 @@ abstract class AbstractGroupDescription extends AbstractDescription implements P
      */
     public function addTask(TaskInterface $task)
     {
-        return $this->pool->addTask($task);
+        $this->pool->addTask($task);
+        return $this;
     }
 
     /**
