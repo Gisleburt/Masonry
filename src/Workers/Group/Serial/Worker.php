@@ -47,7 +47,7 @@ class Worker extends AbstractGroupWorker
 
             $success = true;
             while ($success && $description->getStatus() != StatusInterface::STATUS_EMPTY) {
-                $this->mediate($description->getTask(), $success);
+                $this->processTask($description->getTask(), $success);
 
                 // Block progress until the coroutine is finished
                 while ($coroutineRegister->isValid()) {

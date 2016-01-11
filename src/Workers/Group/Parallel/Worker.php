@@ -48,7 +48,7 @@ class Worker extends AbstractGroupWorker
 
             $success = true;
             while ($description->getStatus() != StatusInterface::STATUS_EMPTY) {
-                $this->mediate($description->getTask(), $success);
+                $this->processTask($description->getTask(), $success);
             }
 
             // Block until all tasks are complete
