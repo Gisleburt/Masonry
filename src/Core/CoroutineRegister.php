@@ -39,12 +39,11 @@ class CoroutineRegister implements CoroutineRegisterInterface
      */
     public function __construct($sleepTime = 100)
     {
-        if (!is_int($sleepTime)) {
-            throw new \InvalidArgumentException('$sleepTime must be an integer');
+        if (!is_int($sleepTime) || $sleepTime <= 0) {
+            throw new \InvalidArgumentException('$sleepTime must be an integer greater than 0');
         }
         $this->sleepTime = $sleepTime;
     }
-
 
     /**
      * Register a Coroutine
