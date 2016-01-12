@@ -14,6 +14,8 @@ use Foundry\Masonry\Core\Notification;
 use Foundry\Masonry\Core\Task\Status;
 use Foundry\Masonry\Interfaces\MediatorInterface;
 use Foundry\Masonry\Interfaces\NotificationInterface;
+use Foundry\Masonry\Interfaces\Task\History\ReasonInterface;
+use Foundry\Masonry\Interfaces\Task\History\ResultInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
 use Foundry\Masonry\Tests\PhpUnit\DeferredWrapper;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
@@ -37,12 +39,13 @@ abstract class AbstractGroupWorkerTest extends TestCase
      * @uses \Foundry\Masonry\Core\Mediator\MediatorAwareTrait
      * @uses \Foundry\Masonry\Core\Task\Status
      * @uses \Foundry\Masonry\Core\Notification
+     * @uses \Foundry\Masonry\Core\Task\History\Reason
+     * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
      */
     public function testProcessTaskThenString()
     {
-        /** @var Status|null $status */
-        $status = null;
+        $testMessage = 'Test string';
 
         $deferredWrapper = new DeferredWrapper();
 
@@ -51,6 +54,20 @@ abstract class AbstractGroupWorkerTest extends TestCase
 
         /** @var TaskInterface|\PHPUnit_Framework_MockObject_MockObject $task */
         $task = $this->getMockForAbstractClass(TaskInterface::class);
+        $task
+            ->expects($this->once())
+            ->method('complete')
+            ->with(
+                $this->logicalAnd(
+                    $this->isInstanceOf(ResultInterface::class),
+                    $this->equalTo(ResultInterface::RESULT_SUCCEEDED)
+                ),
+                $this->logicalAnd(
+                    $this->isInstanceOf(ReasonInterface::class),
+                    $this->equalTo($testMessage)
+                )
+            )
+            ->will($this->returnValue($task));
 
         /** @var MediatorInterface|\PHPUnit_Framework_MockObject_MockObject $mediator */
         $mediator = $this->getMockForAbstractClass(MediatorInterface::class);
@@ -69,32 +86,23 @@ abstract class AbstractGroupWorkerTest extends TestCase
 
         $processTask = $this->getObjectMethod($groupWorker, 'processTask');
 
-        $processTask($task, $status);
+        $processTask($task);
 
         // Tests
         $deferred = $deferredWrapper->getDeferred();
 
-        $test = 'Test string';
         $logger
             ->expects($this->once())
             ->method('info')
-            ->with($this->logicalAnd(
-                $this->isInstanceOf(NotificationInterface::class),
-                $this->equalTo($test),
-                $this->attributeEqualTo('priority', NotificationInterface::PRIORITY_NORMAL)
-            ))
+            ->with(
+                $this->logicalAnd(
+                    $this->isInstanceOf(NotificationInterface::class),
+                    $this->equalTo($testMessage),
+                    $this->attributeEqualTo('priority', NotificationInterface::PRIORITY_NORMAL)
+                )
+            )
             ->will($this->returnValue(null));
-        $deferred->resolve($test);
-
-//        $this->assertInstanceOf(
-//            Status::class,
-//            $status
-//        );
-//
-//        $this->assertSame(
-//            Status::STATUS_COMPLETE,
-//            (string)$status
-//        );
+        $deferred->resolve($testMessage);
 
     }
 
@@ -104,12 +112,13 @@ abstract class AbstractGroupWorkerTest extends TestCase
      * @uses \Foundry\Masonry\Core\Mediator\MediatorAwareTrait
      * @uses \Foundry\Masonry\Core\Task\Status
      * @uses \Foundry\Masonry\Core\Notification
+     * @uses \Foundry\Masonry\Core\Task\History\Reason
+     * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
      */
     public function testProcessTaskOtherwiseString()
     {
-        /** @var Status|null $status */
-        $status = null;
+        $testMessage = 'Test string';
 
         $deferredWrapper = new DeferredWrapper();
 
@@ -118,6 +127,20 @@ abstract class AbstractGroupWorkerTest extends TestCase
 
         /** @var TaskInterface|\PHPUnit_Framework_MockObject_MockObject $task */
         $task = $this->getMockForAbstractClass(TaskInterface::class);
+        $task
+            ->expects($this->once())
+            ->method('complete')
+            ->with(
+                $this->logicalAnd(
+                    $this->isInstanceOf(ResultInterface::class),
+                    $this->equalTo(ResultInterface::RESULT_FAILED)
+                ),
+                $this->logicalAnd(
+                    $this->isInstanceOf(ReasonInterface::class),
+                    $this->equalTo($testMessage)
+                )
+            )
+            ->will($this->returnValue($task));
 
         /** @var MediatorInterface|\PHPUnit_Framework_MockObject_MockObject $mediator */
         $mediator = $this->getMockForAbstractClass(MediatorInterface::class);
@@ -136,33 +159,21 @@ abstract class AbstractGroupWorkerTest extends TestCase
 
         $processTask = $this->getObjectMethod($groupWorker, 'processTask');
 
-        $processTask($task, $status);
+        $processTask($task);
 
         // Tests
         $deferred = $deferredWrapper->getDeferred();
 
-        $test = 'Test string';
         $logger
             ->expects($this->once())
             ->method('error')
             ->with($this->logicalAnd(
                 $this->isInstanceOf(NotificationInterface::class),
-                $this->equalTo($test),
+                $this->equalTo($testMessage),
                 $this->attributeEqualTo('priority', NotificationInterface::PRIORITY_HIGH)
             ))
             ->will($this->returnValue(null));
-        $deferred->reject($test);
-
-//        $this->assertInstanceOf(
-//            Status::class,
-//            $status
-//        );
-//
-//        $this->assertSame(
-//            Status::STATUS_COMPLETE,
-//            (string)$status
-//        );
-
+        $deferred->reject($testMessage);
     }
 
     /**
@@ -171,6 +182,8 @@ abstract class AbstractGroupWorkerTest extends TestCase
      * @uses \Foundry\Masonry\Core\Mediator\MediatorAwareTrait
      * @uses \Foundry\Masonry\Core\Task\Status
      * @uses \Foundry\Masonry\Core\Notification
+     * @uses \Foundry\Masonry\Core\Task\History\Reason
+     * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
      */
     public function testProcessTaskProgressString()
@@ -232,12 +245,23 @@ abstract class AbstractGroupWorkerTest extends TestCase
      * @uses \Foundry\Masonry\Core\Mediator\MediatorAwareTrait
      * @uses \Foundry\Masonry\Core\Task\Status
      * @uses \Foundry\Masonry\Core\Notification
+     * @uses \Foundry\Masonry\Core\Task\History\Reason
+     * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
      */
     public function testProcessTaskThenNotification()
     {
-        /** @var Status|null $status */
-        $status = null;
+        $testString = 'test string';
+        $testNotification =
+            $this
+                ->getMockBuilder(Notification::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+        $testNotification
+            ->expects($this->once())
+            ->method('__toString')
+            ->with()
+            ->will($this->returnValue($testString));
 
         $deferredWrapper = new DeferredWrapper();
 
@@ -246,6 +270,19 @@ abstract class AbstractGroupWorkerTest extends TestCase
 
         /** @var TaskInterface|\PHPUnit_Framework_MockObject_MockObject $task */
         $task = $this->getMockForAbstractClass(TaskInterface::class);
+        $task
+            ->expects($this->once())
+            ->method('complete')
+            ->with(
+                $this->logicalAnd(
+                    $this->isInstanceOf(ResultInterface::class),
+                    $this->equalTo(ResultInterface::RESULT_SUCCEEDED)
+                ),
+                $this->logicalAnd(
+                    $this->isInstanceOf(ReasonInterface::class)
+                )
+            )
+            ->will($this->returnValue($task));
 
         /** @var MediatorInterface|\PHPUnit_Framework_MockObject_MockObject $mediator */
         $mediator = $this->getMockForAbstractClass(MediatorInterface::class);
@@ -264,28 +301,18 @@ abstract class AbstractGroupWorkerTest extends TestCase
 
         $processTask = $this->getObjectMethod($groupWorker, 'processTask');
 
-        $processTask($task, $status);
+        $processTask($task);
 
         // Tests
         $deferred = $deferredWrapper->getDeferred();
 
-        $test = $this->getMockForAbstractClass(NotificationInterface::class);
         $logger
             ->expects($this->once())
             ->method('info')
-            ->with($test)
+            ->with($testNotification)
             ->will($this->returnValue(null));
-        $deferred->resolve($test);
 
-//        $this->assertInstanceOf(
-//            Status::class,
-//            $status
-//        );
-//
-//        $this->assertSame(
-//            Status::STATUS_COMPLETE,
-//            (string)$status
-//        );
+        $deferred->resolve($testNotification);
 
     }
 
@@ -295,12 +322,23 @@ abstract class AbstractGroupWorkerTest extends TestCase
      * @uses \Foundry\Masonry\Core\Mediator\MediatorAwareTrait
      * @uses \Foundry\Masonry\Core\Task\Status
      * @uses \Foundry\Masonry\Core\Notification
+     * @uses \Foundry\Masonry\Core\Task\History\Reason
+     * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
      */
     public function testProcessTaskOtherwiseNotification()
     {
-        /** @var Status|null $status */
-        $status = null;
+        $testString = 'test string';
+        $testNotification =
+            $this
+                ->getMockBuilder(Notification::class)
+                ->disableOriginalConstructor()
+                ->getMock();
+        $testNotification
+            ->expects($this->once())
+            ->method('__toString')
+            ->with()
+            ->will($this->returnValue($testString));
 
         $deferredWrapper = new DeferredWrapper();
 
@@ -309,6 +347,19 @@ abstract class AbstractGroupWorkerTest extends TestCase
 
         /** @var TaskInterface|\PHPUnit_Framework_MockObject_MockObject $task */
         $task = $this->getMockForAbstractClass(TaskInterface::class);
+        $task
+            ->expects($this->once())
+            ->method('complete')
+            ->with(
+                $this->logicalAnd(
+                    $this->isInstanceOf(ResultInterface::class),
+                    $this->equalTo(ResultInterface::RESULT_FAILED)
+                ),
+                $this->logicalAnd(
+                    $this->isInstanceOf(ReasonInterface::class)
+                )
+            )
+            ->will($this->returnValue($task));
 
         /** @var MediatorInterface|\PHPUnit_Framework_MockObject_MockObject $mediator */
         $mediator = $this->getMockForAbstractClass(MediatorInterface::class);
@@ -327,29 +378,17 @@ abstract class AbstractGroupWorkerTest extends TestCase
 
         $processTask = $this->getObjectMethod($groupWorker, 'processTask');
 
-        $processTask($task, $status);
+        $processTask($task);
 
         // Tests
         $deferred = $deferredWrapper->getDeferred();
 
-        $test = $this->getMockForAbstractClass(NotificationInterface::class);
         $logger
             ->expects($this->once())
             ->method('error')
-            ->with($test)
+            ->with($testNotification)
             ->will($this->returnValue(null));
-        $deferred->reject($test);
-
-//        $this->assertInstanceOf(
-//            Status::class,
-//            $status
-//        );
-//
-//        $this->assertSame(
-//            Status::STATUS_COMPLETE,
-//            (string)$status
-//        );
-
+        $deferred->reject($testNotification);
     }
 
     /**
@@ -358,12 +397,17 @@ abstract class AbstractGroupWorkerTest extends TestCase
      * @uses \Foundry\Masonry\Core\Mediator\MediatorAwareTrait
      * @uses \Foundry\Masonry\Core\Task\Status
      * @uses \Foundry\Masonry\Core\Notification
+     * @uses \Foundry\Masonry\Core\Task\History\Reason
+     * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
      */
     public function testProcessTaskProgressNotification()
     {
-        /** @var Status|null $status */
-        $status = null;
+        $testNotification =
+            $this
+                ->getMockBuilder(Notification::class)
+                ->disableOriginalConstructor()
+                ->getMock();
 
         $deferredWrapper = new DeferredWrapper();
 
@@ -390,22 +434,17 @@ abstract class AbstractGroupWorkerTest extends TestCase
 
         $processTask = $this->getObjectMethod($groupWorker, 'processTask');
 
-        $processTask($task, $status);
+        $processTask($task);
 
         // Tests
         $deferred = $deferredWrapper->getDeferred();
 
-        $test = $this->getMockForAbstractClass(NotificationInterface::class);
         $logger
             ->expects($this->once())
             ->method('notice')
-            ->with($test)
+            ->with($testNotification)
             ->will($this->returnValue(null));
-        $deferred->notify($test);
-
-        $this->assertNull(
-            $status
-        );
+        $deferred->notify($testNotification);
 
     }
 }
