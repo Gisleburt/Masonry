@@ -10,6 +10,7 @@
 
 namespace Foundry\Masonry\Tests\PhpUnit\Workers\Group;
 
+use Foundry\Masonry\Core\Coroutine;
 use Foundry\Masonry\Core\Notification;
 use Foundry\Masonry\Core\Task\Status;
 use Foundry\Masonry\Interfaces\MediatorInterface;
@@ -35,7 +36,8 @@ abstract class AbstractGroupWorkerTest extends TestCase
 
     /**
      * @test
-     * @covers ::processTask
+     * @covers ::processChildTask
+     * @uses \Foundry\Masonry\Core\Coroutine
      * @uses \Foundry\Masonry\Core\Mediator\MediatorAwareTrait
      * @uses \Foundry\Masonry\Core\Task\Status
      * @uses \Foundry\Masonry\Core\Notification
@@ -43,7 +45,7 @@ abstract class AbstractGroupWorkerTest extends TestCase
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
      */
-    public function testProcessTaskThenString()
+    public function testProcessChildTaskThenString()
     {
         $testMessage = 'Test string';
 
@@ -75,7 +77,10 @@ abstract class AbstractGroupWorkerTest extends TestCase
             ->expects($this->once())
             ->method('process')
             ->with($task)
-            ->will($this->returnValue($deferredWrapper->getDeferred()->promise()));
+            ->will($this->returnValue(new Coroutine(
+                $deferredWrapper->getDeferred(),
+                $deferredWrapper->getGenerator()
+            )));
 
         $class = $this->getClassName();
         /** @var AbstractGroupWorker $groupWorker */
@@ -84,9 +89,9 @@ abstract class AbstractGroupWorkerTest extends TestCase
             ->setMediator($mediator)
             ->setLogger($logger);
 
-        $processTask = $this->getObjectMethod($groupWorker, 'processTask');
+        $processChildTask = $this->getObjectMethod($groupWorker, 'processChildTask');
 
-        $processTask($task);
+        $processChildTask($task);
 
         // Tests
         $deferred = $deferredWrapper->getDeferred();
@@ -108,7 +113,8 @@ abstract class AbstractGroupWorkerTest extends TestCase
 
     /**
      * @test
-     * @covers ::processTask
+     * @covers ::processChildTask
+     * @uses \Foundry\Masonry\Core\Coroutine
      * @uses \Foundry\Masonry\Core\Mediator\MediatorAwareTrait
      * @uses \Foundry\Masonry\Core\Task\Status
      * @uses \Foundry\Masonry\Core\Notification
@@ -116,7 +122,7 @@ abstract class AbstractGroupWorkerTest extends TestCase
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
      */
-    public function testProcessTaskOtherwiseString()
+    public function testProcessChildTaskOtherwiseString()
     {
         $testMessage = 'Test string';
 
@@ -148,7 +154,10 @@ abstract class AbstractGroupWorkerTest extends TestCase
             ->expects($this->once())
             ->method('process')
             ->with($task)
-            ->will($this->returnValue($deferredWrapper->getDeferred()->promise()));
+            ->will($this->returnValue(new Coroutine(
+                $deferredWrapper->getDeferred(),
+                $deferredWrapper->getGenerator()
+            )));
 
         $class = $this->getClassName();
         /** @var AbstractGroupWorker $groupWorker */
@@ -157,9 +166,9 @@ abstract class AbstractGroupWorkerTest extends TestCase
             ->setMediator($mediator)
             ->setLogger($logger);
 
-        $processTask = $this->getObjectMethod($groupWorker, 'processTask');
+        $processChildTask = $this->getObjectMethod($groupWorker, 'processChildTask');
 
-        $processTask($task);
+        $processChildTask($task);
 
         // Tests
         $deferred = $deferredWrapper->getDeferred();
@@ -178,7 +187,8 @@ abstract class AbstractGroupWorkerTest extends TestCase
 
     /**
      * @test
-     * @covers ::processTask
+     * @covers ::processChildTask
+     * @uses \Foundry\Masonry\Core\Coroutine
      * @uses \Foundry\Masonry\Core\Mediator\MediatorAwareTrait
      * @uses \Foundry\Masonry\Core\Task\Status
      * @uses \Foundry\Masonry\Core\Notification
@@ -186,7 +196,7 @@ abstract class AbstractGroupWorkerTest extends TestCase
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
      */
-    public function testProcessTaskProgressString()
+    public function testProcessChildTaskProgressString()
     {
         /** @var Status|null $status */
         $status = null;
@@ -205,7 +215,10 @@ abstract class AbstractGroupWorkerTest extends TestCase
             ->expects($this->once())
             ->method('process')
             ->with($task)
-            ->will($this->returnValue($deferredWrapper->getDeferred()->promise()));
+            ->will($this->returnValue(new Coroutine(
+                $deferredWrapper->getDeferred(),
+                $deferredWrapper->getGenerator()
+            )));
 
         $class = $this->getClassName();
         /** @var AbstractGroupWorker $groupWorker */
@@ -214,9 +227,9 @@ abstract class AbstractGroupWorkerTest extends TestCase
             ->setMediator($mediator)
             ->setLogger($logger);
 
-        $processTask = $this->getObjectMethod($groupWorker, 'processTask');
+        $processChildTask = $this->getObjectMethod($groupWorker, 'processChildTask');
 
-        $processTask($task, $status);
+        $processChildTask($task, $status);
 
         // Tests
         $deferred = $deferredWrapper->getDeferred();
@@ -241,7 +254,8 @@ abstract class AbstractGroupWorkerTest extends TestCase
 
     /**
      * @test
-     * @covers ::processTask
+     * @covers ::processChildTask
+     * @uses \Foundry\Masonry\Core\Coroutine
      * @uses \Foundry\Masonry\Core\Mediator\MediatorAwareTrait
      * @uses \Foundry\Masonry\Core\Task\Status
      * @uses \Foundry\Masonry\Core\Notification
@@ -249,7 +263,7 @@ abstract class AbstractGroupWorkerTest extends TestCase
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
      */
-    public function testProcessTaskThenNotification()
+    public function testProcessChildTaskThenNotification()
     {
         $testString = 'test string';
         $testNotification =
@@ -290,7 +304,10 @@ abstract class AbstractGroupWorkerTest extends TestCase
             ->expects($this->once())
             ->method('process')
             ->with($task)
-            ->will($this->returnValue($deferredWrapper->getDeferred()->promise()));
+            ->will($this->returnValue(new Coroutine(
+                $deferredWrapper->getDeferred(),
+                $deferredWrapper->getGenerator()
+            )));
 
         $class = $this->getClassName();
         /** @var AbstractGroupWorker $groupWorker */
@@ -299,9 +316,9 @@ abstract class AbstractGroupWorkerTest extends TestCase
             ->setMediator($mediator)
             ->setLogger($logger);
 
-        $processTask = $this->getObjectMethod($groupWorker, 'processTask');
+        $processChildTask = $this->getObjectMethod($groupWorker, 'processChildTask');
 
-        $processTask($task);
+        $processChildTask($task);
 
         // Tests
         $deferred = $deferredWrapper->getDeferred();
@@ -318,7 +335,8 @@ abstract class AbstractGroupWorkerTest extends TestCase
 
     /**
      * @test
-     * @covers ::processTask
+     * @covers ::processChildTask
+     * @uses \Foundry\Masonry\Core\Coroutine
      * @uses \Foundry\Masonry\Core\Mediator\MediatorAwareTrait
      * @uses \Foundry\Masonry\Core\Task\Status
      * @uses \Foundry\Masonry\Core\Notification
@@ -326,7 +344,7 @@ abstract class AbstractGroupWorkerTest extends TestCase
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
      */
-    public function testProcessTaskOtherwiseNotification()
+    public function testProcessChildTaskOtherwiseNotification()
     {
         $testString = 'test string';
         $testNotification =
@@ -367,7 +385,10 @@ abstract class AbstractGroupWorkerTest extends TestCase
             ->expects($this->once())
             ->method('process')
             ->with($task)
-            ->will($this->returnValue($deferredWrapper->getDeferred()->promise()));
+            ->will($this->returnValue(new Coroutine(
+                $deferredWrapper->getDeferred(),
+                $deferredWrapper->getGenerator()
+            )));
 
         $class = $this->getClassName();
         /** @var AbstractGroupWorker $groupWorker */
@@ -376,9 +397,9 @@ abstract class AbstractGroupWorkerTest extends TestCase
             ->setMediator($mediator)
             ->setLogger($logger);
 
-        $processTask = $this->getObjectMethod($groupWorker, 'processTask');
+        $processChildTask = $this->getObjectMethod($groupWorker, 'processChildTask');
 
-        $processTask($task);
+        $processChildTask($task);
 
         // Tests
         $deferred = $deferredWrapper->getDeferred();
@@ -393,7 +414,8 @@ abstract class AbstractGroupWorkerTest extends TestCase
 
     /**
      * @test
-     * @covers ::processTask
+     * @covers ::processChildTask
+     * @uses \Foundry\Masonry\Core\Coroutine
      * @uses \Foundry\Masonry\Core\Mediator\MediatorAwareTrait
      * @uses \Foundry\Masonry\Core\Task\Status
      * @uses \Foundry\Masonry\Core\Notification
@@ -401,7 +423,7 @@ abstract class AbstractGroupWorkerTest extends TestCase
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
      */
-    public function testProcessTaskProgressNotification()
+    public function testProcessChildTaskProgressNotification()
     {
         $testNotification =
             $this
@@ -423,7 +445,10 @@ abstract class AbstractGroupWorkerTest extends TestCase
             ->expects($this->once())
             ->method('process')
             ->with($task)
-            ->will($this->returnValue($deferredWrapper->getDeferred()->promise()));
+            ->will($this->returnValue(new Coroutine(
+                $deferredWrapper->getDeferred(),
+                $deferredWrapper->getGenerator()
+            )));
 
         $class = $this->getClassName();
         /** @var AbstractGroupWorker $groupWorker */
@@ -432,9 +457,9 @@ abstract class AbstractGroupWorkerTest extends TestCase
             ->setMediator($mediator)
             ->setLogger($logger);
 
-        $processTask = $this->getObjectMethod($groupWorker, 'processTask');
+        $processChildTask = $this->getObjectMethod($groupWorker, 'processChildTask');
 
-        $processTask($task);
+        $processChildTask($task);
 
         // Tests
         $deferred = $deferredWrapper->getDeferred();
