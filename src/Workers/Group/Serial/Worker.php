@@ -13,7 +13,8 @@ namespace Foundry\Masonry\Workers\Group\Serial;
 
 use Foundry\Masonry\Core\CoroutineRegister;
 use Foundry\Masonry\Core\Notification;
-use Foundry\Masonry\Interfaces\Pool\StatusInterface;
+use Foundry\Masonry\Interfaces\Pool\StatusInterface as PoolStatusInterface;
+use Foundry\Masonry\Interfaces\Task\StatusInterface as TaskStatusInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
 use Foundry\Masonry\Workers\Group\AbstractGroupWorker;
 use React\Promise\Deferred;
@@ -37,36 +38,36 @@ class Worker extends AbstractGroupWorker
     {
         yield;
 
-        /** @var Description $description */
-        $description = $task->getDescription();
+        /** @var Description $pool */
+        $pool = $task->getDescription();
 
         try {
-            $deferred->notify(Notification::normal("Processing serial task group"));
+            $deferred->notify(Notification::normal('Processing serial task group'));
 
             $coroutineRegister = new CoroutineRegister();
 
-            $success = true;
-            while ($success && $description->getStatus() != StatusInterface::STATUS_EMPTY) {
-                $this->processTask($description->getTask(), $success);
+            while ($pool->getStatus() == PoolStatusInterface::STATUS_PENDING) {
+                $childTask = $pool->getTask();
+                $coroutine = $this->processChildTask($childTask);
+                $coroutineRegister->register($coroutine);
 
                 // Block progress until the coroutine is finished
                 while ($coroutineRegister->isValid()) {
                     $coroutineRegister->tick();
                     yield;
                 }
-
-            }
-
-            if ($success) {
-                $deferred->resolve("Serial tasks completed successfully");
-                return;
+                if ($childTask->getStatus() === TaskStatusInterface::STATUS_FAILED) {
+                    throw new \Exception('Task failed: '.get_class($childTask->getDescription()));
+                }
             }
 
         } catch (\Exception $e) {
-            $deferred->notify("Failed serial tasks with exception: ".$e->getMessage());
+            $deferred->notify("Failed serial tasks with exception: " . $e->getMessage());
+            $deferred->reject("Failed serial tasks");
+            return;
         }
 
-        $deferred->reject("Failed serial tasks");
+        $deferred->resolve("Serial tasks completed successfully");
     }
 
     /**
