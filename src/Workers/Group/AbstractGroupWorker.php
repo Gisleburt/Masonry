@@ -13,9 +13,12 @@ namespace Foundry\Masonry\Workers\Group;
 use Foundry\Masonry\Core\AbstractWorker;
 use Foundry\Masonry\Core\Mediator\MediatorAwareTrait;
 use Foundry\Masonry\Core\Notification;
+use Foundry\Masonry\Core\Task\History\Reason;
+use Foundry\Masonry\Core\Task\History\Result;
 use Foundry\Masonry\Core\Task\Status;
 use Foundry\Masonry\Interfaces\Mediator\MediatorAwareInterface;
 use Foundry\Masonry\Interfaces\NotificationInterface;
+use Foundry\Masonry\Interfaces\Task\History\ResultInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
 
 /**
@@ -36,41 +39,47 @@ abstract class AbstractGroupWorker extends AbstractWorker implements MediatorAwa
      */
     public function processTask(TaskInterface $task)
     {
-        $status = new Status(Status::STATUS_IN_PROGRESS);
+        $task->start();
         $mediator = $this->getMediator();
 
         $mediator
             ->process($task)
 
             // On success
-            ->then(function ($result) use (&$status) {
-                if (!$result instanceof NotificationInterface) {
+            ->then(function ($notification) use (&$task) {
+                if (!$notification instanceof NotificationInterface) {
                     // Success messages can be switched off with quiet
-                    $result = Notification::normal($result);
+                    $notification = Notification::normal($notification);
                 }
-                $status = new Status(Status::STATUS_COMPLETE);
-                $this->getLogger()->info($result);
+                $task->complete(
+                    new Result(ResultInterface::RESULT_SUCCEEDED),
+                    new Reason($notification)
+                );
+                $this->getLogger()->info($notification);
             })
 
             // On failure
-            ->otherwise(function ($result) use (&$status) {
-                if (!$result instanceof NotificationInterface) {
+            ->otherwise(function ($notification) use (&$task) {
+                if (!$notification instanceof NotificationInterface) {
                     // Failures should always show
-                    $result = Notification::high($result);
+                    $notification = Notification::high($notification);
                 }
-                $status = new Status(Status::STATUS_FAILED);
-                $this->getLogger()->error($result);
+                $task->complete(
+                    new Result(ResultInterface::RESULT_FAILED),
+                    new Reason($notification)
+                );
+                $this->getLogger()->error($notification);
             })
 
             // When something happens
-            ->progress(function ($result) {
-                if (!$result instanceof NotificationInterface) {
+            ->progress(function ($message) {
+                if (!$message instanceof NotificationInterface) {
                     // Only log progress when being verbose
-                    $result = Notification::info($result);
+                    $message = Notification::info($message);
                 }
-                $this->getLogger()->notice($result);
+                $this->getLogger()->notice($message);
             });
 
-        return $status;
+        return $this;
     }
 }
