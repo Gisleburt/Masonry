@@ -111,4 +111,15 @@ class DeferredWrapper
     {
         return $this->complete;
     }
+
+    /**
+     * @return \Generator
+     */
+    public function getGenerator()
+    {
+        $generatorGenerator = function () {
+            yield;
+        };
+        return $generatorGenerator();
+    }
 }
