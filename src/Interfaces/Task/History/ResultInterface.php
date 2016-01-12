@@ -30,7 +30,7 @@ interface ResultInterface
      * Should be instantiate with 'succeeded' of 'failed', otherwise it will be 'incomplete'
      * @param $result
      */
-    public function __construct($result = null);
+    public function __construct($result = self::RESULT_INCOMPLETE);
 
     /**
      * Will be Succeeded, Failed or Incomplete
