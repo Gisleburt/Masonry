@@ -11,6 +11,7 @@
 namespace Foundry\Masonry\Tests\PhpUnit\Workers\Group\Serial;
 
 use Foundry\Masonry\Tests\PhpUnit\Workers\Group\AbstractGroupWorkerTest;
+use Foundry\Masonry\Workers\Group\Serial\Description;
 use Foundry\Masonry\Workers\Group\Serial\Worker;
 
 /**
@@ -28,5 +29,24 @@ class WorkerTest extends AbstractGroupWorkerTest
     protected function getClassName()
     {
         return Worker::class;
+    }
+
+    /**
+     * @test
+     * @covers ::getDescriptionTypes
+     */
+    public function testGetDescriptionTypes()
+    {
+        $worker = new Worker();
+
+        $this->assertCount(
+            1,
+            $worker->getDescriptionTypes()
+        );
+
+        $this->assertContains(
+            Description::class,
+            $worker->getDescriptionTypes()
+        );
     }
 }
