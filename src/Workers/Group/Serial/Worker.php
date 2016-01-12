@@ -37,7 +37,7 @@ class Worker extends AbstractGroupWorker
     {
         yield;
 
-        /** @var DescriptionAbstract $description */
+        /** @var Description $description */
         $description = $task->getDescription();
 
         try {
@@ -78,7 +78,7 @@ class Worker extends AbstractGroupWorker
     public function getDescriptionTypes()
     {
         return [
-            DescriptionAbstract::class
+            Description::class
         ];
     }
 }

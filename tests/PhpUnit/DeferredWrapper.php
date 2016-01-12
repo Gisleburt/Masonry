@@ -111,5 +111,4 @@ class DeferredWrapper
     {
         return $this->complete;
     }
-
 }

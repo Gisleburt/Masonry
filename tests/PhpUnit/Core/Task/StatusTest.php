@@ -11,7 +11,7 @@
  */
 
 
-namespace Foundry\Masonry\Tests\PhpUnit\Task;
+namespace Foundry\Masonry\Tests\PhpUnit\Core\Task;
 
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
 use Foundry\Masonry\Core\Task\Status;
