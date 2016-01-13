@@ -62,17 +62,24 @@ class Worker extends AbstractGroupWorker
                 yield;
             }
 
+            // Check for any failures
+            $failedTasks = [];
             /** @var TaskInterface $childTask */
             foreach ($trackedTasks as $childTask) {
                 if ($childTask->getStatus() == TaskStatusInterface::STATUS_FAILED) {
-                    throw new \Exception('Task failed: '.get_class($childTask->getDescription()));
+                    $failedTasks[] = get_class($childTask->getDescription());
                 }
             }
+            if ($failedTasks) {
+                throw new \Exception('Failed tasks: ' . PHP_EOL . implode(PHP_EOL, $failedTasks));
+            }
+
+            // Everything ok?
             $deferred->resolve("Parallel tasks completed successfully");
             return;
 
         } catch (\Exception $e) {
-            $deferred->notify("Failed parallel tasks with exception: ".$e->getMessage());
+            $deferred->notify("Failed parallel tasks with exception: " . $e->getMessage());
         }
         $deferred->reject("Failed parallel tasks");
     }
