@@ -60,14 +60,14 @@ class Worker extends AbstractGroupWorker
                     throw new \Exception('Task failed: '.get_class($childTask->getDescription()));
                 }
             }
+            $deferred->resolve("Serial tasks completed successfully");
+            return;
 
         } catch (\Exception $e) {
             $deferred->notify("Failed serial tasks with exception: " . $e->getMessage());
-            $deferred->reject("Failed serial tasks");
-            return;
         }
+        $deferred->reject("Failed serial tasks");
 
-        $deferred->resolve("Serial tasks completed successfully");
     }
 
     /**
