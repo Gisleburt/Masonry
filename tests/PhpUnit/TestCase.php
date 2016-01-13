@@ -70,7 +70,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return TaskInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @return CoroutineInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected function getMockCoroutine()
     {
