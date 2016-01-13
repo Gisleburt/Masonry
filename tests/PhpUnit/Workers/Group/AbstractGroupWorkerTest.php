@@ -18,8 +18,8 @@ use Foundry\Masonry\Interfaces\NotificationInterface;
 use Foundry\Masonry\Interfaces\Task\History\ReasonInterface;
 use Foundry\Masonry\Interfaces\Task\History\ResultInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
+use Foundry\Masonry\Tests\PhpUnit\Core\AbstractWorkerTest;
 use Foundry\Masonry\Tests\PhpUnit\DeferredWrapper;
-use Foundry\Masonry\Tests\PhpUnit\TestCase;
 use Foundry\Masonry\Workers\Group\AbstractGroupWorker;
 use Psr\Log\LoggerInterface;
 
@@ -29,10 +29,22 @@ use Psr\Log\LoggerInterface;
  * @package Masonry
  * @see       https://github.com/TheFoundryVisionmongers/Masonry
  */
-abstract class AbstractGroupWorkerTest extends TestCase
+abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
 {
 
+    /**
+     * @return string
+     */
     abstract protected function getClassName();
+
+    /**
+     * @return AbstractGroupWorker
+     */
+    protected function getWorker()
+    {
+        $class = $this->getClassName();
+        return new $class();
+    }
 
     /**
      * @test

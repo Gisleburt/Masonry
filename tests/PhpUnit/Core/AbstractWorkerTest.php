@@ -13,7 +13,9 @@ namespace Foundry\Masonry\Tests\PhpUnit\Core;
 use Foundry\Masonry\Core\AbstractWorker;
 use Foundry\Masonry\Core\Coroutine;
 use Foundry\Masonry\Interfaces\TaskInterface;
+use Foundry\Masonry\Interfaces\WorkerInterface;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class AbstractWorkerTest
@@ -21,8 +23,13 @@ use Foundry\Masonry\Tests\PhpUnit\TestCase;
  * @see     https://github.com/TheFoundryVisionmongers/Masonry
  * @coversDefaultClass \Foundry\Masonry\Core\AbstractWorker
  */
-class AbstractWorkerTest extends TestCase
+abstract class AbstractWorkerTest extends TestCase
 {
+
+    /**
+     * @return AbstractWorker
+     */
+    abstract protected function getWorker();
 
     /**
      * @test
@@ -184,6 +191,36 @@ class AbstractWorkerTest extends TestCase
 
         $this->assertFalse(
             $isTaskDescriptionValid($task)
+        );
+    }
+
+    /**
+     * @test
+     * @covers ::getLogger
+     */
+    public function testGetLogger()
+    {
+
+        /** @var LoggerInterface|\PHPUnit_Framework_MockObject_MockObject $logger */
+        $logger = $this
+            ->getMockBuilder(LoggerInterface::class)
+            ->setMethods([])
+            ->getMock();
+
+
+        $abstractWorker = $this->getWorker();
+
+        $getLogger = $this->getObjectMethod($abstractWorker, 'getLogger');
+
+        $this->assertNull(
+            $getLogger()
+        );
+
+        $abstractWorker->setLogger($logger);
+
+        $this->assertSame(
+            $logger,
+            $getLogger()
         );
     }
 }
