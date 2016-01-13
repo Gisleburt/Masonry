@@ -56,7 +56,7 @@ class Worker extends AbstractGroupWorker
                     $coroutineRegister->tick();
                     yield;
                 }
-                if ($childTask->getStatus() === TaskStatusInterface::STATUS_FAILED) {
+                if ($childTask->getStatus() == TaskStatusInterface::STATUS_FAILED) {
                     throw new \Exception('Task failed: '.get_class($childTask->getDescription()));
                 }
             }
