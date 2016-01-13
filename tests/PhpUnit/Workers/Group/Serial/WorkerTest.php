@@ -166,16 +166,18 @@ class WorkerTest extends AbstractGroupWorkerTest
     {
         $deferredWrapper = new DeferredWrapper();
 
-        $getTask = function () {
-            $task = $this->getMockTask();
-            $task
-                ->expects($this->once())
-                ->method('getStatus')
-                ->will($this->returnValue(new TaskStatus(TaskStatus::STATUS_FAILED)));
-            return $task;
-        };
 
-        $childTask1 = $getTask();
+        $childTask1 = $this->getMockTask();
+        $childTask1
+            ->expects($this->once())
+            ->method('getStatus')
+            ->will($this->returnValue(
+                new TaskStatus(TaskStatus::STATUS_FAILED)
+            ));
+        $childTask2 = $this->getMockTask();
+        $childTask2
+            ->expects($this->never())
+            ->method('getStatus');
 
         $getCoroutine = function () {
             $coroutine = $this->getMockCoroutine();
@@ -191,26 +193,30 @@ class WorkerTest extends AbstractGroupWorkerTest
             ->method('isValid')
             ->will($this->onConsecutiveCalls(true, true, false));
 
+        $coroutine2 = $getCoroutine();
+        $coroutine2
+            ->expects($this->never())
+            ->method('isValid');
+
         $poolDescription =
             $this
                 ->getMockBuilder(Description::class)
                 ->disableOriginalConstructor()
                 ->getMock();
         $poolDescription
-            ->expects($this->exactly(3))
+            ->expects($this->once())
             ->method('getStatus')
             ->with()
-            ->will($this->onConsecutiveCalls(
-                new PoolStatus(PoolStatus::STATUS_PENDING),
-                new PoolStatus(PoolStatus::STATUS_PENDING),
-                new PoolStatus(PoolStatus::STATUS_EMPTY)
+            ->will($this->returnValue(
+                new PoolStatus(PoolStatus::STATUS_PENDING)
             ));
         $poolDescription
             ->expects($this->once())
             ->method('getTask')
             ->with()
-            ->will($this->returnValue(
-                $childTask1
+            ->will($this->onConsecutiveCalls(
+                $childTask1,
+                $childTask2 // This should never happen
             ));
 
         $task = $this->getMockTask();
@@ -232,6 +238,7 @@ class WorkerTest extends AbstractGroupWorkerTest
             ->method('processChildTask')
             ->will($this->returnValueMap([
                 [$childTask1, $coroutine1],
+                [$childTask2, $coroutine2],
             ]));
 
         $processDeferred = $this->getObjectMethod($worker, 'processDeferred');
@@ -251,8 +258,8 @@ class WorkerTest extends AbstractGroupWorkerTest
         $generator->next();
         $generator->next();
 
-        $this->assertEquals(
-            'Failed serial tasks with exception: Task failed: ',
+        $this->assertRegExp(
+            '/Failed serial tasks with exception: Task failed: .*/',
             $deferredWrapper->getNotificationOutput()
         );
         $this->assertEquals(
