@@ -13,6 +13,7 @@ namespace Foundry\Masonry\Tests\PhpUnit\Workers\Group\Serial;
 use Foundry\Masonry\Core\Pool\Status as PoolStatus;
 use Foundry\Masonry\Core\Task\Status as TaskStatus;
 use Foundry\Masonry\Core\Task;
+use Foundry\Masonry\Interfaces\CoroutineInterface;
 use Foundry\Masonry\Tests\PhpUnit\DeferredWrapper;
 use Foundry\Masonry\Tests\PhpUnit\Workers\Group\AbstractGroupWorkerTest;
 use Foundry\Masonry\Workers\Group\Serial\Description;
@@ -155,6 +156,7 @@ class WorkerTest extends AbstractGroupWorkerTest
     }
 
     /**
+     * Note: This test additionally tests the serial nature of the worker because $task2 should never run.
      * @test
      * @covers ::processDeferred
      * @uses \Foundry\Masonry\Core\CoroutineRegister
@@ -187,12 +189,15 @@ class WorkerTest extends AbstractGroupWorkerTest
                 ->will($this->returnValue($coroutine));
             return $coroutine;
         };
+
+        /** @var CoroutineInterface|\PHPUnit_Framework_MockObject_MockObject $coroutine1 */
         $coroutine1 = $getCoroutine();
         $coroutine1
             ->expects($this->exactly(3))
             ->method('isValid')
             ->will($this->onConsecutiveCalls(true, true, false));
 
+        /** @var CoroutineInterface|\PHPUnit_Framework_MockObject_MockObject $coroutine2 */
         $coroutine2 = $getCoroutine();
         $coroutine2
             ->expects($this->never())
