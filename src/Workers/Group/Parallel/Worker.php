@@ -13,7 +13,8 @@ namespace Foundry\Masonry\Workers\Group\Parallel;
 
 use Foundry\Masonry\Core\CoroutineRegister;
 use Foundry\Masonry\Core\Notification;
-use Foundry\Masonry\Interfaces\Pool\StatusInterface;
+use Foundry\Masonry\Interfaces\Pool\StatusInterface as PoolStatusInterface;
+use Foundry\Masonry\Interfaces\Task\StatusInterface as TaskStatusInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
 use Foundry\Masonry\Workers\Group\AbstractGroupWorker;
 use React\Promise\Deferred;
@@ -38,17 +39,21 @@ class Worker extends AbstractGroupWorker
     {
         yield;
 
-        /** @var Description $description */
-        $description = $task->getDescription();
+        /** @var Description $pool */
+        $pool = $task->getDescription();
 
         try {
             $deferred->notify(Notification::normal("Processing parallel task group"));
 
             $coroutineRegister = new CoroutineRegister();
 
-            $success = true;
-            while ($description->getStatus() != StatusInterface::STATUS_EMPTY) {
-                $this->processChildTask($description->getTask(), $success);
+            /** @var TaskInterface $trackedTasks */
+            $trackedTasks = []; // Used to keep track of tasks
+            while ($pool->getStatus() == PoolStatusInterface::STATUS_PENDING) {
+                $childTask = $pool->getTask();
+                $trackedTasks[] = $childTask;
+                $coroutine = $this->processChildTask($childTask);
+                $coroutineRegister->register($coroutine);
             }
 
             // Block until all tasks are complete
@@ -57,10 +62,14 @@ class Worker extends AbstractGroupWorker
                 yield;
             }
 
-            if ($success) {
-                $deferred->resolve("Parallel tasks completed successfully");
-                return;
+            /** @var TaskInterface $childTask */
+            foreach ($trackedTasks as $childTask) {
+                if ($childTask->getStatus() == TaskStatusInterface::STATUS_FAILED) {
+                    throw new \Exception('Task failed: '.get_class($childTask->getDescription()));
+                }
             }
+            $deferred->resolve("Parallel tasks completed successfully");
+            return;
 
         } catch (\Exception $e) {
             $deferred->notify("Failed parallel tasks with exception: ".$e->getMessage());
