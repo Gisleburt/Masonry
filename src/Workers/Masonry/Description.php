@@ -1,25 +1,26 @@
 <?php
 /**
- * Config.php
+ * Description.php
  * @author    Daniel Mason <daniel.mason@thefoundry.co.uk>
  * @copyright 2015 The Foundry Visionmongers
  * @license
  * @see       https://github.com/TheFoundryVisionmongers/Masonry
  */
 
-namespace Foundry\Masonry\Core;
+namespace Foundry\Masonry\Workers\Masonry;
 
+use Foundry\Masonry\Core\AbstractDescription;
 use Foundry\Masonry\Interfaces\ConfigInterface;
 use Foundry\Masonry\Interfaces\PoolInterface;
 use Foundry\Masonry\Interfaces\WorkerModuleInterface;
 
 /**
- * Class Config
+ * Configuring Masonry
  * ${CARET}
  * @package Masonry
  * @see     https://github.com/TheFoundryVisionmongers/Masonry
  */
-class Config extends AbstractDescription implements ConfigInterface
+class Description extends AbstractDescription implements ConfigInterface
 {
 
     /**
