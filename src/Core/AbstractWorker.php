@@ -10,7 +10,7 @@
 
 namespace Foundry\Masonry\Core;
 
-use Foundry\Masonry\Core\Logger\HasLogger;
+use Foundry\Masonry\Core\Injection\HasLogger;
 use Foundry\Masonry\Interfaces\CoroutineInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
 use Foundry\Masonry\Interfaces\WorkerInterface;

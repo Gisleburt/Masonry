@@ -7,10 +7,11 @@
  * @see       https://github.com/TheFoundryVisionmongers/Masonry
  */
 
-namespace Foundry\Masonry\Core\Logger;
+namespace Foundry\Masonry\Core\Injection;
 
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Trait HasLogger
@@ -29,6 +30,9 @@ trait HasLogger
      */
     protected function getLogger()
     {
+        if (!$this->logger) {
+            $this->logger = new NullLogger();
+        }
         return $this->logger;
     }
 }
