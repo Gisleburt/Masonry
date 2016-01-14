@@ -129,4 +129,31 @@ abstract class AbstractGroupDescriptionTest extends AbstractDescriptionTest
             $groupDescription->getStatus()
         );
     }
+
+    /**
+     * @test
+     * @covers ::createFromParameters
+     * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::__construct
+     * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::flattenKeys
+     * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::flatten
+     */
+    public function testCreateFromParameters()
+    {
+        $class = $this->getTestSubjectClassName();
+
+        $pool = $this->getMockForAbstractClass(PoolInterface::class);
+
+        $parameters = [
+            'pool' => $pool
+        ];
+
+        /** @var AbstractGroupDescription $description */
+        $description = $class::createFromParameters($parameters);
+
+        $this->assertSame(
+            $pool,
+            $this->getObjectAttribute($description, 'pool')
+        );
+    }
+
 }
