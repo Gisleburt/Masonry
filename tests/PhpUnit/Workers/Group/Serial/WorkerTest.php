@@ -31,7 +31,7 @@ class WorkerTest extends AbstractGroupWorkerTest
     /**
      * @return string
      */
-    protected function getClassName()
+    protected function getTestSubjectClassName()
     {
         return Worker::class;
     }

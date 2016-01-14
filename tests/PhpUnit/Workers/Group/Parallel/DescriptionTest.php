@@ -25,7 +25,7 @@ class DescriptionTest extends AbstractGroupDescriptionTest
     /**
      * @return string
      */
-    protected function getClassName()
+    protected function getTestSubjectClassName()
     {
         return Description::class;
     }

@@ -35,14 +35,14 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
     /**
      * @return string
      */
-    abstract protected function getClassName();
+    abstract protected function getTestSubjectClassName();
 
     /**
      * @return AbstractGroupWorker
      */
-    protected function getWorker()
+    protected function getTestSubject()
     {
-        $class = $this->getClassName();
+        $class = $this->getTestSubjectClassName();
         return new $class();
     }
 
@@ -94,7 +94,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
                 $deferredWrapper->getGenerator()
             )));
 
-        $class = $this->getClassName();
+        $class = $this->getTestSubjectClassName();
         /** @var AbstractGroupWorker $groupWorker */
         $groupWorker = new $class();
         $groupWorker
@@ -171,7 +171,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
                 $deferredWrapper->getGenerator()
             )));
 
-        $class = $this->getClassName();
+        $class = $this->getTestSubjectClassName();
         /** @var AbstractGroupWorker $groupWorker */
         $groupWorker = new $class();
         $groupWorker
@@ -232,7 +232,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
                 $deferredWrapper->getGenerator()
             )));
 
-        $class = $this->getClassName();
+        $class = $this->getTestSubjectClassName();
         /** @var AbstractGroupWorker $groupWorker */
         $groupWorker = new $class();
         $groupWorker
@@ -321,7 +321,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
                 $deferredWrapper->getGenerator()
             )));
 
-        $class = $this->getClassName();
+        $class = $this->getTestSubjectClassName();
         /** @var AbstractGroupWorker $groupWorker */
         $groupWorker = new $class();
         $groupWorker
@@ -402,7 +402,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
                 $deferredWrapper->getGenerator()
             )));
 
-        $class = $this->getClassName();
+        $class = $this->getTestSubjectClassName();
         /** @var AbstractGroupWorker $groupWorker */
         $groupWorker = new $class();
         $groupWorker
@@ -462,7 +462,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
                 $deferredWrapper->getGenerator()
             )));
 
-        $class = $this->getClassName();
+        $class = $this->getTestSubjectClassName();
         /** @var AbstractGroupWorker $groupWorker */
         $groupWorker = new $class();
         $groupWorker

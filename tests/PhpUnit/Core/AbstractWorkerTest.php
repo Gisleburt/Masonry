@@ -29,7 +29,7 @@ abstract class AbstractWorkerTest extends TestCase
     /**
      * @return AbstractWorker
      */
-    abstract protected function getWorker();
+    abstract protected function getTestSubject();
 
     /**
      * @test
@@ -208,7 +208,7 @@ abstract class AbstractWorkerTest extends TestCase
             ->getMock();
 
 
-        $abstractWorker = $this->getWorker();
+        $abstractWorker = $this->getTestSubject();
 
         $getLogger = $this->getObjectMethod($abstractWorker, 'getLogger');
 

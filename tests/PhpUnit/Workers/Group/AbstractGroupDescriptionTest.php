@@ -14,6 +14,7 @@ namespace Foundry\Masonry\Tests\PhpUnit\Workers\Group;
 use Foundry\Masonry\Interfaces\Pool\StatusInterface;
 use Foundry\Masonry\Interfaces\PoolInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
+use Foundry\Masonry\Tests\PhpUnit\Core\AbstractDescriptionTest;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
 use Foundry\Masonry\Workers\Group\AbstractGroupDescription;
 
@@ -24,12 +25,12 @@ use Foundry\Masonry\Workers\Group\AbstractGroupDescription;
  * @see     https://github.com/Visionmongers/
  * @coversDefaultClass \Foundry\Masonry\Workers\Group\AbstractGroupDescription
  */
-abstract class AbstractGroupDescriptionTest extends TestCase
+abstract class AbstractGroupDescriptionTest extends AbstractDescriptionTest
 {
     /**
      * @var string
      */
-    abstract protected function getClassName();
+    abstract protected function getTestSubjectClassName();
 
     /**
      * @test
@@ -38,7 +39,7 @@ abstract class AbstractGroupDescriptionTest extends TestCase
     public function testConstruct()
     {
         $pool = $this->getMockForAbstractClass(PoolInterface::class);
-        $class = $this->getClassName();
+        $class = $this->getTestSubjectClassName();
         /** @var AbstractGroupDescription $groupDescription */
         $groupDescription = new $class($pool);
 
@@ -65,7 +66,7 @@ abstract class AbstractGroupDescriptionTest extends TestCase
             ->with($task)
             ->will($this->returnValue($pool));
 
-        $class = $this->getClassName();
+        $class = $this->getTestSubjectClassName();
         /** @var AbstractGroupDescription $groupDescription */
         $groupDescription = new $class($pool);
 
@@ -92,7 +93,7 @@ abstract class AbstractGroupDescriptionTest extends TestCase
             ->with()
             ->will($this->returnValue($task));
 
-        $class = $this->getClassName();
+        $class = $this->getTestSubjectClassName();
         /** @var AbstractGroupDescription $groupDescription */
         $groupDescription = new $class($pool);
 
@@ -119,7 +120,7 @@ abstract class AbstractGroupDescriptionTest extends TestCase
             ->with()
             ->will($this->returnValue($poolStatus));
 
-        $class = $this->getClassName();
+        $class = $this->getTestSubjectClassName();
         /** @var AbstractGroupDescription $groupDescription */
         $groupDescription = new $class($pool);
 
