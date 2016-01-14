@@ -13,6 +13,9 @@
 
 namespace Foundry\Masonry\Tests\PhpUnit;
 
+use Foundry\Masonry\Interfaces\CoroutineInterface;
+use Foundry\Masonry\Interfaces\TaskInterface;
+
 /**
  * Class TestCase
  *
@@ -51,5 +54,31 @@ class TestCase extends \PHPUnit_Framework_TestCase
         $property = $objectReflection->getProperty($attributeName);
         $property->setAccessible(true);
         $property->setValue($object, $value);
+    }
+
+    /**
+     * @return TaskInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockTask()
+    {
+        $task =
+            $this
+                ->getMockBuilder(TaskInterface::class)
+                ->disableOriginalConstructor()
+                ->getMockForAbstractClass();
+        return $task;
+    }
+
+    /**
+     * @return CoroutineInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getMockCoroutine()
+    {
+        $task =
+            $this
+                ->getMockBuilder(CoroutineInterface::class)
+                ->disableOriginalConstructor()
+                ->getMockForAbstractClass();
+        return $task;
     }
 }

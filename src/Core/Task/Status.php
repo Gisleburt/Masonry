@@ -41,6 +41,7 @@ class Status implements StatusInterface
             static::STATUS_IN_PROGRESS,
             static::STATUS_COMPLETE,
             static::STATUS_DEFERRED,
+            static::STATUS_FAILED,
         ];
         if (!in_array($status, $acceptableStatuses)) {
             throw new InvalidTaskStatus();

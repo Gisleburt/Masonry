@@ -8,18 +8,17 @@
  */
 
 
-namespace Foundry\Masonry\Tests\PhpUnit\Core;
+namespace Foundry\Masonry\Tests\PhpUnit\Core\Module;
 
-use Foundry\Masonry\Core\WorkerModule;
+use Foundry\Masonry\Core\Module\WorkerModule;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
-
 
 /**
  * Class Module
  * Testing the Module class
  * @package Masonry
  * @see     https://github.com/TheFoundryVisionmongers/Masonry
- * @coversDefaultClass Foundry\Masonry\Core\WorkerModule
+ * @coversDefaultClass Foundry\Masonry\Core\Module\WorkerModule
  */
 class WorkerModuleTest extends TestCase
 {
@@ -90,7 +89,7 @@ class WorkerModuleTest extends TestCase
     /**
      * @test
      * @covers ::getDescriptionTypes
-     * @uses Foundry\Masonry\Core\WorkerModule::__construct
+     * @uses Foundry\Masonry\Core\Module\WorkerModule::__construct
      */
     public function testGetDescriptionTypesEmpty()
     {
@@ -106,7 +105,7 @@ class WorkerModuleTest extends TestCase
     /**
      * @test
      * @covers ::getDescriptionTypes
-     * @uses Foundry\Masonry\Core\WorkerModule::__construct
+     * @uses Foundry\Masonry\Core\Module\WorkerModule::__construct
      */
     public function testGetDescriptionTypesPreSet()
     {
@@ -127,7 +126,7 @@ class WorkerModuleTest extends TestCase
     /**
      * @test
      * @covers ::getDescriptionTypes
-     * @uses   Foundry\Masonry\Core\WorkerModule::__construct
+     * @uses   Foundry\Masonry\Core\Module\WorkerModule::__construct
      * @covers Foundry\Masonry\Core\Mediator::addWorker
      */
     public function testGetDescriptionTypesWorkers()
@@ -166,5 +165,4 @@ class WorkerModuleTest extends TestCase
             $module->getDescriptionTypes()
         );
     }
-
 }

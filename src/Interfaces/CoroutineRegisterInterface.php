@@ -10,7 +10,6 @@
 
 namespace Foundry\Masonry\Interfaces;
 
-
 /**
  * Interface CoroutineRegisterInterface
  *
@@ -38,5 +37,4 @@ interface CoroutineRegisterInterface
      * @return $this
      */
     public function tick();
-
 }

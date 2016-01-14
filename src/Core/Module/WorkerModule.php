@@ -7,11 +7,11 @@
  */
 
 
-namespace Foundry\Masonry\Core;
+namespace Foundry\Masonry\Core\Module;
 
+use Foundry\Masonry\Core\Mediator;
 use Foundry\Masonry\Interfaces\Task\DescriptionInterface;
 use Foundry\Masonry\Interfaces\WorkerInterface;
-
 
 /**
  * Class Module
@@ -34,7 +34,7 @@ class WorkerModule extends Mediator implements WorkerInterface
      */
     public function __construct(array $workers)
     {
-        foreach($workers as $worker) {
+        foreach ($workers as $worker) {
             $this->addWorker($worker);
         }
     }
@@ -46,15 +46,14 @@ class WorkerModule extends Mediator implements WorkerInterface
      */
     public function getDescriptionTypes()
     {
-        if(!$this->descriptionTypes) {
-            foreach($this->workers as $worker) {
+        if (!$this->descriptionTypes) {
+            foreach ($this->workers as $worker) {
                 $workerDescriptionTypes = $worker->getDescriptionTypes();
-                foreach($workerDescriptionTypes as $descriptionType) {
+                foreach ($workerDescriptionTypes as $descriptionType) {
                     $this->descriptionTypes[$descriptionType] = $descriptionType;
                 }
             }
         }
         return $this->descriptionTypes;
     }
-
 }

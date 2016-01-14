@@ -44,6 +44,9 @@ class Event implements EventInterface
      */
     private $reason;
 
+    /**
+     * Event constructor.
+     */
     public function __construct()
     {
         $this->startTime = microtime(true);

@@ -10,11 +10,9 @@
 
 namespace Foundry\Masonry\Tests\PhpUnit\Core;
 
-use Foundry\Masonry\Core\Coroutine;
 use Foundry\Masonry\Interfaces\CoroutineInterface;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
 use Foundry\Masonry\Core\CoroutineRegister;
-
 
 /**
  * Class CoroutineRegisterTest
@@ -194,5 +192,4 @@ class CoroutineRegisterTest extends TestCase
         );
 
     }
-
 }
