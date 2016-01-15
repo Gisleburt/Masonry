@@ -57,7 +57,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
      * @uses \Foundry\Masonry\Core\Notification
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @uses \Foundry\Masonry\Core\Task\History\Result
-     * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
+     * @uses \Foundry\Masonry\Core\Injection\HasLogger
      */
     public function testProcessChildTaskThenString()
     {
@@ -134,7 +134,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
      * @uses \Foundry\Masonry\Core\Notification
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @uses \Foundry\Masonry\Core\Task\History\Result
-     * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
+     * @uses \Foundry\Masonry\Core\Injection\HasLogger
      */
     public function testProcessChildTaskOtherwiseString()
     {
@@ -208,7 +208,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
      * @uses \Foundry\Masonry\Core\Notification
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @uses \Foundry\Masonry\Core\Task\History\Result
-     * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
+     * @uses \Foundry\Masonry\Core\Injection\HasLogger
      */
     public function testProcessChildTaskProgressString()
     {
@@ -275,7 +275,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
      * @uses \Foundry\Masonry\Core\Notification
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @uses \Foundry\Masonry\Core\Task\History\Result
-     * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
+     * @uses \Foundry\Masonry\Core\Injection\HasLogger
      */
     public function testProcessChildTaskThenNotification()
     {
@@ -356,7 +356,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
      * @uses \Foundry\Masonry\Core\Notification
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @uses \Foundry\Masonry\Core\Task\History\Result
-     * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
+     * @uses \Foundry\Masonry\Core\Injection\HasLogger
      */
     public function testProcessChildTaskOtherwiseNotification()
     {
@@ -435,7 +435,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
      * @uses \Foundry\Masonry\Core\Notification
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @uses \Foundry\Masonry\Core\Task\History\Result
-     * @uses \Foundry\Masonry\Core\AbstractWorker::getLogger
+     * @uses \Foundry\Masonry\Core\Injection\HasLogger
      */
     public function testProcessChildTaskProgressNotification()
     {

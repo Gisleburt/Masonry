@@ -18,6 +18,7 @@ use Psr\Log\LoggerInterface;
  * Test for HasLogger
  * @package Masonry
  * @see     https://github.com/TheFoundryVisionmongers/Masonry
+ * @coversDefaultClass \Foundry\Masonry\Core\Injection\HasLogger
  */
 trait HasLoggerTest
 {
@@ -31,7 +32,7 @@ trait HasLoggerTest
     /**
      * @test
      * @covers ::getLogger
-     * @uses Foundry\Masonry\Core\Injection\HasLogger::setLogger
+     * @uses \Foundry\Masonry\Core\Injection\HasLogger::setLogger
      */
     public function testGetLogger()
     {
@@ -62,7 +63,7 @@ trait HasLoggerTest
 
     /**
      * @test
-     * @covers ::getLogger
+     * @covers ::setLogger
      */
     public function testSetLogger()
     {

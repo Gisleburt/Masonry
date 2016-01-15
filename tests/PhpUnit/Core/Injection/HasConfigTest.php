@@ -18,6 +18,7 @@ use Foundry\Masonry\Tests\PhpUnit\TestCaseTrait;
  * Test for HasConfig
  * @package Masonry
  * @see     https://github.com/TheFoundryVisionmongers/Masonry
+ * @coversDefaultClass \Foundry\Masonry\Core\Injection\HasConfig
  */
 trait HasConfigTest
 {
