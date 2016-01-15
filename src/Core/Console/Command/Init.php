@@ -9,8 +9,8 @@
 
 namespace Foundry\Masonry\Core\Console\Command;
 
+use Foundry\Masonry\Core\Console\Command\Shared\Config;
 use Foundry\Masonry\Core\Console\Exception\FileExistsException;
-use Foundry\Masonry\Core\Injection\HasConfig;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,14 +27,8 @@ use Symfony\Component\Yaml\Dumper;
 class Init extends Command
 {
 
-    use HasConfig;
+    use Config;
 
-    /**
-     * @var string
-     */
-    protected $defaultFileName = 'masonry.yaml';
-
-    protected $configOptionName = 'config';
 
     /**
      * Set up command
@@ -46,13 +40,11 @@ class Init extends Command
 
         $this
             ->setName('init')
-            ->setDescription('Initialise Masonry in the current directory with a masonry.yaml')
-            ->addArgument(
-                $this->configOptionName,
-                InputArgument::OPTIONAL,
-                'The name of the configuration file to use',
-                $this->defaultFileName
-            );
+            ->setDescription('Initialise Masonry in the current directory with a masonry.yaml');
+
+        $this->getNativeDefinition()->addArgument(
+            $this->getConfigArgument()
+        );
     }
 
     /**
