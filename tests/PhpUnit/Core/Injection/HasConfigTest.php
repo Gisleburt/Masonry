@@ -40,8 +40,6 @@ trait HasConfigTest
         /** @var ConfigInterface|\PHPUnit_Framework_MockObject_MockObject $config */
         $config = $this->getMockForAbstractClass(ConfigInterface::class);
 
-        $initialConfig = $testSubject->getConfig();
-
         $this->assertInstanceOf(
             ConfigInterface::class,
             $testSubject->getConfig()
