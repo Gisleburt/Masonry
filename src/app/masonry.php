@@ -12,8 +12,10 @@
 require __DIR__.'/../../vendor/autoload.php';
 
 use Foundry\Masonry\Core\Console\Command\Init;
+use Foundry\Masonry\Core\Console\Command\Run;
 use Symfony\Component\Console\Application;
 
 $application = new Application();
 $application->add(new Init());
+$application->add(new Run());
 $application->run();

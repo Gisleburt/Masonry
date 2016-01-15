@@ -1,0 +1,68 @@
+<?php
+/**
+ * Init.php
+ * @author    Daniel Mason <daniel.mason@thefoundry.co.uk>
+ * @copyright 2015 The Foundry Visionmongers
+ * @license
+ * @see       https://github.com/TheFoundryVisionmongers/Masonry
+ */
+
+namespace Foundry\Masonry\Core\Console\Command;
+
+use Foundry\Masonry\Core\Console\Command\Shared\Config;
+use Foundry\Masonry\Core\Console\Exception\FileExistsException;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
+
+/**
+ * Class Init
+ * Initialise Masonry in the current directory with a masonry.yaml
+ * @package Masonry
+ * @see     https://github.com/TheFoundryVisionmongers/Masonry
+ */
+class Run extends Command
+{
+
+    use Config;
+
+    /**
+     * Set up command
+     * @return void
+     */
+    protected function configure()
+    {
+        parent::configure();
+
+        $this
+            ->setName('run')
+            ->setDescription('Runs the currently configured masonry config.');
+
+        $this->getNativeDefinition()->addArgument(
+            $this->getConfigArgument()
+        );
+    }
+
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return void
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+
+        $output->writeln("To do");
+    }
+
+    /**
+     * Gets the current working directory
+     * Just a wrapper in case we need to do something more complex
+     * @return string
+     */
+    protected function getCwd()
+    {
+        return getcwd();
+    }
+
+}
