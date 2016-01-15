@@ -17,6 +17,8 @@ namespace Foundry\Masonry\Tests\PhpUnit;
  */
 trait TestCaseTrait
 {
+    use AssertTrait;
+
     /**
      * Constructs a test case with the given name.
      *
