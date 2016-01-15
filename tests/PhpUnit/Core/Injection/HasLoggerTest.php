@@ -40,21 +40,23 @@ trait HasLoggerTest
         /** @var LoggerInterface|\PHPUnit_Framework_MockObject_MockObject $logger */
         $logger = $this->getMockForAbstractClass(LoggerInterface::class);
 
+        $getLogger = $this->getObjectMethod($testSubject, 'getLogger');
+
         $this->assertInstanceOf(
             LoggerInterface::class,
-            $testSubject->getLogger()
+            $getLogger()
         );
 
         $this->assertNotSame(
             $logger,
-            $testSubject->getLogger()
+            $getLogger()
         );
 
         $testSubject->setLogger($logger);
 
         $this->assertSame(
             $logger,
-            $testSubject->getLogger()
+            $getLogger()
         );
     }
 

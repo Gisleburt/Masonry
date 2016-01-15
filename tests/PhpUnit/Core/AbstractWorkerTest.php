@@ -14,6 +14,7 @@ use Foundry\Masonry\Core\AbstractWorker;
 use Foundry\Masonry\Core\Coroutine;
 use Foundry\Masonry\Interfaces\TaskInterface;
 use Foundry\Masonry\Interfaces\WorkerInterface;
+use Foundry\Masonry\Tests\PhpUnit\Core\Injection\HasLoggerTest;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -27,10 +28,7 @@ use Psr\Log\NullLogger;
 abstract class AbstractWorkerTest extends TestCase
 {
 
-    /**
-     * @return AbstractWorker
-     */
-    abstract protected function getTestSubject();
+    use HasLoggerTest;
 
     /**
      * @test
@@ -192,37 +190,6 @@ abstract class AbstractWorkerTest extends TestCase
 
         $this->assertFalse(
             $isTaskDescriptionValid($task)
-        );
-    }
-
-    /**
-     * @test
-     * @covers ::getLogger
-     */
-    public function testGetLogger()
-    {
-
-        /** @var LoggerInterface|\PHPUnit_Framework_MockObject_MockObject $logger */
-        $logger = $this
-            ->getMockBuilder(LoggerInterface::class)
-            ->setMethods([])
-            ->getMock();
-
-
-        $abstractWorker = $this->getTestSubject();
-
-        $getLogger = $this->getObjectMethod($abstractWorker, 'getLogger');
-
-        $this->assertInstanceOf(
-            NullLogger::class,
-            $getLogger()
-        );
-
-        $abstractWorker->setLogger($logger);
-
-        $this->assertSame(
-            $logger,
-            $getLogger()
         );
     }
 }

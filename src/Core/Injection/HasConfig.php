@@ -28,7 +28,7 @@ trait HasConfig
     /**
      * @return ConfigInterface
      */
-    public function getConfig()
+    protected function getConfig()
     {
         if (!$this->config) {
             $this->config = new Config(new Pool([]), []);
