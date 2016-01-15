@@ -10,12 +10,13 @@
 namespace Foundry\Masonry\Core\Console\Command;
 
 use Foundry\Masonry\Core\Console\Exception\FileExistsException;
+use Foundry\Masonry\Core\Injection\HasConfig;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Dumper;
 
 /**
  * Class Init
@@ -25,6 +26,8 @@ use Symfony\Component\Yaml\Yaml;
  */
 class Init extends Command
 {
+
+    use HasConfig;
 
     /**
      * @var string
@@ -60,15 +63,20 @@ class Init extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $fileName = $this->getCwd() . DIRECTORY_SEPARATOR . $input->getArgument($this->configOptionName);
-        if (file_exists($fileName)) {
+
+        $fs = new Filesystem();
+        if ($fs->exists($fileName)) {
             throw new FileExistsException("File <comment>{$fileName}</comment> already exists");
         }
 
         $output->writeln("Creating <info>{$fileName}</info>");
 
-        $config = $this->createConfigurationArray($input);
-        $fs = new Filesystem("{$fileName} already exists");
-        $fs->dumpFile($fileName, $config);
+        $fs->dumpFile(
+            $fileName,
+            $this->toYaml(
+                $this->createConfigurationArray($input)
+            )
+        );
 
         $output->writeln("Done");
     }
@@ -88,6 +96,18 @@ class Init extends Command
      */
     protected function createConfigurationArray(InputInterface $input)
     {
-        return [];
+        $config = $this->getConfig();
+        return $config->toArray();
+    }
+
+    /**
+     * Convert an array to a Yaml string
+     * @param array $data
+     * @return string
+     */
+    protected function toYaml(array $data)
+    {
+        $yamlDumper = new Dumper();
+        return $yamlDumper->dump($data, 10);
     }
 }
