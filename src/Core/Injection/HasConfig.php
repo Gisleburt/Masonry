@@ -38,9 +38,11 @@ trait HasConfig
 
     /**
      * @param ConfigInterface $config
+     * @return $this
      */
     public function setConfig($config)
     {
         $this->config = $config;
+        return $this;
     }
 }
