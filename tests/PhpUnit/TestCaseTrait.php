@@ -21,7 +21,7 @@ trait TestCaseTrait
      * Constructs a test case with the given name.
      *
      * @param string $name
-     * @param array  $data
+     * @param array $data
      * @param string $dataName
      */
     abstract public function __construct($name = null, array $data = [], $dataName = '');
@@ -47,7 +47,7 @@ trait TestCaseTrait
      *
      * @since Method available since Release 3.4.0
      */
-    abstract public function getAnnotations();    
+    abstract public function getAnnotations();
 
     /**
      * Gets the name of a TestCase.
@@ -66,7 +66,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.6.0
      */
     abstract public function getSize();
-    
+
 
     /**
      * @return string
@@ -105,7 +105,7 @@ trait TestCaseTrait
      * @deprecated
      */
     abstract public function hasPerformedExpectationsOnOutput();
-    
+
 
     /**
      * @return bool
@@ -113,7 +113,7 @@ trait TestCaseTrait
      * @since Method available since Release 4.3.3
      */
     abstract public function hasExpectationOnOutput();
-    
+
 
     /**
      * @return string
@@ -121,27 +121,31 @@ trait TestCaseTrait
      * @since  Method available since Release 3.2.0
      */
     abstract public function getExpectedException();
-    
+
 
     /**
-     * @param mixed  $exceptionName
+     * @param mixed $exceptionName
      * @param string $exceptionMessage
-     * @param int    $exceptionCode
+     * @param int $exceptionCode
      *
      * @since  Method available since Release 3.2.0
      */
     abstract public function setExpectedException($exceptionName, $exceptionMessage = '', $exceptionCode = null);
-    
+
 
     /**
-     * @param mixed  $exceptionName
+     * @param mixed $exceptionName
      * @param string $exceptionMessageRegExp
-     * @param int    $exceptionCode
+     * @param int $exceptionCode
      *
      * @since Method available since Release 4.3.0
      */
-    abstract public function setExpectedExceptionRegExp($exceptionName, $exceptionMessageRegExp = '', $exceptionCode = null);
-    
+    abstract public function setExpectedExceptionRegExp(
+        $exceptionName,
+        $exceptionMessageRegExp = '',
+        $exceptionCode = null
+    );
+
 
     /**
      * @since  Method available since Release 3.4.0
@@ -154,7 +158,7 @@ trait TestCaseTrait
      * @since Method available since Release 3.4.0
      */
     abstract public function setUseErrorHandler($useErrorHandler);
-    
+
 
     /**
      * @since Method available since Release 3.4.0
@@ -174,7 +178,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.1.0
      */
     abstract public function getStatus();
-    
+
 
     /**
      * Returns the status message of this test.
@@ -184,7 +188,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.3.0
      */
     abstract public function getStatusMessage();
-    
+
 
     /**
      * Returns whether or not this test has failed.
@@ -194,7 +198,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.0.0
      */
     abstract public function hasFailed();
-    
+
 
     /**
      * Runs the test case and collects the results in a TestResult object.
@@ -236,7 +240,7 @@ trait TestCaseTrait
      * @param  string
      */
     abstract public function setName($name);
-    
+
 
     /**
      * Sets the dependencies of a TestCase.
@@ -246,7 +250,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.4.0
      */
     abstract public function setDependencies(array $dependencies);
-    
+
 
     /**
      * Returns true if the tests has dependencies
@@ -256,7 +260,7 @@ trait TestCaseTrait
      * @since Method available since Release 4.0.0
      */
     abstract public function hasDependencies();
-    
+
 
     /**
      * Sets
@@ -266,7 +270,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.4.0
      */
     abstract public function setDependencyInput(array $dependencyInput);
-    
+
 
     /**
      * @param bool $beStrictAboutChangesToGlobalState
@@ -274,7 +278,7 @@ trait TestCaseTrait
      * @since Method available since Release 4.6.0
      */
     abstract public function setbeStrictAboutChangesToGlobalState($beStrictAboutChangesToGlobalState);
-    
+
 
     /**
      * Calling this method in setUp() has no effect!
@@ -327,7 +331,7 @@ trait TestCaseTrait
      * @since  Method available since Release 4.3.0
      */
     abstract public function isInIsolation();
-    
+
 
     /**
      * @return mixed
@@ -335,7 +339,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.4.0
      */
     abstract public function getResult();
-    
+
 
     /**
      * @param mixed $result
@@ -343,7 +347,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.4.0
      */
     abstract public function setResult($result);
-    
+
 
     /**
      * @param callable $callback
@@ -360,7 +364,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.5.7
      */
     abstract public function getTestResultObject();
-    
+
 
     /**
      * @param \PHPUnit_Framework_TestResult $result
@@ -368,7 +372,7 @@ trait TestCaseTrait
      * @since Method available since Release 3.6.0
      */
     abstract public function setTestResultObject(\PHPUnit_Framework_TestResult $result);
-    
+
 
     /**
      * This method is a wrapper for the ini_set() function that automatically
@@ -388,7 +392,7 @@ trait TestCaseTrait
      * This method is a wrapper for the setlocale() function that automatically
      * resets the locale to its original value after the test is run.
      *
-     * @param int    $category
+     * @param int $category
      * @param string $locale
      *
      * @throws \PHPUnit_Framework_Exception
@@ -400,18 +404,18 @@ trait TestCaseTrait
     /**
      * Returns a mock object for the specified class.
      *
-     * @param string     $originalClassName       Name of the class to mock.
-     * @param array|null $methods                 When provided, only methods whose names are in the array
+     * @param string $originalClassName Name of the class to mock.
+     * @param array|null $methods When provided, only methods whose names are in the array
      *                                            are replaced with a configurable test double. The behavior
      *                                            of the other methods is not changed.
      *                                            Providing null means that no methods will be replaced.
-     * @param array      $arguments               Parameters to pass to the original class' constructor.
-     * @param string     $mockClassName           Class name for the generated test double class.
-     * @param bool       $callOriginalConstructor Can be used to disable the call to the original class' constructor.
-     * @param bool       $callOriginalClone       Can be used to disable the call to the original class' clone constructor.
-     * @param bool       $callAutoload            Can be used to disable __autoload() during the generation of the test double class.
-     * @param bool       $cloneArguments
-     * @param bool       $callOriginalMethods
+     * @param array $arguments Parameters to pass to the original class' constructor.
+     * @param string $mockClassName Class name for the generated test double class.
+     * @param bool $callOriginalConstructor Can be used to disable the call to the original class' constructor.
+     * @param bool $callOriginalClone Can be used to disable the call to the original class' clone constructor.
+     * @param bool $callAutoload Can be used to disable __autoload() during the generation of the test double class.
+     * @param bool $cloneArguments
+     * @param bool $callOriginalMethods
      *
      * @return \PHPUnit_Framework_MockObject_MockObject
      *
@@ -419,8 +423,18 @@ trait TestCaseTrait
      *
      * @since  Method available since Release 3.0.0
      */
-    abstract public function getMock($originalClassName, $methods = [], array $arguments = [], $mockClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true, $cloneArguments = false, $callOriginalMethods = false);
-    
+    abstract public function getMock(
+        $originalClassName,
+        $methods = [],
+        array $arguments = [],
+        $mockClassName = '',
+        $callOriginalConstructor = true,
+        $callOriginalClone = true,
+        $callAutoload = true,
+        $cloneArguments = false,
+        $callOriginalMethods = false
+    );
+
 
     /**
      * Returns a mock with disabled constructor object for the specified class.
@@ -434,7 +448,7 @@ trait TestCaseTrait
      * @since  Method available since Release 5.0.0
      */
     abstract public function getMockWithoutInvokingTheOriginalConstructor($originalClassName);
-    
+
 
     /**
      * Returns a builder object to create mock objects using a fluent interface.
@@ -446,19 +460,19 @@ trait TestCaseTrait
      * @since  Method available since Release 3.5.0
      */
     abstract public function getMockBuilder($className);
-    
+
 
     /**
      * Mocks the specified class and returns the name of the mocked class.
      *
      * @param string $originalClassName
-     * @param array  $methods
-     * @param array  $arguments
+     * @param array $methods
+     * @param array $arguments
      * @param string $mockClassName
-     * @param bool   $callOriginalConstructor
-     * @param bool   $callOriginalClone
-     * @param bool   $callAutoload
-     * @param bool   $cloneArguments
+     * @param bool $callOriginalConstructor
+     * @param bool $callOriginalClone
+     * @param bool $callAutoload
+     * @param bool $cloneArguments
      *
      * @return string
      *
@@ -466,8 +480,17 @@ trait TestCaseTrait
      *
      * @since  Method available since Release 3.5.0
      */
-    abstract protected function getMockClass($originalClassName, $methods = [], array $arguments = [], $mockClassName = '', $callOriginalConstructor = false, $callOriginalClone = true, $callAutoload = true, $cloneArguments = false);
-    
+    abstract protected function getMockClass(
+        $originalClassName,
+        $methods = [],
+        array $arguments = [],
+        $mockClassName = '',
+        $callOriginalConstructor = false,
+        $callOriginalClone = true,
+        $callAutoload = true,
+        $cloneArguments = false
+    );
+
 
     /**
      * Returns a mock object for the specified abstract class with all abstract
@@ -475,13 +498,13 @@ trait TestCaseTrait
      * To mock concrete methods, use the 7th parameter ($mockedMethods).
      *
      * @param string $originalClassName
-     * @param array  $arguments
+     * @param array $arguments
      * @param string $mockClassName
-     * @param bool   $callOriginalConstructor
-     * @param bool   $callOriginalClone
-     * @param bool   $callAutoload
-     * @param array  $mockedMethods
-     * @param bool   $cloneArguments
+     * @param bool $callOriginalConstructor
+     * @param bool $callOriginalClone
+     * @param bool $callAutoload
+     * @param array $mockedMethods
+     * @param bool $cloneArguments
      *
      * @return \PHPUnit_Framework_MockObject_MockObject
      *
@@ -489,8 +512,17 @@ trait TestCaseTrait
      *
      * @throws \PHPUnit_Framework_Exception
      */
-    abstract public function getMockForAbstractClass($originalClassName, array $arguments = [], $mockClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true, $mockedMethods = [], $cloneArguments = false);
-    
+    abstract public function getMockForAbstractClass(
+        $originalClassName,
+        array $arguments = [],
+        $mockClassName = '',
+        $callOriginalConstructor = true,
+        $callOriginalClone = true,
+        $callAutoload = true,
+        $mockedMethods = [],
+        $cloneArguments = false
+    );
+
 
     /**
      * Returns a mock object based on the given WSDL file.
@@ -498,15 +530,22 @@ trait TestCaseTrait
      * @param string $wsdlFile
      * @param string $originalClassName
      * @param string $mockClassName
-     * @param array  $methods
-     * @param bool   $callOriginalConstructor
-     * @param array  $options                 An array of options passed to SOAPClient::_construct
+     * @param array $methods
+     * @param bool $callOriginalConstructor
+     * @param array $options An array of options passed to SOAPClient::_construct
      *
      * @return \PHPUnit_Framework_MockObject_MockObject
      *
      * @since  Method available since Release 3.4.0
      */
-    abstract protected function getMockFromWsdl($wsdlFile, $originalClassName = '', $mockClassName = '', array $methods = [], $callOriginalConstructor = true, array $options = []);
+    abstract protected function getMockFromWsdl(
+        $wsdlFile,
+        $originalClassName = '',
+        $mockClassName = '',
+        array $methods = [],
+        $callOriginalConstructor = true,
+        array $options = []
+    );
 
     /**
      * Returns a mock object for the specified trait with all abstract methods
@@ -514,13 +553,13 @@ trait TestCaseTrait
      * `$mockedMethods` parameter.
      *
      * @param string $traitName
-     * @param array  $arguments
+     * @param array $arguments
      * @param string $mockClassName
-     * @param bool   $callOriginalConstructor
-     * @param bool   $callOriginalClone
-     * @param bool   $callAutoload
-     * @param array  $mockedMethods
-     * @param bool   $cloneArguments
+     * @param bool $callOriginalConstructor
+     * @param bool $callOriginalClone
+     * @param bool $callAutoload
+     * @param array $mockedMethods
+     * @param bool $cloneArguments
      *
      * @return \PHPUnit_Framework_MockObject_MockObject
      *
@@ -528,19 +567,28 @@ trait TestCaseTrait
      *
      * @throws \PHPUnit_Framework_Exception
      */
-    abstract public function getMockForTrait($traitName, array $arguments = [], $mockClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true, $mockedMethods = [], $cloneArguments = false);
-    
+    abstract public function getMockForTrait(
+        $traitName,
+        array $arguments = [],
+        $mockClassName = '',
+        $callOriginalConstructor = true,
+        $callOriginalClone = true,
+        $callAutoload = true,
+        $mockedMethods = [],
+        $cloneArguments = false
+    );
+
 
     /**
      * Returns an object for the specified trait.
      *
      * @param string $traitName
-     * @param array  $arguments
+     * @param array $arguments
      * @param string $traitClassName
-     * @param bool   $callOriginalConstructor
-     * @param bool   $callOriginalClone
-     * @param bool   $callAutoload
-     * @param bool   $cloneArguments
+     * @param bool $callOriginalConstructor
+     * @param bool $callOriginalClone
+     * @param bool $callAutoload
+     * @param bool $cloneArguments
      *
      * @return object
      *
@@ -548,8 +596,16 @@ trait TestCaseTrait
      *
      * @throws \PHPUnit_Framework_Exception
      */
-    abstract protected function getObjectForTrait($traitName, array $arguments = [], $traitClassName = '', $callOriginalConstructor = true, $callOriginalClone = true, $callAutoload = true, $cloneArguments = false);
-    
+    abstract protected function getObjectForTrait(
+        $traitName,
+        array $arguments = [],
+        $traitClassName = '',
+        $callOriginalConstructor = true,
+        $callOriginalClone = true,
+        $callAutoload = true,
+        $cloneArguments = false
+    );
+
 
     /**
      * @param string|null $classOrInterface
@@ -561,7 +617,7 @@ trait TestCaseTrait
      * @since  Method available since Release 4.5.0
      */
     abstract protected function prophesize($classOrInterface = null);
-    
+
 
     /**
      * Adds a value to the assertion counter.
@@ -571,7 +627,7 @@ trait TestCaseTrait
      * @since Method available since Release 3.3.3
      */
     abstract public function addToAssertionCount($count);
-    
+
 
     /**
      * Returns the number of assertions performed by this test.
@@ -581,7 +637,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.3.0
      */
     abstract public function getNumAssertions();
-    
+
 
     /**
      * Returns a matcher that matches when the method is executed
@@ -592,7 +648,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.0.0
      */
     abstract public function any();
-    
+
 
     /**
      * Returns a matcher that matches when the method is never executed.
@@ -602,7 +658,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.0.0
      */
     abstract public function never();
-    
+
 
     /**
      * Returns a matcher that matches when the method is executed
@@ -615,7 +671,7 @@ trait TestCaseTrait
      * @since  Method available since Release 4.2.0
      */
     abstract public function atLeast($requiredInvocations);
-    
+
 
     /**
      * Returns a matcher that matches when the method is executed at least once.
@@ -625,7 +681,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.0.0
      */
     abstract public function atLeastOnce();
-    
+
 
     /**
      * Returns a matcher that matches when the method is executed exactly once.
@@ -635,7 +691,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.0.0
      */
     abstract public function once();
-    
+
 
     /**
      * Returns a matcher that matches when the method is executed
@@ -648,7 +704,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.0.0
      */
     abstract public function exactly($count);
-    
+
 
     /**
      * Returns a matcher that matches when the method is executed
@@ -661,7 +717,7 @@ trait TestCaseTrait
      * @since  Method available since Release 4.2.0
      */
     abstract public function atMost($allowedInvocations);
-    
+
 
     /**
      * Returns a matcher that matches when the method is executed
@@ -674,7 +730,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.0.0
      */
     abstract public function at($index);
-    
+
 
     /**
      * @param mixed $value
@@ -684,7 +740,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.0.0
      */
     abstract public function returnValue($value);
-    
+
 
     /**
      * @param array $valueMap
@@ -694,7 +750,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.6.0
      */
     abstract public function returnValueMap(array $valueMap);
-    
+
 
     /**
      * @param int $argumentIndex
@@ -704,7 +760,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.3.0
      */
     abstract public function returnArgument($argumentIndex);
-    
+
 
     /**
      * @param mixed $callback
@@ -714,7 +770,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.3.0
      */
     abstract public function returnCallback($callback);
-    
+
 
     /**
      * Returns the current object.
@@ -726,7 +782,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.6.0
      */
     abstract public function returnSelf();
-    
+
 
     /**
      * @param \Throwable|\Exception $exception
@@ -737,17 +793,17 @@ trait TestCaseTrait
      * @todo   Add type declaration when support for PHP 5 is dropped
      */
     abstract public function throwException($exception);
-    
+
 
     /**
-     * @param mixed $value, ...
+     * @param mixed $value , ...
      *
      * @return \PHPUnit_Framework_MockObject_Stub_ConsecutiveCalls
      *
      * @since  Method available since Release 3.0.0
      */
     abstract public function onConsecutiveCalls();
-    
+
 
     /**
      * Gets the data set description of a TestCase.
@@ -766,7 +822,7 @@ trait TestCaseTrait
      * @return \PHPUnit_Framework_TestResult
      */
     abstract protected function createResult();
-    
+
 
     /**
      * @since Method available since Release 3.5.4
@@ -779,14 +835,14 @@ trait TestCaseTrait
      * @since Method available since Release 3.4.0
      */
     abstract public function setUpBeforeClass();
-    
+
 
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
      */
     abstract protected function setUp();
-    
+
 
     /**
      * Performs assertions shared by all tests of a test case.
@@ -797,7 +853,7 @@ trait TestCaseTrait
      * @since  Method available since Release 3.2.8
      */
     abstract protected function assertPreConditions();
-    
+
 
     /**
      * Performs assertions shared by all tests of a test case.
@@ -808,14 +864,14 @@ trait TestCaseTrait
      * @since  Method available since Release 3.2.8
      */
     abstract protected function assertPostConditions();
-    
+
 
     /**
      * Tears down the fixture, for example, close a network connection.
      * This method is called after a test is executed.
      */
     abstract protected function tearDown();
-    
+
 
     /**
      * This method is called after the last test of this test class is run.
@@ -823,7 +879,7 @@ trait TestCaseTrait
      * @since Method available since Release 3.4.0
      */
     abstract public function tearDownAfterClass();
-    
+
 
     /**
      * This method is called when a test method did not execute successfully.
@@ -844,7 +900,7 @@ trait TestCaseTrait
      * @since Method available since Release 3.4.0
      */
     abstract protected function prepareTemplate(\Text_Template $template);
-    
+
 
     /**
      * Get the mock object generator, creating it if it doesn't exist.
