@@ -7,7 +7,7 @@
  * @see       https://github.com/TheFoundryVisionmongers/Masonry
  */
 
-namespace Foundry\Masonry\Core\Console\Command\Shared;
+namespace Foundry\Masonry\Console\Command\Shared;
 
 use Foundry\Masonry\Core\Injection\HasConfig;
 use Symfony\Component\Console\Input\InputArgument;

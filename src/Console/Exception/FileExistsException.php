@@ -7,7 +7,7 @@
  * @see       https://github.com/TheFoundryVisionmongers/Masonry
  */
 
-namespace Foundry\Masonry\Core\Console\Exception;
+namespace Foundry\Masonry\Console\Exception;
 
 /**
  * Class FileExistsException

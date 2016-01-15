@@ -7,14 +7,12 @@
  * @see       https://github.com/TheFoundryVisionmongers/Masonry
  */
 
-namespace Foundry\Masonry\Core\Console\Command;
+namespace Foundry\Masonry\Console\Command;
 
-use Foundry\Masonry\Core\Console\Command\Shared\Config;
-use Foundry\Masonry\Core\Console\Exception\FileExistsException;
+use Foundry\Masonry\Console\Command\Shared\Config;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Class Init
