@@ -49,7 +49,7 @@ class Run extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
+        $configFile = $this->getConfigFileFullPath($input);
         $output->writeln("To do");
     }
 

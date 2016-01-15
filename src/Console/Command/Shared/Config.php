@@ -11,6 +11,7 @@ namespace Foundry\Masonry\Console\Command\Shared;
 
 use Foundry\Masonry\Core\Injection\HasConfig;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
 
 /**
  * Class Config
@@ -43,4 +44,21 @@ trait Config
         );
     }
 
+    protected function getConfigFileFullPath(InputInterface $input = null)
+    {
+        if ($input && $input->hasArgument($this->configOptionName)) {
+            return $this->getCwd() . DIRECTORY_SEPARATOR . $input->getArgument($this->configOptionName);
+        }
+        return $this->getCwd() . DIRECTORY_SEPARATOR . $this->defaultFileName;
+    }
+
+    /**
+     * Gets the current working directory
+     * Just a wrapper in case we need to do something more complex
+     * @return string
+     */
+    protected function getCwd()
+    {
+        return getcwd();
+    }
 }

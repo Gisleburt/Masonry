@@ -53,17 +53,17 @@ class Init extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $fileName = $this->getCwd() . DIRECTORY_SEPARATOR . $input->getArgument($this->configOptionName);
+        $configFile = $this->getConfigFileFullPath($input);
 
         $fs = new Filesystem();
-        if ($fs->exists($fileName)) {
-            throw new FileExistsException("File <comment>{$fileName}</comment> already exists");
+        if ($fs->exists($configFile)) {
+            throw new FileExistsException("File <comment>{$configFile}</comment> already exists");
         }
 
-        $output->writeln("Creating <info>{$fileName}</info>");
+        $output->writeln("Creating <info>{$configFile}</info>");
 
         $fs->dumpFile(
-            $fileName,
+            $configFile,
             $this->toYaml(
                 $this->createConfigurationArray($input)
             )
@@ -71,17 +71,6 @@ class Init extends Command
 
         $output->writeln("Done");
     }
-
-    /**
-     * Gets the current working directory
-     * Just a wrapper in case we need to do something more complex
-     * @return string
-     */
-    protected function getCwd()
-    {
-        return getcwd();
-    }
-
     /**
      * @return array
      */
