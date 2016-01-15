@@ -6,7 +6,7 @@
  * @license
  * @see       https://github.com/TheFoundryVisionmongers/Masonry
  */
-namespace Foundry\Masonry\Tests\PhpUnit;
+namespace Foundry\Masonry\Tests\PhpUnit\PhpUnitHelper;
 
 use ArrayAccess;
 use Countable;
