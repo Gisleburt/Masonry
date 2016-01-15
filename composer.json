@@ -39,6 +39,9 @@
     "pdepend/pdepend" : "2.1",
     "sebastian/phpcpd" : "^2.0"
   },
+  "bin": [
+    "masonry"
+  ],
   "config" : {
     "bin-dir" : "bin",
     "github-protocols" : [
