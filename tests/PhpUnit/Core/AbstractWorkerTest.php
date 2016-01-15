@@ -16,6 +16,7 @@ use Foundry\Masonry\Interfaces\TaskInterface;
 use Foundry\Masonry\Interfaces\WorkerInterface;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Class AbstractWorkerTest
@@ -212,7 +213,8 @@ abstract class AbstractWorkerTest extends TestCase
 
         $getLogger = $this->getObjectMethod($abstractWorker, 'getLogger');
 
-        $this->assertNull(
+        $this->assertInstanceOf(
+            NullLogger::class,
             $getLogger()
         );
 
