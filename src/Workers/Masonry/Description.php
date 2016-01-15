@@ -11,8 +11,6 @@ namespace Foundry\Masonry\Workers\Masonry;
 
 use Foundry\Masonry\Core\AbstractDescription;
 use Foundry\Masonry\Interfaces\ConfigInterface;
-use Foundry\Masonry\Interfaces\PoolInterface;
-use Foundry\Masonry\Interfaces\WorkerModuleInterface;
 
 /**
  * Configuring Masonry
@@ -20,63 +18,28 @@ use Foundry\Masonry\Interfaces\WorkerModuleInterface;
  * @package Masonry
  * @see     https://github.com/TheFoundryVisionmongers/Masonry
  */
-class Description extends AbstractDescription implements ConfigInterface
+class Description extends AbstractDescription
 {
 
     /**
-     * @var PoolInterface
+     * @var ConfigInterface
      */
-    protected $pool;
+    protected $config;
 
     /**
-     * @var WorkerModuleInterface[]
+     * Description constructor.
+     * @param ConfigInterface $config
      */
-    protected $workerModules;
-
-    /**
-     * Config constructor.
-     * @param PoolInterface $pool
-     * @param WorkerModuleInterface[] $workerModules
-     */
-    public function __construct(PoolInterface $pool, array $workerModules)
+    public function __construct(ConfigInterface $config)
     {
-        foreach ($workerModules as $workerModule) {
-            if (!$workerModule instanceof WorkerModuleInterface) {
-                throw new \InvalidArgumentException(
-                    "All worker modules must implement " . WorkerModuleInterface::class
-                );
-            }
-        }
-
-        $this->pool = $pool;
-        $this->workerModules = $workerModules;
+        $this->config = $config;
     }
 
     /**
-     * @return PoolInterface
+     * @return ConfigInterface
      */
-    public function getPool()
+    public function getConfig()
     {
-        return $this->pool;
-    }
-
-    /**
-     * @return WorkerModuleInterface[]
-     */
-    public function getWorkerModules()
-    {
-        return $this->workerModules;
-    }
-
-    /**
-     * This method acts as the counterpart to ::createFromParameters
-     * @return array
-     */
-    public function toArray()
-    {
-        return [
-            'pool' => $this->getPool(),
-            'workerModules' => $this->getWorkerModules(),
-        ];
+        return $this->config;
     }
 }

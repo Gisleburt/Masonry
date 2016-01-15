@@ -34,12 +34,12 @@ class Worker extends SerialWorker
         $description = $task->getDescription();
 
         $mediator = new Mediator();
-        foreach ($description->getWorkerModules() as $workerModule) {
+        foreach ($description->getConfig()->getWorkerModules() as $workerModule) {
             $mediator->addWorker($workerModule);
         }
         $this->setMediator($mediator);
 
-        $childDescription = new SerialDescription($description->getPool());
+        $childDescription = new SerialDescription($description->getConfig()->getPool());
         $childTask = new Task($childDescription);
 
         return parent::processDeferred($deferred, $childTask);

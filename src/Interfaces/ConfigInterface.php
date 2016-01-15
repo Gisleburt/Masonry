@@ -26,4 +26,10 @@ interface ConfigInterface
      * @return PoolInterface
      */
     public function getPool();
+
+    /**
+     * In order to load and save the config, it should be transformable to an array.
+     * @return array
+     */
+    public function toArray();
 }
