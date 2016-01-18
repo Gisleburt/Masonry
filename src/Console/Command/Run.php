@@ -9,7 +9,7 @@
 
 namespace Foundry\Masonry\Console\Command;
 
-use Foundry\Masonry\Console\Command\Shared\Config;
+use Foundry\Masonry\Console\Command\Shared\ConfigTrait;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -23,7 +23,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class Run extends Command
 {
 
-    use Config;
+    use ConfigTrait;
 
     /**
      * Set up command
@@ -52,15 +52,4 @@ class Run extends Command
         $configFile = $this->getConfigFileFullPath($input);
         $output->writeln("To do");
     }
-
-    /**
-     * Gets the current working directory
-     * Just a wrapper in case we need to do something more complex
-     * @return string
-     */
-    protected function getCwd()
-    {
-        return getcwd();
-    }
-
 }

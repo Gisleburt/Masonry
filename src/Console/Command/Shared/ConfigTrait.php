@@ -19,7 +19,7 @@ use Symfony\Component\Console\Input\InputInterface;
  * @package Masonry
  * @see     https://github.com/TheFoundryVisionmongers/Masonry
  */
-trait Config
+trait ConfigTrait
 {
 
     use HasConfig;
@@ -44,12 +44,16 @@ trait Config
         );
     }
 
+    /**
+     * @param InputInterface|null $input
+     * @return string
+     */
     protected function getConfigFileFullPath(InputInterface $input = null)
     {
         if ($input && $input->hasArgument($this->configOptionName)) {
-            return $this->getCwd() . DIRECTORY_SEPARATOR . $input->getArgument($this->configOptionName);
+            return $input->getArgument($this->configOptionName);
         }
-        return $this->getCwd() . DIRECTORY_SEPARATOR . $this->defaultFileName;
+        return $this->defaultFileName;
     }
 
     /**

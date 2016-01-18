@@ -9,7 +9,7 @@
 
 namespace Foundry\Masonry\Console\Command;
 
-use Foundry\Masonry\Console\Command\Shared\Config;
+use Foundry\Masonry\Console\Command\Shared\ConfigTrait;
 use Foundry\Masonry\Console\Exception\FileExistsException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -26,7 +26,7 @@ use Symfony\Component\Yaml\Dumper;
 class Init extends Command
 {
 
-    use Config;
+    use ConfigTrait;
 
 
     /**
