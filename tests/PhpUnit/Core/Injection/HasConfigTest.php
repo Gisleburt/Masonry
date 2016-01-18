@@ -31,6 +31,13 @@ trait HasConfigTest
      * @test
      * @covers ::getConfig
      * @uses Foundry\Masonry\Core\Injection\HasConfig::setConfig
+     * @uses \Foundry\Masonry\Console\Command\Shared\ConfigTrait::getConfigArgument
+     * @uses \Foundry\Masonry\Core\Config::__construct
+     *
+     * Every test class:
+     *
+     * @uses Foundry\Masonry\Console\Command\Init::configure
+     * @uses Foundry\Masonry\Console\Command\Run::configure
      */
     public function testGetConfig()
     {
@@ -38,28 +45,35 @@ trait HasConfigTest
 
         /** @var ConfigInterface|\PHPUnit_Framework_MockObject_MockObject $config */
         $config = $this->getMockForAbstractClass(ConfigInterface::class);
+        $getConfig = $this->getObjectMethod($testSubject, 'getConfig');
 
         $this->assertInstanceOf(
             ConfigInterface::class,
-            $testSubject->getConfig()
+            $getConfig()
         );
 
         $this->assertNotSame(
             $config,
-            $testSubject->getConfig()
+            $getConfig()
         );
 
         $testSubject->setConfig($config);
 
         $this->assertSame(
             $config,
-            $testSubject->getConfig()
+            $getConfig()
         );
     }
 
     /**
      * @test
-     * @covers ::getConfig
+     * @covers ::setConfig
+     * @uses \Foundry\Masonry\Console\Command\Shared\ConfigTrait::getConfigArgument
+     *
+     * Every test class:
+     *
+     * @uses Foundry\Masonry\Console\Command\Init::configure
+     * @uses Foundry\Masonry\Console\Command\Run::configure
      */
     public function testSetConfig()
     {
