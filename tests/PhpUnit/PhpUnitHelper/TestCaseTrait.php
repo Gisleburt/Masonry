@@ -883,16 +883,16 @@ trait TestCaseTrait
     abstract public function tearDownAfterClass();
 
 
-    /**
-     * This method is called when a test method did not execute successfully.
-     *
-     * @param \Exception|\Throwable $e
-     *
-     * @since Method available since Release 3.4.0
-     *
-     * @throws \Exception|\Throwable
-     */
-    abstract protected function onNotSuccessfulTest($e);
+//    /**
+//     * This method is called when a test method did not execute successfully.
+//     *
+//     * @param \Exception|\Throwable $e
+//     *
+//     * @since Method available since Release 3.4.0
+//     *
+//     * @throws \Exception|\Throwable
+//     */
+//    abstract protected function onNotSuccessfulTest($e);
 
     /**
      * Performs custom preparations on the process isolation template.
