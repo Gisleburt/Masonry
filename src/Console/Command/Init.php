@@ -58,7 +58,7 @@ class Init extends Command
 
         $fs = $this->getFilesystem();
         if ($fs->exists($configFile)) {
-            throw new FileExistsException("File <comment>{$configFile}</comment> already exists");
+            throw new FileExistsException("File '{$configFile}' already exists");
         }
 
         $output->writeln("Creating <info>{$configFile}</info>");

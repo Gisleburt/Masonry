@@ -116,6 +116,38 @@ class InitTest extends TestCase
 
     /**
      * @test
+     * @covers ::execute
+     * @uses \Foundry\Masonry\Console\Command\Init::configure
+     * @uses \Foundry\Masonry\Console\Command\Shared\ConfigTrait::getConfigArgument
+     * @uses \Foundry\Masonry\Console\Command\Shared\ConfigTrait::getConfigFileFullPath
+     * @uses \Foundry\Masonry\Core\Injection\HasFilesystem
+     * @expectedException \Foundry\Masonry\Console\Exception\FileExistsException
+     * @expectedExceptionMessage File 'masonry.yaml' already exists
+     */
+    public function testExecuteException()
+    {
+        /** @var Filesystem|\PHPUnit_Framework_MockObject_MockObject $fs */
+        $fs = $this->getMock(Filesystem::class);
+        $fs
+            ->expects($this->once())
+            ->method('exists')
+            ->with('masonry.yaml')
+            ->will($this->returnValue(true));
+
+        $init = new Init();
+        $init->setFilesystem($fs);
+
+        $execute = $this->getObjectMethod($init, 'execute');
+
+
+        $input = $this->getMockForAbstractClass(InputInterface::class);
+        $output = $this->getMockForAbstractClass(OutputInterface::class);
+
+        $execute($input, $output);
+    }
+
+    /**
+     * @test
      * @covers ::createConfigurationArray
      * @uses \Foundry\Masonry\Console\Command\Init::configure
      * @uses \Foundry\Masonry\Console\Command\Shared\ConfigTrait::getConfigArgument
