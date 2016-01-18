@@ -31,17 +31,17 @@ trait HasConfigTest
      * @test
      * @covers ::getConfig
      * @uses Foundry\Masonry\Core\Injection\HasConfig::setConfig
-     * @uses \Foundry\Masonry\Console\Command\Shared\ConfigTrait::getConfigArgument
      * @uses \Foundry\Masonry\Core\Config::__construct
-     *
-     * Every test class:
-     *
-     * @uses Foundry\Masonry\Console\Command\Init::configure
-     * @uses Foundry\Masonry\Console\Command\Run::configure
      */
     public function testGetConfig()
     {
-        $testSubject = $this->getTestSubject();
+        $testSubjectClass = $this->getTestSubjectClass();
+
+        /** @var HasConfig $testSubject */
+        $testSubject = $this->getMockBuilder($testSubjectClass)
+            ->disableOriginalConstructor()
+            ->setMethods(null)
+            ->getMock();
 
         /** @var ConfigInterface|\PHPUnit_Framework_MockObject_MockObject $config */
         $config = $this->getMockForAbstractClass(ConfigInterface::class);
@@ -68,17 +68,16 @@ trait HasConfigTest
     /**
      * @test
      * @covers ::setConfig
-     * @uses \Foundry\Masonry\Console\Command\Shared\ConfigTrait::getConfigArgument
-     *
-     * Every test class:
-     *
-     * @uses Foundry\Masonry\Console\Command\Init::configure
-     * @uses Foundry\Masonry\Console\Command\Run::configure
      */
     public function testSetConfig()
     {
+        $testSubjectClass = $this->getTestSubjectClass();
+
         /** @var HasConfig $testSubject */
-        $testSubject = $this->getTestSubject();
+        $testSubject = $this->getMockBuilder($testSubjectClass)
+            ->disableOriginalConstructor()
+            ->setMethods(null)
+            ->getMock();
 
         /** @var ConfigInterface|\PHPUnit_Framework_MockObject_MockObject $config */
         $config = $this->getMockForAbstractClass(ConfigInterface::class);

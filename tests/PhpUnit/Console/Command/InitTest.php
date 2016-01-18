@@ -32,4 +32,12 @@ class InitTest extends TestCase
     {
         return new Init();
     }
+
+    /**
+     * @return string
+     */
+    protected function getTestSubjectClass()
+    {
+        return Init::class;
+    }
 }

@@ -32,4 +32,12 @@ class RunTest extends TestCase
     {
         return new Run();
     }
+
+    /**
+     * @return string
+     */
+    protected function getTestSubjectClass()
+    {
+        return Run::class;
+    }
 }
