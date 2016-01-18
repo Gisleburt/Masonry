@@ -10,11 +10,11 @@
 namespace Foundry\Masonry\Console\Command;
 
 use Foundry\Masonry\Console\Command\Shared\ConfigTrait;
+use Foundry\Masonry\Core\Injection\HasFilesystem;
 use Foundry\Masonry\Console\Exception\FileExistsException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Dumper;
 
 /**
@@ -27,6 +27,7 @@ class Init extends Command
 {
 
     use ConfigTrait;
+    use HasFilesystem;
 
 
     /**
@@ -55,7 +56,7 @@ class Init extends Command
     {
         $configFile = $this->getConfigFileFullPath($input);
 
-        $fs = new Filesystem();
+        $fs = $this->getFilesystem();
         if ($fs->exists($configFile)) {
             throw new FileExistsException("File <comment>{$configFile}</comment> already exists");
         }

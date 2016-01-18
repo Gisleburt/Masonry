@@ -10,6 +10,7 @@
 namespace Foundry\Masonry\Console\Command;
 
 use Foundry\Masonry\Console\Command\Shared\ConfigTrait;
+use Foundry\Masonry\Core\Injection\HasFilesystem;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -24,6 +25,7 @@ class Run extends Command
 {
 
     use ConfigTrait;
+    use HasFilesystem;
 
     /**
      * Set up command

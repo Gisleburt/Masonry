@@ -11,6 +11,7 @@ namespace Foundry\Masonry\Tests\PhpUnit\Console\Command;
 
 use Foundry\Masonry\Console\Command\Run;
 use Foundry\Masonry\Tests\PhpUnit\Console\Command\Shared\ConfigTraitTest;
+use Foundry\Masonry\Tests\PhpUnit\Core\Injection\HasFilesystemTest;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
 
 /**
@@ -24,6 +25,7 @@ class RunTest extends TestCase
 {
 
     use ConfigTraitTest;
+    use HasFilesystemTest;
 
     /**
      * @return Run
@@ -39,5 +41,32 @@ class RunTest extends TestCase
     protected function getTestSubjectClass()
     {
         return Run::class;
+    }
+
+    /**
+     * @test
+     * @covers ::configure
+     * @uses \Foundry\Masonry\Console\Command\Shared\ConfigTrait::getConfigArgument
+     */
+    public function testConfigure()
+    {
+        $init = new Run();
+
+        $this->assertSame(
+            'run',
+            $init->getName()
+        );
+
+        $this->assertNotEmpty(
+            $init->getDescription()
+        );
+
+        $this->assertNotEmpty(
+            $init->getNativeDefinition()->getArguments()
+        );
+
+        $this->assertNotNull(
+            $init->getNativeDefinition()->getArgument('config')
+        );
     }
 }
