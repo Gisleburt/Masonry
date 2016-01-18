@@ -10,7 +10,6 @@
 namespace Foundry\Masonry\Tests\PhpUnit\Core\Injection;
 
 use Foundry\Masonry\Core\Injection\HasLogger;
-use Foundry\Masonry\Tests\PhpUnit\TestCaseTrait;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -22,7 +21,6 @@ use Psr\Log\LoggerInterface;
  */
 trait HasLoggerTest
 {
-    use TestCaseTrait;
 
     /**
      * @return HasLogger

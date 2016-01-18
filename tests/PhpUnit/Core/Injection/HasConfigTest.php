@@ -11,7 +11,6 @@ namespace Foundry\Masonry\Tests\PhpUnit\Core\Injection;
 
 use Foundry\Masonry\Core\Injection\HasConfig;
 use Foundry\Masonry\Interfaces\ConfigInterface;
-use Foundry\Masonry\Tests\PhpUnit\TestCaseTrait;
 
 /**
  * Trait HasConfigTest
@@ -22,7 +21,6 @@ use Foundry\Masonry\Tests\PhpUnit\TestCaseTrait;
  */
 trait HasConfigTest
 {
-    use TestCaseTrait;
 
     /**
      * @return HasConfig
