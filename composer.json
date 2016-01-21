@@ -1,28 +1,28 @@
 {
-  "name" : "foundry/masonry",
-  "type" : "library",
-  "description" : "A micro framework for building single use or continuous asynchronous task runners",
-  "keywords" : [
+  "name": "foundry/masonry",
+  "type": "library",
+  "description": "A micro framework for building single use or continuous asynchronous task runners",
+  "keywords": [
     "task",
     "framework"
   ],
-  "minimum-stability" : "stable",
-  "license" : "MIT",
-  "authors" : [
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
     {
-      "name" : "Daniel Mason",
-      "email" : "daniel.mason@thefoundry.co.uk",
-      "role" : "Lead developer"
+      "name": "Daniel Mason",
+      "email": "daniel.mason@thefoundry.co.uk",
+      "role": "Lead developer"
     }
   ],
-  "autoload" : {
-    "psr-4" : {
-      "Foundry\\Masonry\\" : "src/"
+  "autoload": {
+    "psr-4": {
+      "Foundry\\Masonry\\": "src/"
     }
   },
-  "autoload-dev" : {
-    "psr-4" : {
-      "Foundry\\Masonry\\Tests\\" : "tests/"
+  "autoload-dev": {
+    "psr-4": {
+      "Foundry\\Masonry\\Tests\\": "tests/"
     }
   },
   "require": {
@@ -43,9 +43,9 @@
   "bin": [
     "masonry"
   ],
-  "config" : {
-    "bin-dir" : "bin",
-    "github-protocols" : [
+  "config": {
+    "bin-dir": "bin",
+    "github-protocols": [
       "https"
     ]
   }
