@@ -1,46 +1,51 @@
 {
-  "name" : "foundry/masonry",
-  "type" : "library",
-  "description" : "A micro framework for building single use or continuous asynchronous task runners",
-  "keywords" : [
+  "name": "foundry/masonry",
+  "type": "library",
+  "description": "A micro framework for building single use or continuous asynchronous task runners",
+  "keywords": [
     "task",
     "framework"
   ],
-  "minimum-stability" : "stable",
-  "license" : "MIT",
-  "authors" : [
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
     {
-      "name" : "Daniel Mason",
-      "email" : "daniel.mason@thefoundry.co.uk",
-      "role" : "Lead developer"
+      "name": "Daniel Mason",
+      "email": "daniel.mason@thefoundry.co.uk",
+      "role": "Lead developer"
     }
   ],
-  "autoload" : {
-    "psr-4" : {
-      "Foundry\\Masonry\\" : "src/"
+  "autoload": {
+    "psr-4": {
+      "Foundry\\Masonry\\": "src/"
     }
   },
-  "autoload-dev" : {
-    "psr-4" : {
-      "Foundry\\Masonry\\Tests\\" : "tests/"
+  "autoload-dev": {
+    "psr-4": {
+      "Foundry\\Masonry\\Tests\\": "tests/"
     }
   },
-  "require" : {
+  "require": {
     "php": ">=5.5.0",
-    "psr/log" : "^1.0",
+    "psr/log": "^1.0",
     "react/promise": "^2.2",
-    "phpunit/phpunit": ">=4.8.21"
+    "symfony/console": "^2.0",
+    "foundry/masonry-register": "*@dev"
   },
-  "require-dev" : {
-    "squizlabs/php_codesniffer" : "^2.3",
-    "phpmd/phpmd" : "^2.2",
-    "phploc/phploc" : "^2.1",
-    "pdepend/pdepend" : "2.1",
-    "sebastian/phpcpd" : "^2.0"
+  "require-dev": {
+    "phpunit/phpunit": ">=4.8.21",
+    "squizlabs/php_codesniffer": "^2.3",
+    "phpmd/phpmd": "^2.2",
+    "phploc/phploc": "^2.1",
+    "pdepend/pdepend": "2.1",
+    "sebastian/phpcpd": "^2.0"
   },
-  "config" : {
-    "bin-dir" : "bin",
-    "github-protocols" : [
+  "bin": [
+    "masonry"
+  ],
+  "config": {
+    "bin-dir": "bin",
+    "github-protocols": [
       "https"
     ]
   }

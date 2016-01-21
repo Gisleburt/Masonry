@@ -12,6 +12,7 @@ namespace Foundry\Masonry\Core\Module;
 use Foundry\Masonry\Core\Mediator;
 use Foundry\Masonry\Interfaces\Task\DescriptionInterface;
 use Foundry\Masonry\Interfaces\WorkerInterface;
+use Foundry\Masonry\Interfaces\WorkerModuleInterface;
 
 /**
  * Class Module
@@ -19,7 +20,7 @@ use Foundry\Masonry\Interfaces\WorkerInterface;
  * @package Masonry
  * @see       https://github.com/TheFoundryVisionmongers/Masonry
  */
-class WorkerModule extends Mediator implements WorkerInterface
+class WorkerModule extends Mediator implements WorkerModuleInterface
 {
 
     /**
