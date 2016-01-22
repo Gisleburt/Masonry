@@ -30,7 +30,7 @@
     "psr/log": "^1.0",
     "react/promise": "^2.2",
     "symfony/console": "^2.0",
-    "foundry/masonry-register": "dev-develop@dev"
+    "foundry/masonry-register": "*@dev"
   },
   "require-dev": {
     "phpunit/phpunit": ">=4.8.21",
