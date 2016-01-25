@@ -1,7 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
 /composer.lock
 /vendor
-masonry.yaml
+queue.yaml
 
 bin/
 reports/

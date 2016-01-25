@@ -54,41 +54,17 @@ class Init extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $configFile = $this->getQueueFullPath($input);
+        $queueFile = $this->getQueueFullPath($input);
 
         $fs = $this->getFilesystem();
-        if ($fs->exists($configFile)) {
-            throw new FileExistsException("File '{$configFile}' already exists");
+        if ($fs->exists($queueFile)) {
+            throw new FileExistsException("File '{$queueFile}' already exists");
         }
 
-        $output->writeln("Creating <info>{$configFile}</info>");
+        $output->writeln("Creating <info>{$queueFile}</info>");
 
-        $fs->dumpFile(
-            $configFile,
-            $this->toYaml(
-                $this->createConfigurationArray($input)
-            )
-        );
+        $fs->dumpFile($queueFile, '');
 
         $output->writeln("Done");
-    }
-    /**
-     * @return array
-     */
-    protected function createConfigurationArray(InputInterface $input)
-    {
-        $config = $this->getConfig();
-        return $config->toArray();
-    }
-
-    /**
-     * Convert an array to a Yaml string
-     * @param array $data
-     * @return string
-     */
-    protected function toYaml(array $data)
-    {
-        $yamlDumper = new Dumper();
-        return $yamlDumper->dump($data, 10);
     }
 }

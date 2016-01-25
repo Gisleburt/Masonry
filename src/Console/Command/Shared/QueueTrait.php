@@ -22,8 +22,6 @@ use Symfony\Component\Console\Input\InputInterface;
 trait QueueTrait
 {
 
-    use HasConfig;
-
     /**
      * @var string
      */
