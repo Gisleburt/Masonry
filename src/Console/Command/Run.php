@@ -11,6 +11,7 @@ namespace Foundry\Masonry\Console\Command;
 
 use Foundry\Masonry\Console\Command\Shared\ConfigTrait;
 use Foundry\Masonry\Core\Injection\HasFilesystem;
+use Foundry\Masonry\ModuleRegister\ModuleRegister;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -24,7 +25,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class Run extends Command
 {
 
-    use ConfigTrait;
+//    use ConfigTrait;
     use HasFilesystem;
 
     /**
@@ -39,9 +40,9 @@ class Run extends Command
             ->setName('run')
             ->setDescription('Runs the currently configured masonry config.');
 
-        $this->getNativeDefinition()->addArgument(
-            $this->getConfigArgument()
-        );
+//        $this->getNativeDefinition()->addArgument(
+//            $this->getConfigArgument()
+//        );
     }
 
     /**
@@ -51,7 +52,13 @@ class Run extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $configFile = $this->getConfigFileFullPath($input);
+        $moduleRegister = ModuleRegister::load();
+
+        foreach ($moduleRegister->getWorkerModuleDefinitions() as $moduleDefinition) {
+            $output->writeln($moduleDefinition->getModuleName());
+        }
+
+
         $output->writeln("To do");
     }
 }
