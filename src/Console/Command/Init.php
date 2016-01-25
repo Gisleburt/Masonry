@@ -9,7 +9,7 @@
 
 namespace Foundry\Masonry\Console\Command;
 
-use Foundry\Masonry\Console\Command\Shared\ConfigTrait;
+use Foundry\Masonry\Console\Command\Shared\QueueTrait;
 use Foundry\Masonry\Core\Injection\HasFilesystem;
 use Foundry\Masonry\Console\Exception\FileExistsException;
 use Symfony\Component\Console\Command\Command;
@@ -26,7 +26,7 @@ use Symfony\Component\Yaml\Dumper;
 class Init extends Command
 {
 
-    use ConfigTrait;
+    use QueueTrait;
     use HasFilesystem;
 
 
@@ -43,7 +43,7 @@ class Init extends Command
             ->setDescription('Initialise Masonry in the current directory with a masonry.yaml');
 
         $this->getNativeDefinition()->addArgument(
-            $this->getConfigArgument()
+            $this->getQueueArgument()
         );
     }
 
@@ -54,7 +54,7 @@ class Init extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $configFile = $this->getConfigFileFullPath($input);
+        $configFile = $this->getQueueFullPath($input);
 
         $fs = $this->getFilesystem();
         if ($fs->exists($configFile)) {

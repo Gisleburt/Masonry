@@ -19,7 +19,7 @@ use Symfony\Component\Console\Input\InputInterface;
  * @package Masonry
  * @see     https://github.com/TheFoundryVisionmongers/Masonry
  */
-trait ConfigTrait
+trait QueueTrait
 {
 
     use HasConfig;
@@ -27,19 +27,19 @@ trait ConfigTrait
     /**
      * @var string
      */
-    protected $defaultFileName = 'masonry.yaml';
+    protected $defaultFileName = 'queue.yaml';
 
-    protected $configOptionName = 'config';
+    protected $configOptionName = 'queue';
 
     /**
      * @return InputArgument
      */
-    protected function getConfigArgument()
+    protected function getQueueArgument()
     {
         return new InputArgument(
             $this->configOptionName,
             InputArgument::OPTIONAL,
-            'The name of the configuration file to use',
+            'The name of the initial queue to use',
             $this->defaultFileName
         );
     }
@@ -48,7 +48,7 @@ trait ConfigTrait
      * @param InputInterface|null $input
      * @return string
      */
-    protected function getConfigFileFullPath(InputInterface $input = null)
+    protected function getQueueFullPath(InputInterface $input = null)
     {
         if ($input && $input->hasArgument($this->configOptionName)) {
             return $input->getArgument($this->configOptionName);

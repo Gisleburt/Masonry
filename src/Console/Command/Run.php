@@ -9,7 +9,7 @@
 
 namespace Foundry\Masonry\Console\Command;
 
-use Foundry\Masonry\Console\Command\Shared\ConfigTrait;
+use Foundry\Masonry\Console\Command\Shared\QueueTrait;
 use Foundry\Masonry\Core\Injection\HasFilesystem;
 use Foundry\Masonry\ModuleRegister\ModuleRegister;
 use Symfony\Component\Console\Command\Command;
@@ -25,7 +25,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class Run extends Command
 {
 
-//    use ConfigTrait;
+    use QueueTrait;
     use HasFilesystem;
 
     /**
@@ -40,9 +40,9 @@ class Run extends Command
             ->setName('run')
             ->setDescription('Runs the currently configured masonry config.');
 
-//        $this->getNativeDefinition()->addArgument(
-//            $this->getConfigArgument()
-//        );
+        $this->getNativeDefinition()->addArgument(
+            $this->getQueueArgument()
+        );
     }
 
     /**
