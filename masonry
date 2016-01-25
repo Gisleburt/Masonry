@@ -9,13 +9,40 @@
  */
 
 
-require __DIR__ . '/vendor/autoload.php';
+// Find composer autoload.
+$autoloadLocations = [
+    __DIR__ . '/../../../../../vendor/autoload.php',
+    __DIR__ . '/../../../../vendor/autoload.php',
+    __DIR__ . '/../../../vendor/autoload.php',
+    __DIR__ . '/../../vendor/autoload.php',
+    __DIR__ . '/../vendor/autoload.php',
+    __DIR__ . '/vendor/autoload.php',
+];
 
+$composerLocation = null;
+foreach ($autoloadLocations as $location) {
+    if (is_file($location)) {
+        $composerLocation = $location;
+        break;
+    }
+}
+
+if (!$composerLocation) {
+    die('Composer autoload could not be found');
+}
+
+// Load it
+require_once $composerLocation;
+
+
+// Prepare the command
 use Foundry\Masonry\Console\Command\Init;
 use Foundry\Masonry\Console\Command\Run;
 use Symfony\Component\Console\Application;
 
 $application = new Application();
-$application->add(new Init());
-$application->add(new Run());
+$application->addCommands([
+    new Init(),
+    new Run(),
+]);
 $application->run();
