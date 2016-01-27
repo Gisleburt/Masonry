@@ -10,6 +10,7 @@
 namespace Foundry\Masonry\Console\Command;
 
 use Foundry\Masonry\Console\Command\Shared\QueueTrait;
+use Foundry\Masonry\Core\GlobalRegister;
 use Foundry\Masonry\Core\Injection\HasFilesystem;
 use Foundry\Masonry\ModuleRegister\ModuleRegister;
 use Symfony\Component\Console\Command\Command;
@@ -54,8 +55,10 @@ class Run extends Command
     {
         $moduleRegister = ModuleRegister::load();
 
+        GlobalRegister::setModuleRegister($moduleRegister);
+
         foreach ($moduleRegister->getWorkerModuleDefinitions() as $moduleDefinition) {
-            $output->writeln($moduleDefinition->getModuleName());
+            $output->writeln($moduleDefinition->getName());
         }
 
 
