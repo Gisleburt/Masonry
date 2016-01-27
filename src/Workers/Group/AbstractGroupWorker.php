@@ -12,13 +12,10 @@ namespace Foundry\Masonry\Workers\Group;
 
 use Foundry\Masonry\Core\AbstractWorker;
 use Foundry\Masonry\Core\GlobalRegister;
-use Foundry\Masonry\Core\Mediator;
-use Foundry\Masonry\Core\Mediator\MediatorAwareTrait;
 use Foundry\Masonry\Core\Notification;
 use Foundry\Masonry\Core\Task\History\Reason;
 use Foundry\Masonry\Core\Task\History\Result;
 use Foundry\Masonry\Interfaces\CoroutineInterface;
-use Foundry\Masonry\Interfaces\Mediator\MediatorAwareInterface;
 use Foundry\Masonry\Interfaces\NotificationInterface;
 use Foundry\Masonry\Interfaces\Task\History\ResultInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
@@ -29,7 +26,7 @@ use Foundry\Masonry\Interfaces\TaskInterface;
  * @package Masonry
  * @see       https://github.com/TheFoundryVisionmongers/Masonry
  */
-abstract class AbstractGroupWorker extends AbstractWorker implements MediatorAwareInterface
+abstract class AbstractGroupWorker extends AbstractWorker
 {
 
     /**
