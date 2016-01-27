@@ -10,7 +10,8 @@
 namespace Foundry\Masonry\Core;
 
 use Foundry\Masonry\Interfaces\GlobalRegisterInterface;
-use Foundry\Masonry\ModuleRegister\Interfaces\ModuleRegister as ModuleRegisterInterface;
+use Foundry\Masonry\Interfaces\MediatorInterface;
+use Foundry\Masonry\ModuleRegister\Interfaces\ModuleRegisterInterface;
 use Foundry\Masonry\ModuleRegister\ModuleRegister;
 
 /**
@@ -24,6 +25,11 @@ class GlobalRegister implements GlobalRegisterInterface
      * @var ModuleRegisterInterface
      */
     protected static $moduleRegister;
+
+    /**
+     * @var MediatorInterface
+     */
+    protected static $mediator;
 
     /**
      * @return ModuleRegisterInterface
@@ -41,6 +47,25 @@ class GlobalRegister implements GlobalRegisterInterface
      */
     public static function setModuleRegister($moduleRegister)
     {
+        if (self::$moduleRegister) {
+            throw new \RuntimeException('Module register can only be set once. Changing it would be non-deterministic');
+        }
         self::$moduleRegister = $moduleRegister;
+    }
+
+    /**
+     * @return MediatorInterface
+     */
+    public static function getMediator()
+    {
+        if (!self::$mediator) {
+            self::$mediator = new Mediator();
+            foreach (self::getModuleRegister()->getWorkerModules() as $workerModule) {
+                foreach ($workerModule->getWorkers() as $worker) {
+                    self::$mediator->addWorker($worker);
+                }
+            }
+        }
+        return self::$mediator;
     }
 }
