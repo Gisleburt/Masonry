@@ -3,11 +3,8 @@ Name: Core
 Workers:
   Foundry\Masonry\Workers\Group\Parallel\Worker:
   Foundry\Masonry\Workers\Group\Serial\Worker:
-  Foundry\Masonry\Workers\Masonry\Worker:
 Descriptions:
   Foundry\Masonry\Workers\Group\Serial\Description:
     - Serial
   Foundry\Masonry\Workers\Group\Parallel\Description:
     - Parallel
-  Foundry\Masonry\Workers\Masonry\Description:
-    - Masonry
