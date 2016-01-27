@@ -10,12 +10,18 @@
 namespace Foundry\Masonry\Console\Command;
 
 use Foundry\Masonry\Console\Command\Shared\QueueTrait;
+use Foundry\Masonry\Console\Exception\FileExistsException;
 use Foundry\Masonry\Core\GlobalRegister;
 use Foundry\Masonry\Core\Injection\HasFilesystem;
+use Foundry\Masonry\Core\Mediator;
+use Foundry\Masonry\Core\Task;
 use Foundry\Masonry\ModuleRegister\ModuleRegister;
+use Foundry\Masonry\Workers\Group\Serial\Description;
+use Foundry\Masonry\Workers\Group\Serial\Worker;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class Init
@@ -49,19 +55,31 @@ class Run extends Command
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws FileExistsException
      * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        // Should be able to specify a different module registry?
         $moduleRegister = ModuleRegister::load();
-
         GlobalRegister::setModuleRegister($moduleRegister);
 
-        foreach ($moduleRegister->getWorkerModuleDefinitions() as $moduleDefinition) {
-            $output->writeln($moduleDefinition->getName());
+        // Get the queue file
+        $fs = $this->getFilesystem();
+        $queueFile = $this->getQueueFullPath($input);
+        if (!$fs->exists($queueFile)) {
+            throw new FileExistsException("File '{$queueFile}' doesn't exist, run 'masonry init' to create one");
         }
 
+        // Process the pool
+        $mediator = new Mediator();
+        $taskArray = (array)Yaml::parse(file_get_contents($queueFile));
+        $mediator->process(
+            new Task(
+                new Description($taskArray)
+            )
+        );
 
-        $output->writeln("To do");
+
     }
 }
