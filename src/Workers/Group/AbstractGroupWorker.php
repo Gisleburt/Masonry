@@ -11,6 +11,8 @@
 namespace Foundry\Masonry\Workers\Group;
 
 use Foundry\Masonry\Core\AbstractWorker;
+use Foundry\Masonry\Core\GlobalRegister;
+use Foundry\Masonry\Core\Mediator;
 use Foundry\Masonry\Core\Mediator\MediatorAwareTrait;
 use Foundry\Masonry\Core\Notification;
 use Foundry\Masonry\Core\Task\History\Reason;
@@ -30,8 +32,6 @@ use Foundry\Masonry\Interfaces\TaskInterface;
 abstract class AbstractGroupWorker extends AbstractWorker implements MediatorAwareInterface
 {
 
-    use MediatorAwareTrait;
-
     /**
      * Fins the correct worker using the mediator and sets up the promise callbacks.
      * @param TaskInterface $task
@@ -40,7 +40,7 @@ abstract class AbstractGroupWorker extends AbstractWorker implements MediatorAwa
     public function processChildTask(TaskInterface $task)
     {
         $task->start();
-        $mediator = $this->getMediator();
+        $mediator = GlobalRegister::getMediator();
 
         $coroutine = $mediator->process($task);
 
