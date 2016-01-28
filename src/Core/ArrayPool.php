@@ -14,7 +14,6 @@ namespace Foundry\Masonry\Core;
 
 use Foundry\Masonry\Interfaces\Task\DescriptionInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
-use Foundry\Masonry\ModuleRegister\Interfaces\ModuleRegisterInterface;
 
 /**
  * Class Pool
