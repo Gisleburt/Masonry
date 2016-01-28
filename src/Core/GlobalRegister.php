@@ -13,6 +13,8 @@ use Foundry\Masonry\Interfaces\GlobalRegisterInterface;
 use Foundry\Masonry\Interfaces\MediatorInterface;
 use Foundry\Masonry\ModuleRegister\Interfaces\ModuleRegisterInterface;
 use Foundry\Masonry\ModuleRegister\ModuleRegister;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Class GlobalRegister
@@ -30,6 +32,11 @@ class GlobalRegister implements GlobalRegisterInterface
      * @var MediatorInterface
      */
     protected static $mediator;
+
+    /**
+     * @var LoggerInterface
+     */
+    protected static $logger;
 
     /**
      * @return ModuleRegisterInterface
@@ -67,5 +74,27 @@ class GlobalRegister implements GlobalRegisterInterface
             }
         }
         return self::$mediator;
+    }
+
+    /**
+     * @return LoggerInterface
+     */
+    public static function getLogger()
+    {
+        if (!self::$logger) {
+            self::$logger = new NullLogger();
+        }
+        return self::$logger;
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     */
+    public static function setLogger($logger)
+    {
+        if (self::$logger) {
+            throw new \RuntimeException('Global logger can only be set once');
+        }
+        self::$logger = $logger;
     }
 }

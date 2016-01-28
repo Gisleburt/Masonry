@@ -9,13 +9,14 @@
 
 namespace Foundry\Masonry\Console\Command;
 
+use Foundry\Masonry\Console\Command\Shared\LoggerTrait;
 use Foundry\Masonry\Console\Command\Shared\QueueTrait;
+use Foundry\Masonry\Core\GlobalRegister;
 use Foundry\Masonry\Core\Injection\HasFilesystem;
 use Foundry\Masonry\Console\Exception\FileExistsException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Yaml\Dumper;
 
 /**
  * Class Init
@@ -27,6 +28,7 @@ class Init extends Command
 {
 
     use QueueTrait;
+    use LoggerTrait;
     use HasFilesystem;
 
 
@@ -54,6 +56,9 @@ class Init extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $logger = $this->setUpLogger($output);
+        GlobalRegister::setLogger($logger);
+
         $queueFile = $this->getQueueFullPath($input);
 
         $fs = $this->getFilesystem();
@@ -61,10 +66,10 @@ class Init extends Command
             throw new FileExistsException("File '{$queueFile}' already exists");
         }
 
-        $output->writeln("Creating <info>{$queueFile}</info>");
+        $logger->info("Creating <info>{$queueFile}</info>");
 
         $fs->dumpFile($queueFile, '');
 
-        $output->writeln("Done");
+        $logger->info("Done");
     }
 }

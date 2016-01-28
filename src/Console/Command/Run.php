@@ -9,6 +9,7 @@
 
 namespace Foundry\Masonry\Console\Command;
 
+use Foundry\Masonry\Console\Command\Shared\LoggerTrait;
 use Foundry\Masonry\Console\Command\Shared\QueueTrait;
 use Foundry\Masonry\Console\Exception\FileExistsException;
 use Foundry\Masonry\Core\GlobalRegister;
@@ -17,7 +18,6 @@ use Foundry\Masonry\Core\Mediator;
 use Foundry\Masonry\Core\Task;
 use Foundry\Masonry\ModuleRegister\ModuleRegister;
 use Foundry\Masonry\Workers\Group\Serial\Description;
-use Foundry\Masonry\Workers\Group\Serial\Worker;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -33,6 +33,7 @@ class Run extends Command
 {
 
     use QueueTrait;
+    use LoggerTrait;
     use HasFilesystem;
 
     /**
@@ -60,11 +61,16 @@ class Run extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $logger = $this->setUpLogger($output);
+        GlobalRegister::setLogger($logger);
+
         // Should be able to specify a different module registry?
+        $logger->info("Setting up module register");
         $moduleRegister = ModuleRegister::load();
         GlobalRegister::setModuleRegister($moduleRegister);
 
         // Get the queue file
+        $logger->info("Loading queue");
         $fs = $this->getFilesystem();
         $queueFile = $this->getQueueFullPath($input);
         if (!$fs->exists($queueFile)) {
@@ -72,6 +78,7 @@ class Run extends Command
         }
 
         // Process the pool
+        $logger->info("Loading queue");
         $mediator = new Mediator();
         $taskArray = (array)Yaml::parse(file_get_contents($queueFile));
         $mediator->process(
@@ -80,6 +87,6 @@ class Run extends Command
             )
         );
 
-
+        $logger->info('done');
     }
 }
