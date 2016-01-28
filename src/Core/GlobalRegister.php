@@ -68,7 +68,8 @@ class GlobalRegister implements GlobalRegisterInterface
         if (!self::$mediator) {
             self::$mediator = new Mediator();
             foreach (self::getModuleRegister()->getWorkerModules() as $workerModule) {
-                foreach ($workerModule->getWorkers() as $workerClassName) {
+                foreach ($workerModule->getWorkers() as $workerClassName => $aliases) {
+                    // We're not using aliases yet
                     if (!class_exists($workerClassName)) {
                         throw new \UnexpectedValueException("Unknown class '{$workerClassName}'");
                     }
