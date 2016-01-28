@@ -1,0 +1,10 @@
+Name: Core
+  # No config for this module
+Workers:
+  Foundry\Masonry\Workers\Group\Parallel\Worker:
+  Foundry\Masonry\Workers\Group\Serial\Worker:
+Descriptions:
+  Foundry\Masonry\Workers\Group\Serial\Description:
+    - Serial
+  Foundry\Masonry\Workers\Group\Parallel\Description:
+    - Parallel

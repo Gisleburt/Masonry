@@ -9,9 +9,9 @@
 
 namespace Foundry\Masonry\Core\Injection;
 
+use Foundry\Masonry\Core\GlobalRegister;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 /**
  * Trait HasLogger
@@ -43,7 +43,7 @@ trait HasLogger
     protected function getLogger()
     {
         if (!$this->logger) {
-            $this->logger = new NullLogger();
+            $this->logger = GlobalRegister::getLogger();
         }
         return $this->logger;
     }

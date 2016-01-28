@@ -67,7 +67,6 @@ class Worker extends AbstractGroupWorker
             $deferred->notify("Failed serial tasks with exception: " . $e->getMessage());
         }
         $deferred->reject("Failed serial tasks");
-
     }
 
     /**

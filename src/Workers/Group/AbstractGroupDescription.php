@@ -12,6 +12,7 @@
 namespace Foundry\Masonry\Workers\Group;
 
 use Foundry\Masonry\Core\AbstractDescription;
+use Foundry\Masonry\Core\ArrayPool;
 use Foundry\Masonry\Interfaces\Pool\StatusInterface;
 use Foundry\Masonry\Interfaces\PoolInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
@@ -25,17 +26,17 @@ use Foundry\Masonry\Interfaces\TaskInterface;
 abstract class AbstractGroupDescription extends AbstractDescription implements PoolInterface
 {
     /**
-     * @var PoolInterface
+     * @var ArrayPool
      */
     protected $pool;
 
     /**
      * Description constructor.
-     * @param PoolInterface $pool
+     * @param array $tasks
      */
-    public function __construct(PoolInterface $pool)
+    public function __construct(array $tasks = [])
     {
-        $this->pool = $pool;
+        $this->pool = new ArrayPool($tasks);
     }
 
     /**
@@ -44,8 +45,7 @@ abstract class AbstractGroupDescription extends AbstractDescription implements P
      */
     public function addTask(TaskInterface $task)
     {
-        $this->pool->addTask($task);
-        return $this;
+        return $this->pool->addTask($task);
     }
 
     /**

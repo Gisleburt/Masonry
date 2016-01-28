@@ -30,7 +30,9 @@
     "psr/log": "^1.0",
     "react/promise": "^2.2",
     "symfony/console": "^2.0",
-    "foundry/masonry-register": "^0.2.3"
+    "symfony/filesystem": "^2.0",
+    "symfony/yaml": "^2.0",
+    "foundry/masonry-register": "dev-develop@dev"
   },
   "require-dev": {
     "phpunit/phpunit": ">=4.8.21",
@@ -44,12 +46,14 @@
     "masonry"
   ],
   "config": {
-    "bin-dir": "bin",
     "github-protocols": [
       "https"
     ]
   },
   "scripts": {
+    "test": [
+      "vendor/bin/phpunit"
+    ],
     "validate-masonry": "Foundry\\Masonry\\ModuleRegister\\Composer\\Plugin::validate"
   }
 }

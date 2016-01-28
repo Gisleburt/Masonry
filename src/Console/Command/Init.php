@@ -9,13 +9,14 @@
 
 namespace Foundry\Masonry\Console\Command;
 
-use Foundry\Masonry\Console\Command\Shared\ConfigTrait;
+use Foundry\Masonry\Console\Command\Shared\LoggerTrait;
+use Foundry\Masonry\Console\Command\Shared\QueueTrait;
+use Foundry\Masonry\Core\GlobalRegister;
 use Foundry\Masonry\Core\Injection\HasFilesystem;
 use Foundry\Masonry\Console\Exception\FileExistsException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Yaml\Dumper;
 
 /**
  * Class Init
@@ -26,7 +27,8 @@ use Symfony\Component\Yaml\Dumper;
 class Init extends Command
 {
 
-    use ConfigTrait;
+    use QueueTrait;
+    use LoggerTrait;
     use HasFilesystem;
 
 
@@ -43,7 +45,7 @@ class Init extends Command
             ->setDescription('Initialise Masonry in the current directory with a masonry.yaml');
 
         $this->getNativeDefinition()->addArgument(
-            $this->getConfigArgument()
+            $this->getQueueArgument()
         );
     }
 
@@ -54,41 +56,20 @@ class Init extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $configFile = $this->getConfigFileFullPath($input);
+        $logger = $this->setUpLogger($output);
+        GlobalRegister::setLogger($logger);
+
+        $queueFile = $this->getQueueFullPath($input);
 
         $fs = $this->getFilesystem();
-        if ($fs->exists($configFile)) {
-            throw new FileExistsException("File '{$configFile}' already exists");
+        if ($fs->exists($queueFile)) {
+            throw new FileExistsException("File '{$queueFile}' already exists");
         }
 
-        $output->writeln("Creating <info>{$configFile}</info>");
+        $logger->info("Creating <info>{$queueFile}</info>");
 
-        $fs->dumpFile(
-            $configFile,
-            $this->toYaml(
-                $this->createConfigurationArray($input)
-            )
-        );
+        $fs->dumpFile($queueFile, '');
 
-        $output->writeln("Done");
-    }
-    /**
-     * @return array
-     */
-    protected function createConfigurationArray(InputInterface $input)
-    {
-        $config = $this->getConfig();
-        return $config->toArray();
-    }
-
-    /**
-     * Convert an array to a Yaml string
-     * @param array $data
-     * @return string
-     */
-    protected function toYaml(array $data)
-    {
-        $yamlDumper = new Dumper();
-        return $yamlDumper->dump($data, 10);
+        $logger->info("Done");
     }
 }
