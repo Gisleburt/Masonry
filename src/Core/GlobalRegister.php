@@ -69,6 +69,7 @@ class GlobalRegister implements GlobalRegisterInterface
             self::$mediator = new Mediator();
             foreach (self::getModuleRegister()->getWorkerModules() as $workerModule) {
                 foreach ($workerModule->getWorkers() as $workerClassName) {
+
                     $worker = new $workerClassName();
                     self::$mediator->addWorker($worker);
                 }

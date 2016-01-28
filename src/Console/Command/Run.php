@@ -14,7 +14,6 @@ use Foundry\Masonry\Console\Command\Shared\QueueTrait;
 use Foundry\Masonry\Console\Exception\FileExistsException;
 use Foundry\Masonry\Core\GlobalRegister;
 use Foundry\Masonry\Core\Injection\HasFilesystem;
-use Foundry\Masonry\Core\Mediator;
 use Foundry\Masonry\Core\Task;
 use Foundry\Masonry\ModuleRegister\ModuleRegister;
 use Foundry\Masonry\Workers\Group\Serial\Description;
