@@ -12,6 +12,7 @@ namespace Foundry\Masonry\Console\Command;
 use Foundry\Masonry\Console\Command\Shared\LoggerTrait;
 use Foundry\Masonry\Console\Command\Shared\QueueTrait;
 use Foundry\Masonry\Console\Exception\FileExistsException;
+use Foundry\Masonry\Core\CoroutineRegister;
 use Foundry\Masonry\Core\GlobalRegister;
 use Foundry\Masonry\Core\Injection\HasFilesystem;
 use Foundry\Masonry\Core\Task;
@@ -80,11 +81,16 @@ class Run extends Command
         $logger->info("Processing queue");
         $taskArray = (array)Yaml::parse(file_get_contents($queueFile));
         $mediator = GlobalRegister::getMediator();
-        $mediator->process(
+        $coroutine = $mediator->process(
             new Task(
                 new Description($taskArray)
             )
         );
+        $coroutineRegister = new CoroutineRegister();
+        $coroutineRegister->register($coroutine);
+        while ($coroutineRegister->isValid()) {
+            $coroutineRegister->tick();
+        }
 
         $logger->info('done');
     }
