@@ -78,7 +78,7 @@ class Run extends Command
         }
 
         // Process the pool
-        $logger->info("Loading queue");
+        $logger->info("Processing queue");
         $mediator = new Mediator();
         $taskArray = (array)Yaml::parse(file_get_contents($queueFile));
         $mediator->process(
