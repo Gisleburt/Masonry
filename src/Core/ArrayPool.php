@@ -54,7 +54,8 @@ class ArrayPool extends Pool
         $moduleRegister = GlobalRegister::getModuleRegister();
         $className = '';
         try {
-            list($module, $descriptionAlias) = explode('/', $taskName);
+            // Split on \, /, |, or :
+            list($module, $descriptionAlias) = preg_split('!\\\|/|\||:!', $taskName, 2);
 
             if ($module && $descriptionAlias) {
                 $className = $moduleRegister->getWorkerModule($module)->lookupDescription($descriptionAlias);
