@@ -48,8 +48,8 @@ class WorkerModule extends Mediator implements WorkerModuleInterface
     {
         if (!$this->descriptionTypes) {
             foreach ($this->workers as $worker) {
-                $workerDescriptionTypes = $worker->getDescriptionTypes();
-                foreach ($workerDescriptionTypes as $descriptionType) {
+                $descriptionTypes = $worker->getDescriptionTypes();
+                foreach ($descriptionTypes as $descriptionType) {
                     $this->descriptionTypes[$descriptionType] = $descriptionType;
                 }
             }
