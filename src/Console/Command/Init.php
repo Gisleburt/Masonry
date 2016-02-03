@@ -44,14 +44,14 @@ class Init extends AbstractCommand
 
         $queueFile = $this->getQueueFullPath($input);
 
-        $fs = $this->getFilesystem();
-        if ($fs->exists($queueFile)) {
+        $filesystem = $this->getFilesystem();
+        if ($filesystem->exists($queueFile)) {
             throw new FileExistsException("File '{$queueFile}' already exists");
         }
 
         $logger->info("Creating <info>{$queueFile}</info>");
 
-        $fs->dumpFile($queueFile, '');
+        $filesystem->dumpFile($queueFile, '');
 
         $logger->info("Done");
     }

@@ -55,9 +55,9 @@ class Run extends AbstractCommand
 
         // Get the queue file
         $logger->info("Loading queue");
-        $fs = $this->getFilesystem();
+        $filesystem = $this->getFilesystem();
         $queueFile = $this->getQueueFullPath($input);
-        if (!$fs->exists($queueFile)) {
+        if (!$filesystem->exists($queueFile)) {
             throw new FileExistsException("File '{$queueFile}' doesn't exist, run 'masonry init' to create one");
         }
 
