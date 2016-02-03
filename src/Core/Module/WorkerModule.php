@@ -11,7 +11,6 @@ namespace Foundry\Masonry\Core\Module;
 
 use Foundry\Masonry\Core\Mediator;
 use Foundry\Masonry\Interfaces\Task\DescriptionInterface;
-use Foundry\Masonry\Interfaces\WorkerInterface;
 use Foundry\Masonry\Interfaces\WorkerModuleInterface;
 
 /**
