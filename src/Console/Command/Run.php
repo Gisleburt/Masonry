@@ -9,16 +9,12 @@
 
 namespace Foundry\Masonry\Console\Command;
 
-use Foundry\Masonry\Console\Command\Shared\LoggerTrait;
-use Foundry\Masonry\Console\Command\Shared\QueueTrait;
 use Foundry\Masonry\Console\Exception\FileExistsException;
 use Foundry\Masonry\Core\CoroutineRegister;
 use Foundry\Masonry\Core\GlobalRegister;
-use Foundry\Masonry\Core\Injection\HasFilesystem;
 use Foundry\Masonry\Core\Task;
 use Foundry\Masonry\ModuleRegister\ModuleRegister;
 use Foundry\Masonry\Workers\Group\Serial\Description;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
@@ -29,12 +25,8 @@ use Symfony\Component\Yaml\Yaml;
  * @package Masonry
  * @see     https://github.com/TheFoundryVisionmongers/Masonry
  */
-class Run extends Command
+class Run extends AbstractCommand
 {
-
-    use QueueTrait;
-    use LoggerTrait;
-    use HasFilesystem;
 
     /**
      * Set up command
@@ -42,15 +34,7 @@ class Run extends Command
      */
     protected function configure()
     {
-        parent::configure();
-
-        $this
-            ->setName('run')
-            ->setDescription('Runs the currently configured masonry config.');
-
-        $this->getNativeDefinition()->addArgument(
-            $this->getQueueArgument()
-        );
+        $this->abstractConfigure('run', 'Runs the currently configured masonry config.');
     }
 
     /**
