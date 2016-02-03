@@ -13,6 +13,7 @@
 
 namespace Foundry\Masonry\Core\Pool;
 
+use Foundry\Masonry\Core\AbstractStatus;
 use Foundry\Masonry\Core\Exception\InvalidPoolStatus;
 use Foundry\Masonry\Interfaces\Pool\StatusInterface;
 
@@ -21,13 +22,8 @@ use Foundry\Masonry\Interfaces\Pool\StatusInterface;
  * Represents the current status of a Pool
  * @package Foundry\Masonry
  */
-class Status implements StatusInterface
+class Status extends AbstractStatus implements StatusInterface
 {
-
-    /**
-     * @var string
-     */
-    private $status;
 
     /**
      * StatusInterface constructor.
@@ -47,23 +43,5 @@ class Status implements StatusInterface
             );
         }
         $this->status = $status;
-    }
-
-    /**
-     * Returns either 'pending' or 'empty'
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * Returns status
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getStatus();
     }
 }

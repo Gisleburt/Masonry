@@ -9,12 +9,8 @@
 
 namespace Foundry\Masonry\Console\Command;
 
-use Foundry\Masonry\Console\Command\Shared\LoggerTrait;
-use Foundry\Masonry\Console\Command\Shared\QueueTrait;
 use Foundry\Masonry\Core\GlobalRegister;
-use Foundry\Masonry\Core\Injection\HasFilesystem;
 use Foundry\Masonry\Console\Exception\FileExistsException;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -24,13 +20,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @package Masonry
  * @see     https://github.com/TheFoundryVisionmongers/Masonry
  */
-class Init extends Command
+class Init extends AbstractCommand
 {
-
-    use QueueTrait;
-    use LoggerTrait;
-    use HasFilesystem;
-
 
     /**
      * Set up command
@@ -38,15 +29,7 @@ class Init extends Command
      */
     protected function configure()
     {
-        parent::configure();
-
-        $this
-            ->setName('init')
-            ->setDescription('Initialise Masonry in the current directory with a masonry.yaml');
-
-        $this->getNativeDefinition()->addArgument(
-            $this->getQueueArgument()
-        );
+        $this->abstractConfigure('init', 'Initialise Masonry in the current directory with a masonry.yaml');
     }
 
     /**
@@ -61,14 +44,14 @@ class Init extends Command
 
         $queueFile = $this->getQueueFullPath($input);
 
-        $fs = $this->getFilesystem();
-        if ($fs->exists($queueFile)) {
+        $filesystem = $this->getFilesystem();
+        if ($filesystem->exists($queueFile)) {
             throw new FileExistsException("File '{$queueFile}' already exists");
         }
 
         $logger->info("Creating <info>{$queueFile}</info>");
 
-        $fs->dumpFile($queueFile, '');
+        $filesystem->dumpFile($queueFile, '');
 
         $logger->info("Done");
     }

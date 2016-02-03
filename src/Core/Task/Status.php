@@ -13,6 +13,7 @@
 
 namespace Foundry\Masonry\Core\Task;
 
+use Foundry\Masonry\Core\AbstractStatus;
 use Foundry\Masonry\Core\Exception\InvalidTaskStatus;
 use Foundry\Masonry\Interfaces\Task\StatusInterface;
 
@@ -21,11 +22,8 @@ use Foundry\Masonry\Interfaces\Task\StatusInterface;
  * Represents the current status of a Task
  * @package Foundry\Masonry
  */
-class Status implements StatusInterface
+class Status extends AbstractStatus implements StatusInterface
 {
-
-    private $status;
-
     /**
      * StatusInterface constructor.
      * Must be 'new', 'in progress', 'complete', or 'deferred'.
@@ -47,23 +45,5 @@ class Status implements StatusInterface
             throw new InvalidTaskStatus();
         }
         $this->status = $status;
-    }
-
-    /**
-     * Returns 'new', 'in progress', 'complete', or 'deferred'.
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * Returns getStatus()
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->getStatus();
     }
 }

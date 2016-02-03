@@ -1,33 +1,73 @@
 <?php
 /**
- * Config.php
+ * AbstractCommand.php
  * @author    Daniel Mason <daniel.mason@thefoundry.co.uk>
- * @copyright 2015 The Foundry Visionmongers
+ * @copyright 2016 The Foundry Visionmongers
  * @license
  * @see       https://github.com/TheFoundryVisionmongers/Masonry
  */
 
-namespace Foundry\Masonry\Console\Command\Shared;
+namespace Foundry\Masonry\Console\Command;
 
-use Foundry\Masonry\Core\Injection\HasConfig;
+use Foundry\Masonry\Core\Injection\HasFilesystem;
+use Foundry\Masonry\Logging\MultiLogger;
+use Foundry\Masonry\Logging\SymfonyOutputLogger;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class Config
+ * Class AbstractCommand
  * ${CARET}
  * @package Masonry
  * @see     https://github.com/TheFoundryVisionmongers/Masonry
  */
-trait QueueTrait
+abstract class AbstractCommand extends Command
 {
+
+    use HasFilesystem;
 
     /**
      * @var string
      */
     protected $defaultFileName = 'queue.yaml';
 
+    /**
+     * @var string
+     */
     protected $configOptionName = 'queue';
+
+    /**
+     * Sets up the command
+     * @param string $name
+     * @param string $description
+     */
+    protected function abstractConfigure($name, $description)
+    {
+        parent::configure();
+
+        $this
+            ->setName($name)
+            ->setDescription($description);
+
+        $this->getNativeDefinition()->addArgument(
+            $this->getQueueArgument()
+        );
+    }
+
+    /**
+     * @param OutputInterface $output
+     * @return MultiLogger
+     */
+    protected function setUpLogger(OutputInterface $output)
+    {
+        $logger = new MultiLogger();
+        $logger->addLogger(
+            new SymfonyOutputLogger($output)
+        );
+        return $logger;
+    }
 
     /**
      * @return InputArgument

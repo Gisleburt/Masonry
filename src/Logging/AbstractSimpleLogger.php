@@ -25,6 +25,11 @@ abstract class AbstractSimpleLogger extends AbstractLogger
 
     const MIN_SIZE = 6;
 
+    /**
+     * @param string $level
+     * @param string $message
+     * @return string
+     */
     protected function formatLog($level, $message)
     {
         return $this->formatLevel($level) . $this->formatMessage($message);
@@ -55,11 +60,11 @@ abstract class AbstractSimpleLogger extends AbstractLogger
             case LogLevel::INFO:
             case LogLevel::DEBUG:
                 return strtolower($level);
-            case LogLevel::EMERGENCY:
-            case LogLevel::ALERT:
-            case LogLevel::CRITICAL:
-            case LogLevel::ERROR:
-            case LogLevel::WARNING:
+//            case LogLevel::EMERGENCY:
+//            case LogLevel::ALERT:
+//            case LogLevel::CRITICAL:
+//            case LogLevel::ERROR:
+//            case LogLevel::WARNING:
             default:
                 return strtoupper($level);
         }
