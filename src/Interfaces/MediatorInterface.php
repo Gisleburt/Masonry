@@ -31,11 +31,11 @@ interface MediatorInterface
     public function addWorker(WorkerInterface $worker);
 
     /**
-     * Process a given task, returning the promise from the worker that took it. If no appropriate
+     * Process a given task, returning the coroutine from the worker that took it. If no appropriate
      * task is found, an Exception will be thrown instead.
      * @param TaskInterface $task
      * @throws \OutOfBoundsException
-     * @return Promise
+     * @return CoroutineInterface
      */
     public function process(TaskInterface $task);
 }

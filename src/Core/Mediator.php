@@ -14,6 +14,7 @@
 namespace Foundry\Masonry\Core;
 
 use Foundry\Masonry\Core\Exception\NoWorkerFound;
+use Foundry\Masonry\Interfaces\CoroutineInterface;
 use Foundry\Masonry\Interfaces\MediatorInterface;
 use Foundry\Masonry\Interfaces\WorkerInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
@@ -48,7 +49,7 @@ class Mediator implements MediatorInterface
      * task is found, an Exception will be thrown instead.
      * @param TaskInterface $task
      * @throws NoWorkerFound
-     * @return Promise
+     * @return CoroutineInterface
      */
     public function process(TaskInterface $task)
     {

@@ -1,0 +1,65 @@
+#!/usr/bin/env php
+<?php
+/**
+ * masonry
+ * @author    Daniel Mason <daniel.mason@thefoundry.co.uk>
+ * @copyright 2015 The Foundry Visionmongers
+ * @license
+ * @see       https://github.com/TheFoundryVisionmongers/Masonry
+ */
+
+
+/**
+ * Convert errors to exceptions.
+ * @param $severity
+ * @param $message
+ * @param $file
+ * @param $line
+ * @throws ErrorException
+ */
+function exception_error_handler($severity, $message, $file, $line)
+{
+    if (!(error_reporting() & $severity)) {
+        // This error code is not included in error_reporting
+        return;
+    }
+    throw new ErrorException($message, 0, $severity, $file, $line);
+}
+set_error_handler("exception_error_handler");
+
+// Find composer autoload.
+$autoloadLocations = [
+    __DIR__ . '/../../../../../vendor/autoload.php',
+    __DIR__ . '/../../../../vendor/autoload.php',
+    __DIR__ . '/../../../vendor/autoload.php',
+    __DIR__ . '/../../vendor/autoload.php',
+    __DIR__ . '/../vendor/autoload.php',
+    __DIR__ . '/vendor/autoload.php',
+];
+
+$composerLocation = null;
+foreach ($autoloadLocations as $location) {
+    if (is_file($location)) {
+        $composerLocation = $location;
+        break;
+    }
+}
+
+if (!$composerLocation) {
+    die('Composer autoload could not be found');
+}
+
+// Load it
+require_once $composerLocation;
+
+// Prepare the command
+use Foundry\Masonry\Console\Command\Init;
+use Foundry\Masonry\Console\Command\Run;
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+$application->addCommands([
+    new Init(),
+    new Run(),
+]);
+$application->run();
