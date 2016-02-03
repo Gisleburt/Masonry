@@ -130,11 +130,11 @@ class SymfonyOutputLogger extends AbstractSimpleLogger
             case LogLevel::DEBUG:
                 return "<fg=cyan>$textToColor</>";
                 break;
-            case LogLevel::EMERGENCY:
-            case LogLevel::ALERT:
-            case LogLevel::CRITICAL:
-            case LogLevel::ERROR:
-            case LogLevel::WARNING:
+//            case LogLevel::EMERGENCY:
+//            case LogLevel::ALERT:
+//            case LogLevel::CRITICAL:
+//            case LogLevel::ERROR:
+//            case LogLevel::WARNING:
             default:
         }
         return "<fg=red>$textToColor</>";
@@ -157,10 +157,10 @@ class SymfonyOutputLogger extends AbstractSimpleLogger
             case LogLevel::NOTICE:
                 return ucwords(strtolower($level));
                 break;
-            case LogLevel::EMERGENCY:
-            case LogLevel::ALERT:
-            case LogLevel::CRITICAL:
-            case LogLevel::WARNING:
+//            case LogLevel::EMERGENCY:
+//            case LogLevel::ALERT:
+//            case LogLevel::CRITICAL:
+//            case LogLevel::WARNING:
             default:
                 return strtoupper($level);
                 break;
