@@ -45,6 +45,7 @@ class PoolTest extends TestCase
      * @covers ::addTask
      * @uses \Foundry\Masonry\Core\Pool::getTask
      * @uses \Foundry\Masonry\Core\Pool::getStatus
+     * @uses \Foundry\Masonry\Core\AbstractStatus
      * @uses \Foundry\Masonry\Core\Task
      * @uses \Foundry\Masonry\Core\Task\History
      * @uses \Foundry\Masonry\Core\Task\Status
@@ -65,6 +66,7 @@ class PoolTest extends TestCase
      * @test
      * @covers ::getTask
      * @uses \Foundry\Masonry\Core\Pool::addTask
+     * @uses \Foundry\Masonry\Core\AbstractStatus
      * @uses \Foundry\Masonry\Core\Task
      * @uses \Foundry\Masonry\Core\Task\History
      * @uses \Foundry\Masonry\Core\Task\Status
@@ -93,6 +95,7 @@ class PoolTest extends TestCase
      * @test
      * @covers ::getStatus
      * @uses \Foundry\Masonry\Core\Pool::addTask
+     * @uses \Foundry\Masonry\Core\AbstractStatus
      * @uses \Foundry\Masonry\Core\Task
      * @uses \Foundry\Masonry\Core\Task\History
      * @uses \Foundry\Masonry\Core\Task\Status
@@ -122,6 +125,7 @@ class PoolTest extends TestCase
      * @covers ::addTask
      * @uses \Foundry\Masonry\Core\Pool::getTask
      * @uses \Foundry\Masonry\Core\Pool::getStatus
+     * @uses \Foundry\Masonry\Core\AbstractStatus
      * @uses \Foundry\Masonry\Core\Task
      * @uses \Foundry\Masonry\Core\Task\Status
      * @uses \Foundry\Masonry\Core\Task\History
