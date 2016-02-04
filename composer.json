@@ -26,13 +26,13 @@
     }
   },
   "require": {
-    "php": ">=5.5.0",
+    "php": "^5.5 || ^7.0",
     "psr/log": "^1.0",
     "react/promise": "^2.2",
     "symfony/console": "^2.0",
     "symfony/filesystem": "^2.0",
     "symfony/yaml": "^2.0",
-    "foundry/masonry-register": "dev-release/1.0.0-alpha.1@dev"
+    "foundry/masonry-register": "^1.0.0-alpha.1"
   },
   "require-dev": {
     "phpunit/phpunit": ">=4.8.21",
