@@ -100,7 +100,6 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
         /** @var AbstractGroupWorker $groupWorker */
         $groupWorker = new $class();
         $groupWorker
-            ->setMediator($mediator)
             ->setLogger($logger);
 
         $processChildTask = $this->getObjectMethod($groupWorker, 'processChildTask');
@@ -177,7 +176,6 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
         /** @var AbstractGroupWorker $groupWorker */
         $groupWorker = new $class();
         $groupWorker
-            ->setMediator($mediator)
             ->setLogger($logger);
 
         $processChildTask = $this->getObjectMethod($groupWorker, 'processChildTask');
@@ -238,7 +236,6 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
         /** @var AbstractGroupWorker $groupWorker */
         $groupWorker = new $class();
         $groupWorker
-            ->setMediator($mediator)
             ->setLogger($logger);
 
         $processChildTask = $this->getObjectMethod($groupWorker, 'processChildTask');
@@ -327,7 +324,6 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
         /** @var AbstractGroupWorker $groupWorker */
         $groupWorker = new $class();
         $groupWorker
-            ->setMediator($mediator)
             ->setLogger($logger);
 
         $processChildTask = $this->getObjectMethod($groupWorker, 'processChildTask');
@@ -408,7 +404,6 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
         /** @var AbstractGroupWorker $groupWorker */
         $groupWorker = new $class();
         $groupWorker
-            ->setMediator($mediator)
             ->setLogger($logger);
 
         $processChildTask = $this->getObjectMethod($groupWorker, 'processChildTask');
@@ -468,7 +463,6 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
         /** @var AbstractGroupWorker $groupWorker */
         $groupWorker = new $class();
         $groupWorker
-            ->setMediator($mediator)
             ->setLogger($logger);
 
         $processChildTask = $this->getObjectMethod($groupWorker, 'processChildTask');
