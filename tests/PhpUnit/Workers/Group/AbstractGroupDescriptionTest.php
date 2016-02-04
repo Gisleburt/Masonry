@@ -13,7 +13,6 @@ namespace Foundry\Masonry\Tests\PhpUnit\Workers\Group;
 
 use Foundry\Masonry\Core\ArrayPool;
 use Foundry\Masonry\Interfaces\Pool\StatusInterface;
-use Foundry\Masonry\Interfaces\PoolInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
 use Foundry\Masonry\Tests\PhpUnit\Core\AbstractDescriptionTest;
 use Foundry\Masonry\Workers\Group\AbstractGroupDescription;
