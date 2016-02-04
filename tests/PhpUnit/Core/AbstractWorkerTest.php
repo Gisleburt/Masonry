@@ -13,11 +13,8 @@ namespace Foundry\Masonry\Tests\PhpUnit\Core;
 use Foundry\Masonry\Core\AbstractWorker;
 use Foundry\Masonry\Core\Coroutine;
 use Foundry\Masonry\Interfaces\TaskInterface;
-use Foundry\Masonry\Interfaces\WorkerInterface;
 use Foundry\Masonry\Tests\PhpUnit\Core\Injection\HasLoggerTest;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 
 /**
  * Class AbstractWorkerTest

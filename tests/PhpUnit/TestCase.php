@@ -81,4 +81,58 @@ class TestCase extends \PHPUnit_Framework_TestCase
                 ->getMockForAbstractClass();
         return $task;
     }
+
+    /**
+     * Sets the value of a static attribute.
+     * This also works for attributes that are declared protected or private.
+     *
+     * @param string $className
+     * @param string $attributeName
+     *
+     * @return void
+     *
+     * @throws \PHPUnit_Framework_Exception
+     *
+     * @since  Method available since Release 4.0.0
+     */
+    public static function setStaticAttribute($className, $attributeName, $value)
+    {
+        if (!is_string($className)) {
+            throw \PHPUnit_Util_InvalidArgumentHelper::factory(1, 'string');
+        }
+
+        if (!class_exists($className)) {
+            throw \PHPUnit_Util_InvalidArgumentHelper::factory(1, 'class name');
+        }
+
+        if (!is_string($attributeName)) {
+            throw \PHPUnit_Util_InvalidArgumentHelper::factory(2, 'string');
+        }
+
+        if (!preg_match('/[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/', $attributeName)) {
+            throw \PHPUnit_Util_InvalidArgumentHelper::factory(2, 'valid attribute name');
+        }
+
+        $class = new \ReflectionClass($className);
+
+        while ($class) {
+            $attributes = $class->getStaticProperties();
+
+            if (array_key_exists($attributeName, $attributes)) {
+                $reflectedProperty = $class->getProperty($attributeName);
+                $reflectedProperty->setAccessible(true);
+                $reflectedProperty->setValue($value);
+                return;
+            }
+
+            $class = $class->getParentClass();
+        }
+
+        throw new \PHPUnit_Framework_Exception(
+            sprintf(
+                'Attribute "%s" not found in class.',
+                $attributeName
+            )
+        );
+    }
 }
