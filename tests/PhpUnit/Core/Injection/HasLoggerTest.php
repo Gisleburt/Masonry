@@ -31,6 +31,7 @@ trait HasLoggerTest
      * @test
      * @covers ::getLogger
      * @uses \Foundry\Masonry\Core\Injection\HasLogger::setLogger
+     * @uses \Foundry\Masonry\Core\GlobalRegister
      */
     public function testGetLogger()
     {

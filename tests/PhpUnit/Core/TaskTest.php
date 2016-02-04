@@ -77,6 +77,7 @@ class TaskTest extends TestCase
      * @uses \Foundry\Masonry\Core\Task::start
      * @uses \Foundry\Masonry\Core\Task::cancel
      * @uses \Foundry\Masonry\Core\Task::complete
+     * @uses \Foundry\Masonry\Core\AbstractStatus
      * @uses \Foundry\Masonry\Core\Task\History
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @uses \Foundry\Masonry\Core\Task\History\Result
@@ -159,6 +160,7 @@ class TaskTest extends TestCase
      * @uses \Foundry\Masonry\Core\Task::__construct
      * @uses \Foundry\Masonry\Core\Task::getHistory
      * @uses \Foundry\Masonry\Core\Task::getStatus
+     * @uses \Foundry\Masonry\Core\AbstractStatus
      * @uses \Foundry\Masonry\Core\Task\History
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @uses \Foundry\Masonry\Core\Task\History\Result
@@ -199,6 +201,7 @@ class TaskTest extends TestCase
      * @uses \Foundry\Masonry\Core\Task::getHistory
      * @uses \Foundry\Masonry\Core\Task::getStatus
      * @uses \Foundry\Masonry\Core\Task::start
+     * @uses \Foundry\Masonry\Core\AbstractStatus
      * @uses \Foundry\Masonry\Core\Task\Status
      * @uses \Foundry\Masonry\Core\Task\History
      * @uses \Foundry\Masonry\Core\Task\History\Reason
@@ -241,6 +244,7 @@ class TaskTest extends TestCase
      * @uses \Foundry\Masonry\Core\Task::getHistory
      * @uses \Foundry\Masonry\Core\Task::getStatus
      * @uses \Foundry\Masonry\Core\Task::start
+     * @uses \Foundry\Masonry\Core\AbstractStatus
      * @uses \Foundry\Masonry\Core\Task\Status
      * @uses \Foundry\Masonry\Core\Task\History
      * @uses \Foundry\Masonry\Core\Task\History\Reason
