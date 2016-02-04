@@ -35,6 +35,8 @@ abstract class AbstractGroupDescriptionTest extends AbstractDescriptionTest
      * @test
      * @covers ::__construct
      * @uses \Foundry\Masonry\Core\ArrayPool
+     * @uses \Foundry\Masonry\Core\Pool
+     * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::getTask
      */
     public function testConstruct()
     {
@@ -69,6 +71,7 @@ abstract class AbstractGroupDescriptionTest extends AbstractDescriptionTest
      * @covers ::getTask
      * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::__construct
      * @uses \Foundry\Masonry\Core\ArrayPool
+     * @uses \Foundry\Masonry\Core\Pool
      */
     public function testAddTask()
     {
@@ -98,6 +101,9 @@ abstract class AbstractGroupDescriptionTest extends AbstractDescriptionTest
      * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::__construct
      * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::addTask
      * @uses \Foundry\Masonry\Core\ArrayPool
+     * @uses \Foundry\Masonry\Core\Pool
+     * @uses \Foundry\Masonry\Core\Pool\Status
+     * @uses \Foundry\Masonry\Core\AbstractStatus
      */
     public function testGetStatus()
     {
@@ -130,6 +136,9 @@ abstract class AbstractGroupDescriptionTest extends AbstractDescriptionTest
      * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::__construct
      * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::flattenKeys
      * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::flatten
+     * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::getTask
+     * @uses \Foundry\Masonry\Core\ArrayPool
+     * @uses \Foundry\Masonry\Core\Pool
      */
     public function testCreateFromParameters()
     {

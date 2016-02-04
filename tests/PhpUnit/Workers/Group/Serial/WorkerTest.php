@@ -43,6 +43,7 @@ class WorkerTest extends AbstractGroupWorkerTest
      * @uses \Foundry\Masonry\Core\Notification
      * @uses \Foundry\Masonry\Core\Pool\Status
      * @uses \Foundry\Masonry\Core\Task\Status
+     * @uses \Foundry\Masonry\Core\AbstractStatus
      */
     public function testProcessDeferredSuccess()
     {
@@ -163,6 +164,7 @@ class WorkerTest extends AbstractGroupWorkerTest
      * @uses \Foundry\Masonry\Core\Notification
      * @uses \Foundry\Masonry\Core\Pool\Status
      * @uses \Foundry\Masonry\Core\Task\Status
+     * @uses \Foundry\Masonry\Core\AbstractStatus
      */
     public function testProcessDeferredFailure()
     {

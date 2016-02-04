@@ -79,6 +79,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\Injection\HasLogger
+     * @uses \Foundry\Masonry\Core\GlobalRegister
      */
     public function testProcessChildTaskThenString()
     {
@@ -155,6 +156,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\Injection\HasLogger
+     * @uses \Foundry\Masonry\Core\GlobalRegister
      */
     public function testProcessChildTaskOtherwiseString()
     {
@@ -228,6 +230,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\Injection\HasLogger
+     * @uses \Foundry\Masonry\Core\GlobalRegister
      */
     public function testProcessChildTaskProgressString()
     {
@@ -294,6 +297,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\Injection\HasLogger
+     * @uses \Foundry\Masonry\Core\GlobalRegister
      */
     public function testProcessChildTaskThenNotification()
     {
@@ -374,6 +378,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\Injection\HasLogger
+     * @uses \Foundry\Masonry\Core\GlobalRegister
      */
     public function testProcessChildTaskOtherwiseNotification()
     {
@@ -452,6 +457,7 @@ abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
      * @uses \Foundry\Masonry\Core\Task\History\Reason
      * @uses \Foundry\Masonry\Core\Task\History\Result
      * @uses \Foundry\Masonry\Core\Injection\HasLogger
+     * @uses \Foundry\Masonry\Core\GlobalRegister
      */
     public function testProcessChildTaskProgressNotification()
     {
