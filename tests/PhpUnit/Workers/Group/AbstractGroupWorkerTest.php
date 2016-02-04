@@ -32,7 +32,6 @@ use Psr\Log\LoggerInterface;
  */
 abstract class AbstractGroupWorkerTest extends AbstractWorkerTest
 {
-    use MediatorAwareTraitTest;
 
     /**
      * @return string
