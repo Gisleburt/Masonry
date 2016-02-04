@@ -11,11 +11,11 @@
 
 namespace Foundry\Masonry\Tests\PhpUnit\Workers\Group;
 
+use Foundry\Masonry\Core\ArrayPool;
 use Foundry\Masonry\Interfaces\Pool\StatusInterface;
 use Foundry\Masonry\Interfaces\PoolInterface;
 use Foundry\Masonry\Interfaces\TaskInterface;
 use Foundry\Masonry\Tests\PhpUnit\Core\AbstractDescriptionTest;
-use Foundry\Masonry\Tests\PhpUnit\TestCase;
 use Foundry\Masonry\Workers\Group\AbstractGroupDescription;
 
 /**
@@ -35,68 +35,58 @@ abstract class AbstractGroupDescriptionTest extends AbstractDescriptionTest
     /**
      * @test
      * @covers ::__construct
+     * @uses \Foundry\Masonry\Core\ArrayPool
      */
     public function testConstruct()
     {
-        $pool = $this->getMockForAbstractClass(PoolInterface::class);
+        // Mock Data
+        $task = $this->getMockForAbstractClass(TaskInterface::class);
+        $tasks = [
+            $task,
+        ];
+
+        // Create the class
         $class = $this->getTestSubjectClassName();
         /** @var AbstractGroupDescription $groupDescription */
-        $groupDescription = new $class($pool);
+        $groupDescription = new $class($tasks);
 
-        $this->assertSame(
-            $pool,
-            $this->getObjectAttribute($groupDescription, 'pool')
+        // Test the pool was created correctly
+        /** @var ArrayPool $pool */
+        $pool = $this->getObjectAttribute($groupDescription, 'pool');
+        $this->assertInstanceOf(
+            ArrayPool::class,
+            $pool
         );
+        $this->assertSame(
+            $task,
+            $groupDescription->getTask()
+        );
+
     }
 
     /**
      * @test
      * @covers ::addTask
+     * @covers ::getTask
      * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::__construct
+     * @uses \Foundry\Masonry\Core\ArrayPool
      */
     public function testAddTask()
     {
+        // Mock Data
         /** @var TaskInterface|\PHPUnit_Framework_MockObject_MockObject $task */
         $task = $this->getMockForAbstractClass(TaskInterface::class);
-        /** @var PoolInterface|\PHPUnit_Framework_MockObject_MockObject $pool */
-        $pool = $this->getMockForAbstractClass(PoolInterface::class);
-        $pool
-            ->expects($this->once())
-            ->method('addTask')
-            ->with($task)
-            ->will($this->returnValue($pool));
 
+        // Create the class
         $class = $this->getTestSubjectClassName();
         /** @var AbstractGroupDescription $groupDescription */
-        $groupDescription = new $class($pool);
+        $groupDescription = new $class([]);
 
+        // Test
         $this->assertSame(
             $groupDescription,
             $groupDescription->addTask($task)
         );
-    }
-
-    /**
-     * @test
-     * @covers ::getTask
-     * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::__construct
-     */
-    public function testGetTask()
-    {
-        /** @var TaskInterface|\PHPUnit_Framework_MockObject_MockObject $task */
-        $task = $this->getMockForAbstractClass(TaskInterface::class);
-        /** @var PoolInterface|\PHPUnit_Framework_MockObject_MockObject $pool */
-        $pool = $this->getMockForAbstractClass(PoolInterface::class);
-        $pool
-            ->expects($this->once())
-            ->method('getTask')
-            ->with()
-            ->will($this->returnValue($task));
-
-        $class = $this->getTestSubjectClassName();
-        /** @var AbstractGroupDescription $groupDescription */
-        $groupDescription = new $class($pool);
-
         $this->assertSame(
             $task,
             $groupDescription->getTask()
@@ -107,25 +97,30 @@ abstract class AbstractGroupDescriptionTest extends AbstractDescriptionTest
      * @test
      * @covers ::getStatus
      * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::__construct
+     * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::addTask
+     * @uses \Foundry\Masonry\Core\ArrayPool
      */
     public function testGetStatus()
     {
-        /** @var StatusInterface|\PHPUnit_Framework_MockObject_MockObject $poolStatus */
-        $poolStatus = $this->getMockForAbstractClass(StatusInterface::class);
-        /** @var PoolInterface|\PHPUnit_Framework_MockObject_MockObject $pool */
-        $pool = $this->getMockForAbstractClass(PoolInterface::class);
-        $pool
-            ->expects($this->once())
-            ->method('getStatus')
-            ->with()
-            ->will($this->returnValue($poolStatus));
+        // Mock Data
+        /** @var TaskInterface|\PHPUnit_Framework_MockObject_MockObject $task */
+        $task = $this->getMockForAbstractClass(TaskInterface::class);
 
+        // Create the class
         $class = $this->getTestSubjectClassName();
         /** @var AbstractGroupDescription $groupDescription */
-        $groupDescription = new $class($pool);
+        $groupDescription = new $class([]);
 
-        $this->assertSame(
-            $poolStatus,
+        // Tests (note: not an exact match)
+        $this->assertEquals(
+            StatusInterface::STATUS_EMPTY,
+            $groupDescription->getStatus()
+        );
+
+        $groupDescription->addTask($task);
+
+        $this->assertEquals(
+            StatusInterface::STATUS_PENDING,
             $groupDescription->getStatus()
         );
     }
@@ -139,21 +134,30 @@ abstract class AbstractGroupDescriptionTest extends AbstractDescriptionTest
      */
     public function testCreateFromParameters()
     {
-        $class = $this->getTestSubjectClassName();
-
-        $pool = $this->getMockForAbstractClass(PoolInterface::class);
-
-        $parameters = [
-            'pool' => $pool
+        // Mock Data
+        /** @var TaskInterface|\PHPUnit_Framework_MockObject_MockObject $task */
+        $task = $this->getMockForAbstractClass(TaskInterface::class);
+        $tasks = [
+            'tasks' => [ $task ],
         ];
 
-        /** @var AbstractGroupDescription $description */
-        $description = $class::createFromParameters($parameters);
+        // Create the class
+        $class = $this->getTestSubjectClassName();
+        /** @var AbstractGroupDescription $groupDescription */
+        $groupDescription = $class::createFromParameters($tasks);
 
-        $this->assertSame(
-            $pool,
-            $this->getObjectAttribute($description, 'pool')
+        // Test the pool was created correctly
+        /** @var ArrayPool $pool */
+        $pool = $this->getObjectAttribute($groupDescription, 'pool');
+        $this->assertInstanceOf(
+            ArrayPool::class,
+            $pool
         );
+        $this->assertSame(
+            $task,
+            $groupDescription->getTask()
+        );
+
     }
 
 }
