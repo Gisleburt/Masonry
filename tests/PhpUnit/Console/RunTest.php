@@ -26,4 +26,24 @@ class RunTest extends AbstractCommandTest
     {
         return Run::class;
     }
+
+    /**
+     * @test
+     * @covers ::configure
+     * @uses \Foundry\Masonry\Console\Command\AbstractCommand::getQueueArgument
+     * @uses \Foundry\Masonry\Console\Command\AbstractCommand::abstractConfigure
+     */
+    public function testConfigure()
+    {
+        $command = new Run();
+
+        $this->assertSame(
+            'run',
+            $command->getName()
+        );
+        $this->assertSame(
+            'Runs the currently configured masonry config.',
+            $command->getDescription()
+        );
+    }
 }

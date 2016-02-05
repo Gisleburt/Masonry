@@ -10,6 +10,7 @@
 namespace Foundry\Masonry\Tests\PhpUnit\Console;
 
 use Foundry\Masonry\Console\Command\Init;
+use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Class InitTest
@@ -25,5 +26,25 @@ class InitTest extends AbstractCommandTest
     protected function getTestSubjectClass()
     {
         return Init::class;
+    }
+
+    /**
+     * @test
+     * @covers ::configure
+     * @uses \Foundry\Masonry\Console\Command\AbstractCommand::getQueueArgument
+     * @uses \Foundry\Masonry\Console\Command\AbstractCommand::abstractConfigure
+     */
+    public function testConfigure()
+    {
+        $command = new Init();
+
+        $this->assertSame(
+            'init',
+            $command->getName()
+        );
+        $this->assertSame(
+            'Initialise Masonry in the current directory with a masonry.yaml',
+            $command->getDescription()
+        );
     }
 }
