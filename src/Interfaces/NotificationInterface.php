@@ -36,4 +36,10 @@ interface NotificationInterface
      * @return int
      */
     public function getPriority();
+
+    /**
+     * The notification needs to be able to be usable as a string
+     * @return string
+     */
+    public function __toString();
 }
