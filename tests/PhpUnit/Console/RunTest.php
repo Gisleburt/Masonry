@@ -11,9 +11,9 @@ namespace Foundry\Masonry\Tests\PhpUnit\Console;
 
 use Foundry\Masonry\Console\Command\Run;
 use Foundry\Masonry\Core\GlobalRegister;
+use Foundry\Masonry\Interfaces\MediatorInterface;
 use Foundry\Masonry\Logging\MultiLogger;
 use Foundry\Masonry\ModuleRegister\Interfaces\ModuleRegisterInterface;
-use Foundry\Masonry\ModuleRegister\ModuleRegister;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -33,12 +33,12 @@ class RunTest extends AbstractCommandTest
     private $oldLogger;
 
     /**
-     * @var LoggerInterface
+     * @var ModuleRegisterInterface
      */
     private $oldModuleRegister;
 
     /**
-     * @var LoggerInterface
+     * @var MediatorInterface
      */
     private $oldMediator;
 
