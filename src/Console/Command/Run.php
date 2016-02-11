@@ -63,7 +63,7 @@ class Run extends AbstractCommand
 
         // Process the pool
         $logger->info("Processing queue");
-        $taskArray = (array)Yaml::parse(file_get_contents($queueFile));
+        $taskArray = $this->readYamlFile($queueFile);
         $mediator = GlobalRegister::getMediator();
         $coroutine = $mediator->process(
             new Task(
@@ -76,6 +76,15 @@ class Run extends AbstractCommand
             $coroutineRegister->tick();
         }
 
-        $logger->info('done');
+        $logger->info('Done');
+    }
+
+    /**
+     * @param $file
+     * @return array
+     */
+    protected function readYamlFile($file)
+    {
+        return $taskArray = (array)Yaml::parse(file_get_contents($file));
     }
 }

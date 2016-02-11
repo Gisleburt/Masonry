@@ -12,6 +12,7 @@ namespace Foundry\Masonry\Tests\PhpUnit\Console;
 use Foundry\Masonry\Console\Command\Init;
 use Foundry\Masonry\Core\GlobalRegister;
 use Foundry\Masonry\Logging\MultiLogger;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -24,6 +25,9 @@ use Symfony\Component\Filesystem\Filesystem;
  */
 class InitTest extends AbstractCommandTest
 {
+    /**
+     * @var LoggerInterface
+     */
     private $oldLogger;
 
     /**
