@@ -24,12 +24,11 @@ class ArrayPool extends Pool
 {
 
     /**
-     * YamlQueue constructor.
+     * ArrayPool constructor.
      * @param array $tasks Things that might be tasks
      */
     public function __construct(array $tasks)
     {
-
         foreach ($tasks as $name => $parameters) {
             if ($parameters instanceof TaskInterface) {
                 $this->addTask($parameters);
@@ -82,6 +81,7 @@ class ArrayPool extends Pool
             throw new \RuntimeException("'{$className}' was not a description");
         }
 
-        return $this->addTask(new Task($description));
+        $this->addTask(new Task($description));
+        return $this;
     }
 }
