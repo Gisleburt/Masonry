@@ -1,7 +1,24 @@
 # PHP Masonry
 
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.5-8892BF.svg)]
+(https://php.net/)
+[![License](https://img.shields.io/packagist/l/foundry/masonry.svg)]
+(https://raw.githubusercontent.com/TheFoundryVisionmongers/Masonry/master/LICENSE.txt)
+[![Version](https://img.shields.io/packagist/vpre/foundry/masonry.svg)]
+(https://packagist.org/packages/foundry/masonry)
+[![Build Status](https://img.shields.io/travis/TheFoundryVisionmongers/Masonry/master.svg)]
+(https://travis-ci.org/TheFoundryVisionmongers/Masonry/branches)
+
 PHP Masonry is a way of building up a service using blocks of functionality. Tasks are retrieved from a pool, and are
 processed by workers. You can have any number of Workers, and any number of Tasks.
+
+## Installation
+
+Install Masonry with Composer
+
+```bash
+composer require foundry/masonry -n
+```
 
 ## Contents
 
@@ -45,42 +62,54 @@ processed by workers. You can have any number of Workers, and any number of Task
 │    ╭──────────────────────────╮   │                                            │   │ <string> __toString()          │
 │    │ (i) Pool                 │   │                                            │   ╰────────────────────────────────╯
 │    ├──────────────────────────┤   │                                            │
-└─→──┤ <Pool>   addTask(<Task>) │   │                                            │         ╭────────────────────────────╮
-     │ <Task>   getTask()       ├─→─┘   ╭────────────────────────────────╮       └────→────┤ (i) Task\History           │
-     │ <Status> getStatus()     ├───→───┤ (i) Pool\Status                │                 ├────────────────────────────┤
-     ╰──────────────────────────╯       ├────────────────────────────────┤      ┌────→─────┤ <History> addEvent(<Event>)│
-                                        │          __construct(<string>) │      │          │ <Event[]> getEvents()      ├─────→─────┐
-                                        │ <string> getStatus()           │      │          │ <Event>   getLastEvent()   ├─────→─────┤
-                                        │ <string> __toString()          │      │          ╰────────────────────────────╯           │
-                                        ╰────────────────────────────────╯      │                                                   │
-                                                                                │     ╭───────────────────────────────────────╮     │
-                                                                                └──←──┤ (i) Task\History\Event                ├──←──┘
-                                                                                      ├───────────────────────────────────────┤
-                                                                                      │ <Event>  startEvent()                 │
-                                                                                      ├───────────────────────────────────────┤
-                                                                           ┌───┬───→──┤ <Event>  endEvent(<Result>, <Reason>) │
-                                                                           │   │      │ <float>  getStartTime()               │
-                                                                           │   │      │ <float>  getEndTime()                 │
-                                                                           │   │      │ <Result> getResult()                  ├────→────┐
-                                                                           │   │      │ <Reason> getReason()                  ├──→──┐   │
-                                                                           │   │      │ <string> __toString()                 │     │   │
-                                                                           │   │      ╰───────────────────────────────────────╯     │   │
-                                                                           │   │                                                    │   │
-                                                                           │   │         ╭────────────────────────────────╮         │   │
-                                                                           │   └────←────┤ (i) Task\History\Reason        ├────←────┘   │
-                                                                           │             ├────────────────────────────────┤             │
-                                                                           │             │          __construct(<string>) │             │
-                                                                           │             │ <string> getReason()           │             │
-                                                                           │             │ <string> __toString()          │             │
-                                                                           │             ╰────────────────────────────────╯             │
-                                                                           │                                                            │
-                                                                           │             ╭────────────────────────────────╮             │
-                                                                           └──────←──────┤ (i) Task\History\Result        ├──────←──────┘
-                                                                                         ├────────────────────────────────┤
-                                                                                         │          __construct(<string>) │
-                                                                                         │ <string> getResult()           │
-                                                                                         │ <string> __toString()          │
-                                                                                         ╰────────────────────────────────╯
+└─→──┤ <Pool>   addTask(<Task>) │   │                                            │
+     │ <Task>   getTask()       ├─→─┘   ╭────────────────────────────────╮       │
+     │ <Status> getStatus()     ├───→───┤ (i) Pool\Status                │       │
+     ╰──────────────────────────╯       ├────────────────────────────────┤       │
+                                        │          __construct(<string>) │       │
+                                        │ <string> getStatus()           │       │
+                                        │ <string> __toString()          │       │
+                                        ╰────────────────────────────────╯       │
+                                                                                 │
+                                                                                 │
+                                                                                 │
+                             ╭────────────────────────────╮                      │
+                             │ (i) Task\History           ├──────────────────────┘
+                             ├────────────────────────────┤
+                  ┌────→─────┤ <History> addEvent(<Event>)│
+                  │          │ <Event[]> getEvents()      ├─────→─────┐
+                  │          │ <Event>   getLastEvent()   ├─────→─────┤
+                  │          ╰────────────────────────────╯           │
+                  │                                                   │
+                  │     ╭───────────────────────────────────────╮     │
+                  └──←──┤ (i) Task\History\Event                ├──←──┘
+                        ├───────────────────────────────────────┤
+                        │ <Event>  startEvent()                 │
+                        ├───────────────────────────────────────┤
+             ┌───┬───→──┤ <Event>  endEvent(<Result>, <Reason>) │
+             │   │      │ <float>  getStartTime()               │
+             │   │      │ <float>  getEndTime()                 │
+             │   │      │ <Result> getResult()                  ├────→────┐
+             │   │      │ <Reason> getReason()                  ├──→──┐   │
+             │   │      │ <string> __toString()                 │     │   │
+             │   │      ╰───────────────────────────────────────╯     │   │
+             │   │                                                    │   │
+             │   │         ╭────────────────────────────────╮         │   │
+             │   └────←────┤ (i) Task\History\Reason        ├────←────┘   │
+             │             ├────────────────────────────────┤             │
+             │             │          __construct(<string>) │             │
+             │             │ <string> getReason()           │             │
+             │             │ <string> __toString()          │             │
+             │             ╰────────────────────────────────╯             │
+             │                                                            │
+             │             ╭────────────────────────────────╮             │
+             └──────←──────┤ (i) Task\History\Result        ├──────←──────┘
+                           ├────────────────────────────────┤
+                           │          __construct(<string>) │
+                           │ <string> getResult()           │
+                           │ <string> __toString()          │
+                           ╰────────────────────────────────╯                                                               
+                               
 ```
 
 ## Task
