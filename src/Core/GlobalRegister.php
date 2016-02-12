@@ -52,10 +52,12 @@ class GlobalRegister implements GlobalRegisterInterface
     /**
      * @param ModuleRegisterInterface $moduleRegister
      */
-    public static function setModuleRegister($moduleRegister)
+    public static function setModuleRegister(ModuleRegisterInterface $moduleRegister)
     {
         if (self::$moduleRegister) {
-            throw new \RuntimeException('Module register can only be set once. Changing it would be non-deterministic');
+            throw new \RuntimeException(
+                'Module register can only be set once. Changing it would be non-deterministic.'
+            );
         }
         self::$moduleRegister = $moduleRegister;
     }
@@ -95,10 +97,10 @@ class GlobalRegister implements GlobalRegisterInterface
     /**
      * @param LoggerInterface $logger
      */
-    public static function setLogger($logger)
+    public static function setLogger(LoggerInterface $logger)
     {
         if (self::$logger) {
-            throw new \RuntimeException('Global logger can only be set once');
+            throw new \RuntimeException('Global logger can only be set once. Changing it would be non-deterministic.');
         }
         self::$logger = $logger;
     }

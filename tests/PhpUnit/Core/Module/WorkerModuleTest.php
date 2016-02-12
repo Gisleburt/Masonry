@@ -38,7 +38,6 @@ class WorkerModuleTest extends TestCase
             $workers,
             $moduleWorkers
         );
-
     }
 
     /**
