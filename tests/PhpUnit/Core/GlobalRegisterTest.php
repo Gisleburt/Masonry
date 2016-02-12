@@ -12,6 +12,8 @@ namespace Foundry\Masonry\Tests\PhpUnit\Core;
 use Foundry\Masonry\Core\GlobalRegister;
 use Foundry\Masonry\Interfaces\MediatorInterface;
 use Foundry\Masonry\ModuleRegister\Interfaces\ModuleRegisterInterface;
+use Foundry\Masonry\ModuleRegister\Interfaces\WorkerModuleDefinitionInterface;
+use Foundry\Masonry\Workers\Group\Serial;
 use Foundry\Masonry\Tests\PhpUnit\TestCase;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -122,6 +124,99 @@ class GlobalRegisterTest extends TestCase
         $moduleRegister = $this->getMockForAbstractClass(ModuleRegisterInterface::class);
         GlobalRegister::setModuleRegister($moduleRegister);
         GlobalRegister::setModuleRegister($moduleRegister);
+    }
+
+    /**
+     * @test
+     * @covers ::getMediator
+     * @uses \Foundry\Masonry\Core\Mediator::addWorker
+     * @uses \Foundry\Masonry\Core\GlobalRegister::getModuleRegister
+     */
+    public function testGetMediator()
+    {
+        $mockMediator = $this->getMockForAbstractClass(MediatorInterface::class);
+
+        $workerAlias = 'alias';
+        $workerInfo = [
+            Serial\Worker::class => $workerAlias
+        ];
+
+        $workerModule = $this->getMockForAbstractClass(WorkerModuleDefinitionInterface::class);
+        $workerModule
+            ->expects($this->once())
+            ->method('getWorkers')
+            ->with()
+            ->will($this->returnValue($workerInfo));
+        $workerModules = [
+            $workerModule,
+        ];
+
+        $moduleRegister = $this->getMockForAbstractClass(ModuleRegisterInterface::class);
+        $moduleRegister
+            ->expects($this->once())
+            ->method('getWorkerModules')
+            ->with()
+            ->will($this->returnValue($workerModules));
+
+        $this->setStaticAttribute(GlobalRegister::class, 'moduleRegister', $moduleRegister);
+
+        $mediator = GlobalRegister::getMediator();
+        $this->assertNotSame(
+            $mockMediator,
+            $mediator
+        );
+        $this->assertInstanceOf(
+            MediatorInterface::class,
+            $mediator
+        );
+
+
+        $this->setStaticAttribute(GlobalRegister::class, 'mediator', $mockMediator);
+
+        $mediator = GlobalRegister::getMediator();
+        $this->assertSame(
+            $mockMediator,
+            $mediator
+        );
+    }
+
+    /**
+     * @test
+     * @covers ::getMediator
+     * @uses \Foundry\Masonry\Core\Mediator::addWorker
+     * @uses \Foundry\Masonry\Core\GlobalRegister::getModuleRegister
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Unknown class 'NotAClass'
+     */
+    public function testGetMediatorException()
+    {
+        $workerAlias = 'alias';
+        $workerInfo = [
+            'NotAClass' => $workerAlias
+        ];
+
+        $workerModule = $this->getMockForAbstractClass(WorkerModuleDefinitionInterface::class);
+        $workerModule
+            ->expects($this->once())
+            ->method('getWorkers')
+            ->with()
+            ->will($this->returnValue($workerInfo));
+        $workerModules = [
+            $workerModule,
+        ];
+
+        $moduleRegister = $this->getMockForAbstractClass(ModuleRegisterInterface::class);
+        $moduleRegister
+            ->expects($this->once())
+            ->method('getWorkerModules')
+            ->with()
+            ->will($this->returnValue($workerModules));
+
+        $this->setStaticAttribute(GlobalRegister::class, 'moduleRegister', $moduleRegister);
+        $this->assertInstanceOf(
+            MediatorInterface::class,
+            GlobalRegister::getMediator()
+        );
     }
 
     /**
