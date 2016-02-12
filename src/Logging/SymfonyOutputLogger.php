@@ -26,6 +26,9 @@ class SymfonyOutputLogger extends AbstractSimpleLogger
 
     const MIN_SIZE = 7;
 
+    /**
+     * @var OutputInterface
+     */
     protected $output;
 
     /**
@@ -34,6 +37,10 @@ class SymfonyOutputLogger extends AbstractSimpleLogger
      */
     protected $startTime;
 
+    /**
+     * SymfonyOutputLogger constructor.
+     * @param OutputInterface $output
+     */
     public function __construct(OutputInterface $output)
     {
         $this->startTime = $this->getMicroTime();
@@ -41,7 +48,15 @@ class SymfonyOutputLogger extends AbstractSimpleLogger
     }
 
     /**
-     * Apply decorators to the level
+     * @return OutputInterface
+     */
+    protected function getOutput()
+    {
+        return $this->output;
+    }
+
+    /**
+     * Apply decorators to the level.
      * Adds the timestamp if verbosity is set to debug
      * @param $level
      * @return string
@@ -81,7 +96,7 @@ class SymfonyOutputLogger extends AbstractSimpleLogger
     /**
      * Decorate the time elapsed
      * @param float $timeElapsed Time elapsed
-     * @param int  $padding      Padding value
+     * @param int $padding Padding value
      * @return string Decorated elapsed time string
      */
     protected function decorateTimeElapsed($timeElapsed, $padding = 8)
@@ -98,17 +113,53 @@ class SymfonyOutputLogger extends AbstractSimpleLogger
             $message = new Notification($message);
         }
 
-        $outputVerbosity = $this->output->getVerbosity();
-        if ($outputVerbosity >= $message->getPriority()) {
+        $outputVerbosity = $this->getOutput()->getVerbosity();
+        if ($this->shouldNotificationOutput($message, $this->getOutput())) {
             // Switch off Quiet if it's on
-            if ($outputVerbosity == OutputInterface::VERBOSITY_QUIET) {
-                $this->output->setVerbosity(OutputInterface::VERBOSITY_NORMAL);
-                $this->output->writeln($this->formatLog($level, $message));
-                $this->output->setVerbosity($outputVerbosity);
-                return;
-            }
-            $this->output->writeln($this->formatLog($level, $message));
+            $this->getOutput()->setVerbosity(OutputInterface::VERBOSITY_DEBUG);
+            $this->getOutput()->writeln($this->formatLog($level, $message));
+            $this->getOutput()->setVerbosity($outputVerbosity);
+            return;
+
         }
+    }
+
+    /**
+     * Given a known Output Interface should a notification be output
+     * @param NotificationInterface $notification
+     * @param OutputInterface $output
+     * @return bool
+     */
+    protected function shouldNotificationOutput(NotificationInterface $notification, OutputInterface $output)
+    {
+        $map = [
+            NotificationInterface::PRIORITY_HIGH => [
+                OutputInterface::VERBOSITY_QUIET,
+                OutputInterface::VERBOSITY_NORMAL,
+                OutputInterface::VERBOSITY_VERBOSE,
+                OutputInterface::VERBOSITY_VERY_VERBOSE,
+                OutputInterface::VERBOSITY_DEBUG,
+            ],
+            NotificationInterface::PRIORITY_NORMAL => [
+                OutputInterface::VERBOSITY_NORMAL,
+                OutputInterface::VERBOSITY_VERBOSE,
+                OutputInterface::VERBOSITY_VERY_VERBOSE,
+                OutputInterface::VERBOSITY_DEBUG,
+            ],
+            NotificationInterface::PRIORITY_INFO => [
+                OutputInterface::VERBOSITY_VERBOSE,
+                OutputInterface::VERBOSITY_VERY_VERBOSE,
+                OutputInterface::VERBOSITY_DEBUG,
+            ],
+            NotificationInterface::PRIORITY_DEBUG => [
+                OutputInterface::VERBOSITY_VERY_VERBOSE,
+                OutputInterface::VERBOSITY_DEBUG,
+            ],
+        ];
+        if (!array_key_exists($notification->getPriority(), $map)) {
+            throw new \OutOfBoundsException('Invalid Notification priority');
+        }
+        return in_array($output->getVerbosity(), $map[$notification->getPriority()]);
     }
 
     /**
@@ -123,19 +174,10 @@ class SymfonyOutputLogger extends AbstractSimpleLogger
         switch ($level) {
             case LogLevel::NOTICE:
                 return "<fg=yellow>$textToColor</>";
-                break;
             case LogLevel::INFO:
                 return "<fg=green>$textToColor</>";
-                break;
             case LogLevel::DEBUG:
                 return "<fg=cyan>$textToColor</>";
-                break;
-//            case LogLevel::EMERGENCY:
-//            case LogLevel::ALERT:
-//            case LogLevel::CRITICAL:
-//            case LogLevel::ERROR:
-//            case LogLevel::WARNING:
-            default:
         }
         return "<fg=red>$textToColor</>";
     }
@@ -156,14 +198,7 @@ class SymfonyOutputLogger extends AbstractSimpleLogger
             case LogLevel::DEBUG:
             case LogLevel::NOTICE:
                 return ucwords(strtolower($level));
-                break;
-//            case LogLevel::EMERGENCY:
-//            case LogLevel::ALERT:
-//            case LogLevel::CRITICAL:
-//            case LogLevel::WARNING:
-            default:
-                return strtoupper($level);
-                break;
         }
+        return strtoupper($level);
     }
 }

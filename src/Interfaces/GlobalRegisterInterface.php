@@ -9,8 +9,8 @@
 
 namespace Foundry\Masonry\Interfaces;
 
-use Foundry\Masonry\ModuleRegister\Interfaces\ModuleRegister as ModuleRegisterInterface;
-use Foundry\Masonry\ModuleRegister\ModuleRegister;
+use Foundry\Masonry\ModuleRegister\Interfaces\ModuleRegisterInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Interface GlobalRegister
@@ -28,5 +28,20 @@ interface GlobalRegisterInterface
     /**
      * @param ModuleRegisterInterface $moduleRegister
      */
-    public static function setModuleRegister($moduleRegister);
+    public static function setModuleRegister(ModuleRegisterInterface $moduleRegister);
+
+    /**
+     * @return MediatorInterface
+     */
+    public static function getMediator();
+
+    /**
+     * @return LoggerInterface
+     */
+    public static function getLogger();
+
+    /**
+     * @param LoggerInterface $logger
+     */
+    public static function setLogger(LoggerInterface $logger);
 }
