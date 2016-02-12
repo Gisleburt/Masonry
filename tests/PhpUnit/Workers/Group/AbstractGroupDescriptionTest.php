@@ -62,7 +62,6 @@ abstract class AbstractGroupDescriptionTest extends AbstractDescriptionTest
             $task,
             $groupDescription->getTask()
         );
-
     }
 
     /**
@@ -165,7 +164,34 @@ abstract class AbstractGroupDescriptionTest extends AbstractDescriptionTest
             $task,
             $groupDescription->getTask()
         );
-
     }
 
+    /**
+     * @test
+     * @covers ::createFromParameters
+     * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::__construct
+     * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::flattenKeys
+     * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::flatten
+     * @uses \Foundry\Masonry\Workers\Group\AbstractGroupDescription::getTask
+     * @uses \Foundry\Masonry\Core\ArrayPool
+     * @uses \Foundry\Masonry\Core\Pool
+     */
+    public function testCreateFromParametersDefaults()
+    {
+        // Create the class
+        $class = $this->getTestSubjectClassName();
+        /** @var AbstractGroupDescription $groupDescription */
+        $groupDescription = $class::createFromParameters();
+
+        // Test the pool was created correctly
+        /** @var ArrayPool $pool */
+        $pool = $this->getObjectAttribute($groupDescription, 'pool');
+        $this->assertInstanceOf(
+            ArrayPool::class,
+            $pool
+        );
+        $this->assertNull(
+            $groupDescription->getTask()
+        );
+    }
 }
